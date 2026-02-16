@@ -650,7 +650,20 @@
 
   </main>
 
+  <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.3.0/firebase-firestore-compat.js"></script>
   <script>
+    // ── Firebase ──
+    firebase.initializeApp({
+      apiKey: "AIzaSyBuM_nUB2NS43OQpL10GKIX7KjA9n1kWKA",
+      authDomain: "alphasmb-ee46d.firebaseapp.com",
+      projectId: "alphasmb-ee46d",
+      storageBucket: "alphasmb-ee46d.firebasestorage.app",
+      messagingSenderId: "712123798842",
+      appId: "1:712123798842:web:b2adb3e518a3449500ac03"
+    });
+    var db = firebase.firestore();
+
     // ── Email validation & shared state ──
     function isValidEmail(email) {
       var at = email.indexOf('@');
@@ -662,8 +675,18 @@
 
     var submitted = false;
 
-    function showConfirmation() {
+    function showConfirmation(email) {
       submitted = true;
+
+      // Write to Firestore (fire-and-forget)
+      db.collection('subscribers').add({
+        email: email,
+        subscribedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        source: 'coming-soon'
+      }).catch(function(err) {
+        console.error('Firestore write failed:', err);
+      });
+
       document.getElementById('hero-form-area').classList.add('is-hidden');
       document.getElementById('hero-confirm').classList.add('is-visible');
       document.getElementById('bottom-form-area').classList.add('is-hidden');
@@ -683,7 +706,7 @@
           return;
         }
         error.textContent = '';
-        showConfirmation();
+        showConfirmation(val);
       });
     }
 
