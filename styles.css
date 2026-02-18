@@ -237,7 +237,7 @@ img {
   width: 390%;
   height: 780%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse, rgba(245, 240, 235, 0.13) 0%, rgba(245, 240, 235, 0.06) 35%, transparent 65%);
+  background: radial-gradient(ellipse, rgba(245, 240, 235, 0.25) 0%, rgba(245, 240, 235, 0.12) 35%, transparent 65%);
   pointer-events: none;
   z-index: 0;
 }
