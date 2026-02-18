@@ -4,14 +4,35 @@ AI transformation consultancy for SMBs. Anti-consultant positioning — advisor 
 
 ## Current State
 
-Landing page built (`index.html`). Specs are v3.
+Multi-page site (Phase 1) deployed on Vercel. Five pages: Home, Services/Strategy-Call, About, Book, Privacy.
 
-- Spec: `AlphaSMB-Coming-Soon-Spec-v3.md` (layout, copy, animations, requirements)
+- Plan: `AlphaSMB-Full-Website-Plan.md` (full site architecture, copy, phasing)
 - Brand: `AlphaSMB-Brand-Identity-and-Logo-Prompt-v3.md` (colors, typography, logo rationale)
+- Old spec archived: `archive/AlphaSMB-Coming-Soon-Spec-v3.md`
 
 ## Stack
 
-Single HTML file with embedded `<style>` and `<script>`. No framework, no bundler, no build tools.
+Static HTML/CSS/JS, deployed on Vercel. No framework, no bundler, no build tools.
+
+- `styles.css` — Shared CSS (design tokens, nav, hero, sections, cards, FAQ, footer, responsive, reduced motion)
+- `main.js` — Shared JS (scroll reveal via IntersectionObserver, mobile nav toggle, FAQ accordion)
+- `vercel.json` — Clean URLs config
+
+## File Structure
+
+```
+index.html                  # Home page (hero, problem, services, proof, methodology, CTA)
+services/strategy-call.html # Strategy call detail (time blocks, deliverables, fit, FAQ)
+about.html                  # About Zach (headshot, credentials, philosophy)
+book.html                   # Cal.com scheduling embed
+privacy.html                # Privacy policy
+styles.css                  # Shared CSS
+main.js                     # Shared JS
+vercel.json                 # Vercel config
+graphics/                   # Assets (unchanged)
+archive/                    # Old coming-soon files
+agent_docs/                 # Copy and section reference
+```
 
 ## Wordmark (v3)
 
@@ -24,15 +45,24 @@ Hero uses `graphics/AlphaSMB-full-tpbg.png` (transparent bg) as the brand image 
 - `graphics/AlphaSMB-full-tpbg.png` — Full wordmark, transparent bg (hero image)
 - `graphics/Al-32x-tpbg.png` — Favicon (32x32)
 - `graphics/Al-180x-tpbg.png` — Apple touch icon (180x180)
+- `graphics/headshot.jpg` — Zach Henderson headshot (about page)
 
 ## Key Constraints
 
 - **Font:** Sora (Google Fonts) — weights 400, 600, 700 only
 - **Palette:** Warm charcoal (#1C1917) + ember (#E8450D) — no blue, no navy
-- **Email capture:** Front-end state only, no backend. Two CTAs share state
-- **Animations:** CSS keyframes for load, IntersectionObserver for scroll, CSS transitions for submit. Respect `prefers-reduced-motion`
-- **Responsive:** 768px breakpoint. Input+button inline desktop, stacked mobile
+- **Animations:** CSS keyframes for load, IntersectionObserver for scroll, CSS transitions for interactions. Respect `prefers-reduced-motion`
+- **Responsive:** 768px breakpoint
 - **Accessibility:** WCAG AA contrast, visible focus states, semantic HTML, sr-only labels
+
+## Integrations
+
+| Integration | Implementation |
+|------------|---------------|
+| **Cal.com** | Inline embed on `/book`, link `https://cal.com/alphasmb/60min` |
+| **Plausible** | Script tag in `<head>` of every page |
+| **Stripe** | Handled by Cal.com at booking |
+| **Kit** | Post-booking automation only (no visible form on site) |
 
 ## Design Tokens
 
@@ -47,4 +77,4 @@ Hero uses `graphics/AlphaSMB-full-tpbg.png` (transparent bg) as the brand image 
 ## Agent Docs
 
 - `agent_docs/copy.md` — All page copy in one place
-- `agent_docs/sections.md` — Detailed section-by-section layout specs
+- `agent_docs/sections.md` — Section-by-section layout specs

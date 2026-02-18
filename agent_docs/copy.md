@@ -1,48 +1,127 @@
 # AlphaSMB — Page Copy Reference
 
-All copy for the coming-soon page. Use exactly as written.
+All copy across the site. Use exactly as written.
 
-## Hero (Section A)
+## Shared: Navigation
 
-- **Tagline:** AI transformation for the businesses that refuse to be left behind.
-- **Subtext:** We help SMB leadership teams build AI-capable organizations — not just AI-equipped employees.
-- **CTA Button:** Get Early Access
-- **Input Placeholder:** your@email.com
-- **Trust Line:** Join founders and operators already on the list.
-- **Validation Error:** Please enter a valid email address.
+- Left: AlphaSMB wordmark (HTML/CSS: "Al" ember, "phaSMB" white)
+- Right links: Services · About · Book a Call (ember button)
 
-## Post-Submit (Section A-alt)
+## Shared: Footer
 
-- **Headline:** You're on the list.
-- **Subtext:** We'll be in touch when we're ready. In the meantime — your competitors aren't waiting either.
-- Checkmark "✓" in ember, scales in with bounce (cubic-bezier 0.175, 0.885, 0.32, 1.275)
+- Links: Services · About · Book a Call · Privacy Policy
+- Social: LinkedIn → https://www.linkedin.com/in/zach-henderson/
+- © 2026 AlphaSMB. All rights reserved.
+- Contact: zach@alphasmb.com
 
-## Problem (Section B)
+---
 
-- **Headline:** Your competitors just got faster. Did you?
+## Home Page (index.html)
 
-**Paragraphs** (emphasize bolded phrases with `--alpha-white` + weight 600):
+### Hero
 
-1. Somewhere right now, a company your size is using AI to **do in a weekend what takes your team a month**. They didn't hire more people. They didn't raise more money. They just moved first.
-2. The gap isn't about tools — every tool is available to everyone. **The gap is organizational.** It's whether your people know how to think with AI, not just use it.
-3. That's the difference between **AI-equipped and AI-capable**. And it's the difference between leading your market and scrambling to catch up.
+- **Eyebrow:** AI TRANSFORMATION FOR SMBS (uppercase, tracked)
+- **Headline:** Your competitors aren't waiting. Neither should you.
+- **Subheadline:** I help SMB leadership teams build AI-capable organizations — not just AI-equipped employees — so they can compete with anyone regardless of budget or headcount.
+- **CTA:** Book a Strategy Call — $500
+- **Credential bar:** Fractional Head of AI at Aurora WDC, a human intelligence agency serving the Fortune 1000 · Epic Systems · 20+ years across healthcare, real estate, manufacturing & software
 
-## What's Coming (Section C)
+### Problem Section
 
-- **Headline:** What AlphaSMB delivers
+- **Headline:** The gap isn't about tools. It's about your organization.
+- **Block 1 lead:** Everyone has the same tools. Not everyone has the same results.
+- **Block 1 body:** Every AI tool on the market is available to your competitors for the same price you'd pay. ChatGPT, Claude, Copilot — none of them are a competitive advantage anymore. The advantage is whether your organization knows how to think with them, not just use them. That's an organizational capability, not a software purchase.
+- **Block 2 lead:** Transformation doesn't fail because of technology. It fails because of people.
+- **Block 2 body:** You can hand every employee a premium AI subscription tomorrow. In 30 days, 80% of them will have stopped using it. Not because the tools don't work — because nobody shifted their mindset, showed them what's possible, or gave them permission to experiment. Tools without culture change is just an expensive experiment.
+- **Block 3 lead:** You can't afford to figure this out by trial and error.
+- **Block 3 body:** Every month your organization spends fumbling with AI adoption is a month your competitors are pulling ahead. The gap compounds. And unlike most business challenges, this one has an expiration date — the window to establish an AI-capable culture is open now and closing fast.
 
-| Label | Body |
-|-------|------|
-| A proven playbook, not a pitch deck. | A phased transformation methodology built from real engagements — not theory. |
-| Your highest-agency people, identified. | We surface who in your organization is ready to lead the change — before you have to guess. |
-| Measurable progress, weekly. | A proprietary rubric benchmarks your adoption against peers so you always know where you stand. |
+### What You Get
 
-Each item: 3-4px left border in ember, 20px left padding. Stagger fade-in by 150ms each.
+- **Headline:** Two ways to work with AlphaSMB
+- **Card 1 — Strategy Call:** One-Hour AI Strategy Call / $500 / deliverable list / Book Your Call →
+- **Card 2 — Transformation:** Full Transformation Engagement / Contact for pricing / Limited to two clients at a time / Let's Talk →
 
-## Bottom CTA (Section D)
+### Social Proof
 
-- **Headline:** Be the alpha.
-  - CSS gradient text: white → ember, ~135deg angle
-  - Fallback: just white
-- Same email CTA component as hero — shared state
-- **Footer:** © 2026 AlphaSMB. All rights reserved.
+- **Headline:** What leaders are saying
+- **Quote:** "I currently run AI strategy for Aurora WDC, a human intelligence agency serving the Fortune 1000. I've built and operated businesses across healthcare, real estate, manufacturing, and software. I don't just know AI — I know the operations, the politics, and the resistance that come with changing how an organization works."
+- **Attribution:** — Zach Henderson, Founder of AlphaSMB
+
+### Methodology
+
+- **Headline:** How it works
+- **Step 1:** Mindset first. / We start with leadership. If the people at the top don't think differently about AI, nothing changes below them.
+- **Step 2:** Find your champion. / We identify the person your organization already listens to and turn them into your AI transformation catalyst.
+- **Step 3:** Activate the high-agency people. / Your best people are waiting for permission to move. We surface who they are and give them the tools and methods to lead from within.
+- **Step 4:** Measure what matters. / Weekly scoring against industry benchmarks so you always know where you stand — and so does your leadership team.
+
+### Bottom CTA
+
+- **Headline:** Be the alpha. (gradient text white→ember)
+- **Subtext:** One hour. One conversation. A plan you can start executing tomorrow.
+- **CTA:** Book a Strategy Call — $500
+
+---
+
+## Strategy Call Page (services/strategy-call.html)
+
+### Hero
+- **Headline:** One-Hour AI Strategy Call
+- **Price:** $500
+- **Description:** A focused, high-intensity session for SMB leaders who know they need to move on AI but want a clear plan before they do.
+- **CTA:** Book Your Call
+
+### Time Blocks
+- 15 min — Deep Dive (current state, operations, tools, team dynamics, competitive landscape)
+- 15 min — Assessment (scoring across mindset, skillset, toolset)
+- 20 min — Roadmap (transformation plan, quick wins, phased priorities)
+- 10 min — Next Steps (questions, whether deeper engagement makes sense)
+
+### Deliverables
+Checklist: AI Readiness Assessment, benchmarking, roadmap, scorecard, 48-hour action plan, branded PDF
+
+### Who For / Not For
+- For: SMB leaders (20-500 employees), tried AI but adoption didn't stick, competitive pressure, healthcare/real estate/manufacturing/professional services
+- Not for: "just implement ChatGPT," no leadership commitment, want vendor recommendation not strategy
+
+### FAQ
+1. What if I need more than one hour? → Monthly follow-up + anchor engagement
+2. Is this a sales pitch? → No, deliverable stands alone
+3. What industries? → Cross-industry, deep in healthcare/real estate/manufacturing/software
+4. Can I expense this? → Yes, invoice provided
+
+---
+
+## About Page (about.html)
+
+### The Short Version
+Two paragraphs: career spanning Aurora WDC, Epic, healthcare, real estate, industrial engineering, product companies. Started AlphaSMB to help capable businesses stop getting left behind.
+
+### Credentials
+List with ember left-border: Aurora WDC (current), Epic + healthcare IT, 20+ years real estate, industrial engineering, product companies, management consulting
+
+### Philosophy
+Two paragraphs: "Most AI consultants sell you tools. I build the culture that actually uses them." + methodology description
+
+### CTA
+- **Headline:** Ready to talk?
+- **Subtext:** Book a strategy call and let's figure out what AI transformation looks like for your organization.
+
+---
+
+## Book Page (book.html)
+
+- **Headline:** Book a call with Zach
+- **Price:** $500
+- **Description:** One hour. AI readiness assessment, transformation roadmap, execution scorecard, and a 48-hour action plan.
+- **What to prepare:** Basic company info, current AI tools in use (if any), biggest pain points.
+- Cal.com inline embed: `https://cal.com/alphasmb/60min` (dark theme)
+
+---
+
+## Privacy Page (privacy.html)
+
+Rendered from `AlphaSMB-Privacy-Policy.md` with:
+- Email updated to zach@alphasmb.com
+- Email service provider updated to Kit (ConvertKit)
