@@ -83,7 +83,7 @@ img {
 }
 
 .nav__logo-img {
-  height: 28px;
+  height: 40px;
   width: auto;
   display: block;
   filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.6));
@@ -294,7 +294,7 @@ img {
 .hero-anim--eyebrow { animation-delay: 0.6s; }
 .hero-anim--headline { animation-delay: 0.8s; }
 .hero-anim--subheadline { animation-delay: 1.0s; }
-.hero-anim--cta { animation-delay: 1.2s; }
+.hero-anim--cta { animation-delay: 1.2s; margin-top: 32px; }
 .hero-anim--credentials { animation-delay: 1.4s; }
 
 @keyframes heroFadeIn {
