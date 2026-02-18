@@ -234,8 +234,8 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 195%;
-  height: 390%;
+  width: 390%;
+  height: 780%;
   transform: translate(-50%, -50%);
   background: radial-gradient(ellipse, rgba(245, 240, 235, 0.13) 0%, rgba(245, 240, 235, 0.06) 35%, transparent 65%);
   pointer-events: none;
