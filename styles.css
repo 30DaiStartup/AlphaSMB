@@ -18,7 +18,7 @@
 }
 
 html {
-  font-family: 'Sora', 'Manrope', sans-serif;
+  font-family: 'Manrope', sans-serif;
   color: var(--alpha-sand);
   background: var(--alpha-charcoal);
   -webkit-font-smoothing: antialiased;
@@ -77,13 +77,16 @@ img {
 }
 
 .nav__wordmark {
-  font-family: 'Sora', 'Manrope', sans-serif;
-  font-weight: 700;
-  font-size: 22px;
-  letter-spacing: -0.02em;
   text-decoration: none;
   display: inline-flex;
-  line-height: 1;
+  align-items: center;
+}
+
+.nav__logo-img {
+  height: 28px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.6));
 }
 
 .nav__links {
@@ -309,7 +312,7 @@ img {
 /* ── Buttons & CTAs ── */
 .btn {
   display: inline-block;
-  font-family: 'Sora', 'Manrope', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-weight: 600;
   text-decoration: none;
   border: none;
@@ -786,7 +789,7 @@ img {
   align-items: center;
   cursor: pointer;
   text-align: left;
-  font-family: 'Sora', 'Manrope', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-weight: 600;
   font-size: 16px;
   color: var(--alpha-white);
