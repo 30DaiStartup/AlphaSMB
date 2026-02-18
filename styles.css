@@ -83,7 +83,7 @@ img {
 }
 
 .nav__logo-img {
-  height: 40px;
+  height: 48px;
   width: auto;
   display: block;
   filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.6));
@@ -234,8 +234,8 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 150%;
-  height: 300%;
+  width: 195%;
+  height: 390%;
   transform: translate(-50%, -50%);
   background: radial-gradient(ellipse, rgba(245, 240, 235, 0.13) 0%, rgba(245, 240, 235, 0.06) 35%, transparent 65%);
   pointer-events: none;
@@ -245,7 +245,7 @@ img {
 .hero-logo-img {
   position: relative;
   z-index: 1;
-  width: 340px;
+  width: 408px;
   height: auto;
   display: block;
   filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 3px rgba(245, 240, 235, 0.5)) drop-shadow(0 0 10px rgba(245, 240, 235, 0.15));
@@ -1168,7 +1168,7 @@ img {
 
   /* Hero */
   .hero-logo-img {
-    width: 240px;
+    width: 288px;
   }
 
   .hero-headline {
