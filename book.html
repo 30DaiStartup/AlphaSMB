@@ -51,9 +51,7 @@
         </div>
 
         <!-- Cal.com Inline Embed -->
-        <div class="cal-embed-wrapper" id="cal-embed">
-          <cal-inline-widget calLink="alphasmb/60min" config='{"theme":"dark"}'></cal-inline-widget>
-        </div>
+        <div class="cal-embed-wrapper" id="cal-inline"></div>
 
       </div>
     </section>
@@ -80,7 +78,41 @@
   </footer>
 
   <!-- Cal.com embed script -->
-  <script type="module" src="https://app.cal.com/embed/embed.js"></script>
+  <script>
+    (function (C, A, L) {
+      var p = function (a, ar) { a.q.push(ar); };
+      var d = C.document;
+      C.Cal = C.Cal || function () {
+        var cal = C.Cal;
+        var ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          var api = function () { p(api, arguments); };
+          var namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", {origin: "https://cal.com"});
+    Cal("inline", {
+      elementOrSelector: "#cal-inline",
+      calLink: "alphasmb/60min",
+      layout: "month_view",
+      config: {theme: "dark"}
+    });
+  </script>
   <script src="/main.js" defer></script>
 </body>
 </html>

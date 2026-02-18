@@ -111,6 +111,10 @@ img {
   color: var(--alpha-ember);
 }
 
+.nav__link--cta[aria-current="page"] {
+  color: var(--alpha-white);
+}
+
 .nav__link--cta {
   background: var(--alpha-ember);
   color: var(--alpha-white);
