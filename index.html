@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AlphaSMB — AI Transformation for SMBs</title>
   <meta name="description" content="I help SMB leadership teams build AI-capable organizations — not just AI-equipped employees — so they can compete with anyone regardless of budget or headcount.">
+  <link rel="canonical" href="https://alphasmb.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alphasmb.com/">
+  <meta property="og:title" content="AlphaSMB — AI Transformation for SMBs">
+  <meta property="og:description" content="I help SMB leadership teams build AI-capable organizations — not just AI-equipped employees — so they can compete with anyone regardless of budget or headcount.">
+  <meta property="og:image" content="https://alphasmb.com/graphics/AlphaSMB-full-tpbg.png">
+  <meta property="og:site_name" content="AlphaSMB">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="AlphaSMB — AI Transformation for SMBs">
+  <meta name="twitter:description" content="I help SMB leadership teams build AI-capable organizations — not just AI-equipped employees — so they can compete with anyone regardless of budget or headcount.">
+  <meta name="twitter:image" content="https://alphasmb.com/graphics/AlphaSMB-full-tpbg.png">
+
   <link rel="icon" type="image/png" sizes="32x32" href="/graphics/Al-32x-tpbg.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/graphics/Al-180x-tpbg.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,8 +59,8 @@
     <div class="hero-content">
 
       <div class="hero-anim">
-        <div class="hero-logo" role="img" aria-label="AlphaSMB">
-          <img src="/graphics/AlphaSMB-full-tpbg.png" alt="" class="hero-logo-img">
+        <div class="hero-logo">
+          <img src="/graphics/AlphaSMB-full-tpbg.png" alt="AlphaSMB" class="hero-logo-img">
         </div>
       </div>
 
@@ -194,6 +210,59 @@
       <p class="footer__contact"><a href="mailto:zach@alphasmb.com">zach@alphasmb.com</a></p>
     </div>
   </footer>
+
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://alphasmb.com/#organization",
+        "name": "AlphaSMB",
+        "url": "https://alphasmb.com",
+        "logo": "https://alphasmb.com/graphics/AlphaSMB-full-tpbg.png",
+        "description": "AI transformation consultancy that helps SMB leadership teams build AI-capable organizations.",
+        "founder": {
+          "@type": "Person",
+          "name": "Zach Henderson"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "zach@alphasmb.com",
+          "contactType": "sales"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/zach-henderson/"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://alphasmb.com/#website",
+        "name": "AlphaSMB",
+        "url": "https://alphasmb.com",
+        "publisher": {
+          "@id": "https://alphasmb.com/#organization"
+        }
+      },
+      {
+        "@type": "Service",
+        "name": "One-Hour AI Strategy Call",
+        "provider": {
+          "@id": "https://alphasmb.com/#organization"
+        },
+        "description": "A focused, high-intensity session where I assess your organization's AI readiness, identify your highest-value opportunities, and build a transformation plan you can start executing this week.",
+        "url": "https://alphasmb.com/services/strategy-call",
+        "offers": {
+          "@type": "Offer",
+          "price": "500",
+          "priceCurrency": "USD",
+          "url": "https://alphasmb.com/book"
+        }
+      }
+    ]
+  }
+  </script>
 
   <script src="/main.js" defer></script>
 </body>

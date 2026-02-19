@@ -68,9 +68,80 @@
 
       if (!expanded) {
         answer.style.maxHeight = answer.scrollHeight + 'px';
+        // Track FAQ open in Plausible
+        var questionText = btn.querySelector('span') ? btn.querySelector('span').textContent.trim() : '';
+        if (typeof plausible !== 'undefined') {
+          plausible('FAQ Opened', {props: {question: questionText}});
+        }
       } else {
         answer.style.maxHeight = null;
       }
     });
   });
+})();
+
+// ── Plausible Custom Event Tracking ──
+(function () {
+  if (typeof plausible === 'undefined') return;
+
+  // Track CTA button clicks
+  document.querySelectorAll('.btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = btn.textContent.trim();
+      var section = 'unknown';
+
+      // Determine CTA location
+      if (btn.closest('.hero') || btn.closest('.hero-anim')) section = 'hero';
+      else if (btn.closest('.page-hero')) section = 'page-hero';
+      else if (btn.closest('.bottom-cta')) section = 'bottom-cta';
+      else if (btn.closest('.card')) section = 'service-card';
+      else section = 'other';
+
+      plausible('CTA Clicked', {props: {text: text, section: section, page: location.pathname}});
+    });
+  });
+
+  // Track nav link clicks
+  document.querySelectorAll('.nav__link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      plausible('Nav Clicked', {props: {destination: link.getAttribute('href'), text: link.textContent.trim()}});
+    });
+  });
+
+  // Track outbound links (LinkedIn, mailto)
+  document.querySelectorAll('a[href^="https://"], a[href^="mailto:"]').forEach(function (link) {
+    var href = link.getAttribute('href');
+    // Skip internal links
+    if (href.indexOf('alphasmb.com') !== -1) return;
+    if (href.indexOf('cal.com') !== -1) return;
+
+    link.addEventListener('click', function () {
+      var type = href.indexOf('mailto:') === 0 ? 'email' : 'outbound';
+      plausible('Outbound Click', {props: {url: href, type: type, page: location.pathname}});
+    });
+  });
+
+  // Track footer link clicks
+  document.querySelectorAll('.footer__links a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      plausible('Footer Link Clicked', {props: {destination: link.getAttribute('href')}});
+    });
+  });
+
+  // Preserve UTM parameters for session tracking
+  var params = new URLSearchParams(window.location.search);
+  var utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var utmData = {};
+  var hasUtm = false;
+  utmKeys.forEach(function (key) {
+    var val = params.get(key);
+    if (val) {
+      utmData[key] = val;
+      hasUtm = true;
+    }
+  });
+  if (hasUtm) {
+    // Store UTMs in sessionStorage so they persist across page navigations
+    sessionStorage.setItem('alphasmb_utm', JSON.stringify(utmData));
+  }
 })();

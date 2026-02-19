@@ -1,0 +1,5 @@
+# AlphaSMB robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://alphasmb.com/sitemap.xml

@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Book a Strategy Call — AlphaSMB</title>
   <meta name="description" content="Book a one-hour AI strategy call with Zach Henderson. $500, collected at booking. Walk away with a transformation plan you can start executing this week.">
+  <link rel="canonical" href="https://alphasmb.com/book">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://alphasmb.com/book">
+  <meta property="og:title" content="Book a Strategy Call — AlphaSMB">
+  <meta property="og:description" content="Book a one-hour AI strategy call with Zach Henderson. $500, collected at booking. Walk away with a transformation plan you can start executing this week.">
+  <meta property="og:image" content="https://alphasmb.com/graphics/AlphaSMB-full-tpbg.png">
+  <meta property="og:site_name" content="AlphaSMB">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Book a Strategy Call — AlphaSMB">
+  <meta name="twitter:description" content="Book a one-hour AI strategy call with Zach Henderson. $500, collected at booking.">
+  <meta name="twitter:image" content="https://alphasmb.com/graphics/AlphaSMB-full-tpbg.png">
+
   <link rel="icon" type="image/png" sizes="32x32" href="/graphics/Al-32x-tpbg.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/graphics/Al-180x-tpbg.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,10 +64,16 @@
           <p class="book-intro__price">$500</p>
           <p class="book-intro__text">One hour. AI readiness assessment, transformation roadmap, execution scorecard, and a 48-hour action plan — delivered as a branded PDF you can share with your leadership team.</p>
           <p class="book-prepare"><strong>What to prepare:</strong> Basic company info, current AI tools in use (if any), and your biggest pain points. That's it — I'll handle the rest.</p>
+          <p class="book-prepare"><strong>After booking:</strong> You'll receive a confirmation with a calendar invite and a brief pre-call questionnaire. Payment of $500 is collected at booking via Stripe.</p>
         </div>
 
         <!-- Cal.com Inline Embed -->
         <div class="cal-embed-wrapper" id="cal-inline"></div>
+        <noscript>
+          <div class="noscript-fallback">
+            <p>JavaScript is required to load the scheduling calendar. Please <a href="https://cal.com/alphasmb/60min">book directly on Cal.com</a> or email <a href="mailto:zach@alphasmb.com">zach@alphasmb.com</a>.</p>
+          </div>
+        </noscript>
 
       </div>
     </section>
@@ -113,6 +135,38 @@
       config: {theme: "dark"}
     });
   </script>
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://alphasmb.com/#organization",
+        "name": "AlphaSMB",
+        "url": "https://alphasmb.com",
+        "logo": "https://alphasmb.com/graphics/AlphaSMB-full-tpbg.png"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://alphasmb.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Book a Call"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <script src="/main.js" defer></script>
 </body>
 </html>

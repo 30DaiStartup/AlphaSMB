@@ -673,6 +673,13 @@ img {
   margin-bottom: 28px;
 }
 
+.page-hero__trust {
+  font-size: 14px;
+  color: var(--alpha-stone);
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
 /* Time block cards */
 .time-blocks {
   display: grid;
@@ -937,6 +944,32 @@ img {
   max-width: 720px;
   margin: 0 auto;
   min-height: 600px;
+}
+
+.noscript-fallback {
+  text-align: center;
+  padding: 40px 24px;
+  background: var(--alpha-charcoal-light);
+  border: 1px solid var(--alpha-slate);
+  border-radius: 8px;
+  max-width: 720px;
+  margin: 24px auto;
+}
+
+.noscript-fallback p {
+  font-size: 16px;
+  color: var(--alpha-sand);
+  line-height: 1.6;
+}
+
+.noscript-fallback a {
+  color: var(--alpha-ember);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.noscript-fallback a:hover {
+  color: var(--alpha-ember-dark);
 }
 
 /* ── Privacy Page ── */

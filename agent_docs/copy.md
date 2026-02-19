@@ -70,7 +70,8 @@ All copy across the site. Use exactly as written.
 - **Headline:** One-Hour AI Strategy Call
 - **Price:** $500
 - **Description:** A focused, high-intensity session for SMB leaders who know they need to move on AI but want a clear plan before they do.
-- **CTA:** Book Your Call
+- **CTA:** Book Your Call — $500
+- **Trust line:** Fractional Head of AI at Aurora WDC, serving the Fortune 1000 · Epic Systems · 20+ years across healthcare, real estate, manufacturing & software
 
 ### Time Blocks
 - 15 min — Deep Dive (current state, operations, tools, team dynamics, competitive landscape)
@@ -105,8 +106,8 @@ List with ember left-border: Aurora WDC (current), Epic + healthcare IT, 20+ yea
 Two paragraphs: "Most AI consultants sell you tools. I build the culture that actually uses them." + methodology description
 
 ### CTA
-- **Headline:** Ready to talk?
-- **Subtext:** Book a strategy call and let's figure out what AI transformation looks like for your organization.
+- **Headline:** Let's build your plan.
+- **Subtext:** One hour. Your organization's AI readiness assessed, a transformation roadmap built, and a 48-hour action plan to start executing.
 
 ---
 
@@ -115,8 +116,10 @@ Two paragraphs: "Most AI consultants sell you tools. I build the culture that ac
 - **Headline:** Book a call with Zach
 - **Price:** $500
 - **Description:** One hour. AI readiness assessment, transformation roadmap, execution scorecard, and a 48-hour action plan.
-- **What to prepare:** Basic company info, current AI tools in use (if any), biggest pain points.
+- **What to prepare:** Basic company info, current AI tools in use (if any), biggest pain points. That's it — I'll handle the rest.
+- **After booking:** You'll receive a confirmation with a calendar invite and a brief pre-call questionnaire. Payment of $500 is collected at booking via Stripe.
 - Cal.com inline embed: `https://cal.com/alphasmb/60min` (dark theme)
+- Noscript fallback: direct link to Cal.com + email
 
 ---
 
