@@ -46,9 +46,14 @@
   });
 })();
 
-// ── FAQ Accordion Toggle ──
+// ── FAQ Accordion Toggle (Progressive Enhancement) ──
 (function () {
   var questions = document.querySelectorAll('.faq-question');
+  if (!questions.length) return;
+
+  // Enable accordion CSS — without this class, answers stay visible for AI crawlers
+  document.body.classList.add('js-accordion');
+
   questions.forEach(function (btn) {
     btn.addEventListener('click', function () {
       var expanded = btn.getAttribute('aria-expanded') === 'true';
@@ -58,15 +63,15 @@
       questions.forEach(function (other) {
         if (other !== btn && other.getAttribute('aria-expanded') === 'true') {
           other.setAttribute('aria-expanded', 'false');
-          other.nextElementSibling.setAttribute('aria-hidden', 'true');
+          other.nextElementSibling.classList.remove('is-open');
           other.nextElementSibling.style.maxHeight = null;
         }
       });
 
       btn.setAttribute('aria-expanded', String(!expanded));
-      answer.setAttribute('aria-hidden', String(expanded));
 
       if (!expanded) {
+        answer.classList.add('is-open');
         answer.style.maxHeight = answer.scrollHeight + 'px';
         // Track FAQ open in Plausible
         var questionText = btn.querySelector('span') ? btn.querySelector('span').textContent.trim() : '';
@@ -74,6 +79,7 @@
           plausible('FAQ Opened', {props: {question: questionText}});
         }
       } else {
+        answer.classList.remove('is-open');
         answer.style.maxHeight = null;
       }
     });

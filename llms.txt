@@ -1,0 +1,29 @@
+# AlphaSMB
+
+> AlphaSMB is an AI transformation consultancy that helps SMB leadership
+> teams (20-500 employees) build AI-capable organizations. Founded by
+> Zach Henderson, fractional Head of AI at Aurora WDC (Fortune 1000).
+> Primary service: $500 one-hour AI strategy call.
+
+## Key Pages
+
+- [Home](https://alphasmb.com/): Overview, methodology, services
+- [AI Strategy Call](https://alphasmb.com/services/strategy-call): Service details, pricing, FAQ
+- [About Zach Henderson](https://alphasmb.com/about): Credentials, philosophy
+- [Book a Call](https://alphasmb.com/book): Schedule and pay ($500)
+- [Privacy Policy](https://alphasmb.com/privacy): Data handling practices
+
+## About the Founder
+
+Zach Henderson — Fractional Head of AI at Aurora WDC (Fortune 1000),
+Epic Systems alum, 20+ years across healthcare, real estate,
+manufacturing & software.
+
+## Services
+
+One-Hour AI Strategy Call ($500): AI readiness assessment, industry
+benchmarking, three-phase transformation roadmap, execution scorecard,
+48-hour action plan. Delivered as branded PDF.
+
+Full Transformation Engagement (custom pricing): Up to 3 months embedded
+with organization. Limited to 2 clients at a time.

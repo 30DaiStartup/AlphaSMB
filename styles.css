@@ -828,14 +828,20 @@ img {
   transform: rotate(45deg);
 }
 
+/* Without JS: answers are visible (for AI crawlers and no-JS users) */
 .faq-answer {
+  padding: 0 0 20px 0;
+}
+
+/* With JS: accordion behavior — collapse by default, expand on toggle */
+.js-accordion .faq-answer {
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-  padding: 0 0 0 0;
+  padding: 0;
 }
 
-.faq-answer[aria-hidden="false"] {
+.js-accordion .faq-answer.is-open {
   max-height: 300px;
   padding: 0 0 20px 0;
 }
@@ -1311,7 +1317,7 @@ img {
     transition: none;
   }
 
-  .faq-answer {
+  .js-accordion .faq-answer {
     transition: none;
   }
 
