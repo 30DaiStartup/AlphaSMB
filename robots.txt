@@ -1,6 +1,7 @@
 # AlphaSMB robots.txt
 User-agent: *
 Allow: /
+Disallow: /graphics
 
 User-agent: GPTBot
 Allow: /

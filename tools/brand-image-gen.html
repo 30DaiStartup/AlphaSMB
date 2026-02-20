@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlphaSMB Brand Image Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: #0f0d0c;
+      color: #F5F0EB;
+      min-height: 100vh;
+    }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 320px;
+      min-width: 320px;
+      padding: 24px;
+      background: #1C1917;
+      border-right: 1px solid #292524;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #E8450D;
+      margin-bottom: 4px;
+    }
+
+    .dimensions {
+      font-size: 12px;
+      color: #78716C;
+      margin-top: -8px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-group > label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #78716C;
+    }
+
+    .field-group select,
+    .field-group input[type="text"],
+    .field-group textarea {
+      background: #292524;
+      border: 1px solid #44403C;
+      color: #F5F0EB;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      width: 100%;
+    }
+
+    .field-group textarea { resize: vertical; }
+
+    .field-group select:focus,
+    .field-group input:focus,
+    .field-group textarea:focus {
+      outline: none;
+      border-color: #E8450D;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      color: #F5F0EB;
+      text-transform: none;
+      letter-spacing: normal;
+      cursor: pointer;
+    }
+
+    .radio-group input[type="radio"] { accent-color: #E8450D; }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-group label {
+      font-size: 13px;
+      color: #F5F0EB;
+      cursor: pointer;
+    }
+
+    .checkbox-group input[type="checkbox"] { accent-color: #E8450D; }
+
+    button.primary {
+      background: #E8450D;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    button.primary:hover { background: #C53D0A; }
+
+    .url-bar {
+      display: flex;
+      gap: 6px;
+    }
+
+    .url-bar input {
+      flex: 1;
+      background: #292524;
+      border: 1px solid #44403C;
+      color: #78716C;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-family: monospace;
+    }
+
+    .url-bar button {
+      background: #44403C;
+      color: #F5F0EB;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-family: 'Manrope', sans-serif;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .url-bar button:hover { background: #78716C; }
+
+    .preview {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      overflow: hidden;
+      background: #0f0d0c;
+    }
+
+    #canvas {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      border-radius: 4px;
+    }
+
+    .sep {
+      border: none;
+      border-top: 1px solid #292524;
+      margin: 4px 0;
+    }
+
+    .field-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .vis-toggle {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .vis-toggle input[type="checkbox"] {
+      accent-color: #E8450D;
+      margin: 0;
+    }
+
+    .size-stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .size-stepper input[type="number"] {
+      width: 42px;
+      background: #292524;
+      border: 1px solid #44403C;
+      color: #F5F0EB;
+      padding: 3px 2px;
+      border-radius: 0;
+      font-family: 'Manrope', sans-serif;
+      font-size: 11px;
+      text-align: center;
+      -moz-appearance: textfield;
+    }
+
+    .size-stepper input[type="number"]::-webkit-inner-spin-button,
+    .size-stepper input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .size-stepper input[type="number"]:focus {
+      outline: none;
+      border-color: #E8450D;
+    }
+
+    .size-stepper button {
+      background: #44403C;
+      border: 1px solid #44403C;
+      color: #F5F0EB;
+      width: 24px;
+      height: 24px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .size-stepper button:first-child { border-radius: 4px 0 0 4px; }
+    .size-stepper button:last-child { border-radius: 0 4px 4px 0; }
+    .size-stepper button:hover { background: #78716C; }
+
+    .size-stepper .size-unit {
+      font-size: 10px;
+      color: #78716C;
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Force font loading -->
+  <div aria-hidden="true" style="position:absolute;left:-9999px;opacity:0">
+    <span style="font-family:'Manrope';font-weight:400">x</span>
+    <span style="font-family:'Manrope';font-weight:600">x</span>
+    <span style="font-family:'Manrope';font-weight:700">x</span>
+  </div>
+
+  <div class="app">
+    <aside class="sidebar">
+      <h1>AlphaSMB Brand Image Generator</h1>
+
+      <div class="field-group">
+        <label for="template-select">Template</label>
+        <select id="template-select"></select>
+      </div>
+
+      <div class="dimensions" id="dimensions"></div>
+
+      <div id="dynamic-fields"></div>
+
+      <hr class="sep">
+
+      <div class="field-group">
+        <label>Theme</label>
+        <div class="radio-group" id="theme-group">
+          <label><input type="radio" name="theme" value="dark" checked> Dark</label>
+          <label><input type="radio" name="theme" value="light"> Light</label>
+          <label><input type="radio" name="theme" value="transparent"> None</label>
+        </div>
+      </div>
+
+      <div class="field-group" id="glow-group">
+        <div class="field-label-row">
+          <div class="checkbox-group">
+            <input type="checkbox" id="glow-check" checked>
+            <label for="glow-check">Ember glow</label>
+          </div>
+          <div class="size-stepper">
+            <button id="glow-dec">&minus;</button>
+            <input type="number" id="glow-opacity" value="27" min="1" max="50" step="1">
+            <button id="glow-inc">+</button>
+            <span class="size-unit">%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="shadow-check" checked>
+          <label for="shadow-check">Logo glow</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Position</label>
+        <div class="radio-group" id="position-group">
+          <label><input type="radio" name="position" value="0.33"> Left</label>
+          <label><input type="radio" name="position" value="0.5" checked> Center</label>
+          <label><input type="radio" name="position" value="0.66"> Right</label>
+        </div>
+      </div>
+
+      <hr class="sep">
+
+      <div class="field-group">
+        <label>Export format</label>
+        <div class="radio-group">
+          <label><input type="radio" name="format" value="png" checked> PNG</label>
+          <label><input type="radio" name="format" value="jpg"> JPG</label>
+        </div>
+      </div>
+
+      <button class="primary" id="download-btn">Download</button>
+
+      <div class="field-group">
+        <label>Automation URL</label>
+        <div class="url-bar">
+          <input id="url-display" readonly>
+          <button id="copy-url-btn">Copy</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="preview" id="preview">
+      <canvas id="canvas"></canvas>
+    </main>
+  </div>
+
+  <script>
+    /* ── Brand Tokens ── */
+    const C = {
+      charcoal: '#1C1917',
+      charcoalLight: '#292524',
+      ember: '#E8450D',
+      emberDark: '#C53D0A',
+      sand: '#F5F0EB',
+      stone: '#78716C',
+      slate: '#44403C',
+      white: '#FFFFFF',
+    };
+
+    /* ── State ── */
+    let currentTemplate = 'og-image';
+    const canvas = document.getElementById('canvas');
+    let wordmarkImg = null;
+    let markImg = null;
+
+    /* ── Utilities ── */
+    function debounce(fn, ms) {
+      let t;
+      return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); };
+    }
+
+    /* Noise tile (cached) */
+    let noiseTile = null;
+    function getNoiseTile() {
+      if (noiseTile) return noiseTile;
+      const s = 256;
+      const c = document.createElement('canvas');
+      c.width = s; c.height = s;
+      const x = c.getContext('2d');
+      const d = x.createImageData(s, s);
+      for (let i = 0; i < d.data.length; i += 4) {
+        const v = Math.random() > 0.5 ? 255 : 0;
+        d.data[i] = v; d.data[i+1] = v; d.data[i+2] = v;
+        d.data[i+3] = 7;
+      }
+      x.putImageData(d, 0, 0);
+      noiseTile = c;
+      return c;
+    }
+
+    function drawNoise(ctx, w, h) {
+      const tile = getNoiseTile();
+      const pat = ctx.createPattern(tile, 'repeat');
+      ctx.fillStyle = pat;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    function drawEmberGlow(ctx, w, h, cx, cy, radius, opacity) {
+      cx = cx ?? w * 0.5;
+      cy = cy ?? h * 0.5;
+      radius = radius ?? Math.max(w, h) * 0.45;
+      opacity = opacity ?? 0.12;
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      g.addColorStop(0, 'rgba(232, 69, 13, ' + opacity + ')');
+      g.addColorStop(1, 'rgba(232, 69, 13, 0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    function wrapText(ctx, text, maxWidth) {
+      if (!text) return [];
+      const words = text.split(' ');
+      const lines = [];
+      let line = '';
+      for (const word of words) {
+        const test = line ? line + ' ' + word : word;
+        if (ctx.measureText(test).width > maxWidth && line) {
+          lines.push(line);
+          line = word;
+        } else {
+          line = test;
+        }
+      }
+      if (line) lines.push(line);
+      return lines;
+    }
+
+    function drawTextBlock(ctx, text, x, topY, maxWidth, fontSize, lineHeight, align) {
+      if (!text) return 0;
+      align = align || 'center';
+      ctx.save();
+      ctx.textBaseline = 'top';
+      ctx.textAlign = align;
+      const lines = wrapText(ctx, text, maxWidth);
+      const dx = align === 'center' ? x + maxWidth / 2 :
+                 align === 'right' ? x + maxWidth : x;
+      lines.forEach((line, i) => {
+        ctx.fillText(line, dx, topY + i * lineHeight);
+      });
+      ctx.restore();
+      return lines.length * lineHeight;
+    }
+
+    function measureBlockHeight(ctx, text, maxWidth, lineHeight) {
+      if (!text) return 0;
+      return wrapText(ctx, text, maxWidth).length * lineHeight;
+    }
+
+    /* ── Wordmark Renderer (PNG-based) ── */
+    function drawWordmark(ctx, x, topY, fontSize, theme, align, shadow) {
+      if (!wordmarkImg) return { width: 0, height: 0 };
+
+      // Scale: fontSize controls display height (source content is 121px tall)
+      const scale = (fontSize * 1.15) / 121;
+      const dw = 632 * scale;
+      const dh = 121 * scale;
+
+      // Alignment
+      let dx = x;
+      if (align === 'center') dx = x - dw / 2;
+      else if (align === 'right') dx = x - dw;
+
+      // Shadow/glow (white halo, matching site's CSS drop-shadow)
+      if (shadow) {
+        ctx.save();
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+        ctx.shadowBlur = fontSize * 0.15;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+      }
+
+      // Draw the PNG (source crop: content bbox 81,90 → 713,211)
+      ctx.drawImage(wordmarkImg, 81, 90, 632, 121, dx, topY, dw, dh);
+
+      if (shadow) ctx.restore();
+
+      return { width: dw, height: dh };
+    }
+
+    /* ── Mark Renderer ("Al" only, PNG-based) ── */
+    function drawMark(ctx, cx, cy, fontSize, theme, shadow) {
+      if (!markImg) return;
+
+      const scale = fontSize / 118;
+      const dw = 119 * scale;
+      const dh = 118 * scale;
+
+      if (shadow) {
+        ctx.save();
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+        ctx.shadowBlur = fontSize * 0.08;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+      }
+
+      ctx.drawImage(markImg, 0, 0, 119, 118, cx - dw / 2, cy - dh / 2, dw, dh);
+
+      if (shadow) ctx.restore();
+    }
+
+    /* ── Template Definitions ── */
+    const TEMPLATES = {
+      'linkedin-banner': {
+        label: 'LinkedIn Banner',
+        width: 1584, height: 396,
+        defaultTheme: 'dark', defaultGlow: true,
+        sizes: { logo: 36, eyebrow: 13, title: 46, subtitle: 22 },
+        fields: [
+          { id: 'eyebrow', label: 'Eyebrow', default: '', type: 'text' },
+          { id: 'title', label: 'Title', default: 'AI Transformation for SMBs', type: 'text' },
+          { id: 'subtitle', label: 'Subtitle', default: 'Strategy \u00b7 Implementation \u00b7 Results', type: 'text' },
+        ],
+        render(ctx, w, h, f, opts) {
+          const isDark = opts.theme !== 'light';
+          const textColor = isDark ? C.white : C.charcoal;
+          const mutedColor = isDark ? C.stone : C.slate;
+          const pad = 80;
+          const cx = w * opts.position;
+          const maxW = w - pad * 2;
+          const v = f._visible;
+
+          const wmSize = f._sizes.logo;
+          const eyeSize = f._sizes.eyebrow;
+          const titleSize = f._sizes.title;
+          const subSize = f._sizes.subtitle;
+          const gap1 = 28;
+          const gap2 = 12;
+          const gap3 = 14;
+
+          const showLogo = v.logo !== false;
+          const hasEye = v.eyebrow !== false && f.eyebrow && f.eyebrow.trim();
+          const showTitle = v.title !== false;
+          const hasSub = v.subtitle !== false && f.subtitle && f.subtitle.trim();
+
+          ctx.font = '700 ' + titleSize + 'px Manrope';
+          const titleLines = showTitle ? wrapText(ctx, f.title || '', maxW) : [];
+          const titleH = titleLines.length * (titleSize * 1.25);
+
+          const wmH = showLogo ? wmSize * 1.15 : 0;
+          const eyeH = hasEye ? eyeSize + gap2 : 0;
+          const totalH = wmH + (showLogo ? gap1 : 0) + eyeH + titleH + (hasSub ? gap3 + subSize : 0);
+          let y = (h - totalH) / 2;
+
+          if (showLogo) {
+            drawWordmark(ctx, cx, y, wmSize, opts.theme, 'center', opts.shadow);
+            y += wmH + gap1;
+          }
+
+          if (hasEye) {
+            ctx.font = '600 ' + eyeSize + 'px Manrope';
+            ctx.fillStyle = C.ember;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.letterSpacing = '0.12em';
+            ctx.fillText(f.eyebrow.toUpperCase(), cx, y);
+            ctx.letterSpacing = '0px';
+            y += eyeSize + gap2;
+          }
+
+          if (showTitle) {
+            ctx.font = '700 ' + titleSize + 'px Manrope';
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            titleLines.forEach((line, i) => {
+              ctx.fillText(line, cx, y + i * titleSize * 1.25);
+            });
+            y += titleH;
+          }
+
+          if (hasSub) {
+            y += gap3;
+            ctx.font = '400 ' + subSize + 'px Manrope';
+            ctx.fillStyle = mutedColor;
+            ctx.fillText(f.subtitle, cx, y);
+          }
+          ctx.textAlign = 'left';
+        }
+      },
+
+      'og-image': {
+        label: 'OG Image (Link Preview)',
+        width: 1200, height: 630,
+        defaultTheme: 'dark', defaultGlow: true,
+        sizes: { logo: 34, eyebrow: 15, title: 54, subtitle: 26 },
+        fields: [
+          { id: 'eyebrow', label: 'Eyebrow', default: '', type: 'text' },
+          { id: 'title', label: 'Title', default: 'AI Transformation for SMBs', type: 'text' },
+          { id: 'subtitle', label: 'Subtitle', default: 'Build AI-capable organizations, not just AI-equipped employees', type: 'text' },
+        ],
+        render(ctx, w, h, f, opts) {
+          const isDark = opts.theme !== 'light';
+          const textColor = isDark ? C.white : C.charcoal;
+          const mutedColor = isDark ? C.stone : C.slate;
+          const pad = 72;
+          const cx = w * opts.position;
+          const maxW = w - pad * 2;
+          const v = f._visible;
+
+          const wmSize = f._sizes.logo;
+          const eyeSize = f._sizes.eyebrow;
+          const titleSize = f._sizes.title;
+          const subSize = f._sizes.subtitle;
+          const gap1 = 36;
+          const gap2 = 16;
+          const gap3 = 20;
+
+          const showLogo = v.logo !== false;
+          const hasEye = v.eyebrow !== false && f.eyebrow && f.eyebrow.trim();
+          const showTitle = v.title !== false;
+          const hasSub = v.subtitle !== false && f.subtitle && f.subtitle.trim();
+
+          ctx.font = '700 ' + titleSize + 'px Manrope';
+          const titleLines = showTitle ? wrapText(ctx, f.title || '', maxW) : [];
+          const titleH = titleLines.length * (titleSize * 1.2);
+
+          ctx.font = '400 ' + subSize + 'px Manrope';
+          const subLines = hasSub ? wrapText(ctx, f.subtitle, maxW) : [];
+          const subH = subLines.length * (subSize * 1.35);
+
+          const wmH = showLogo ? wmSize * 1.15 : 0;
+          const eyeH = hasEye ? eyeSize + gap2 : 0;
+          const totalH = wmH + (showLogo ? gap1 : 0) + eyeH + titleH + (hasSub ? gap3 + subH : 0);
+          let y = (h - totalH) / 2;
+
+          if (showLogo) {
+            drawWordmark(ctx, cx, y, wmSize, opts.theme, 'center', opts.shadow);
+            y += wmH + gap1;
+          }
+
+          if (hasEye) {
+            ctx.font = '600 ' + eyeSize + 'px Manrope';
+            ctx.fillStyle = C.ember;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.letterSpacing = '0.12em';
+            ctx.fillText(f.eyebrow.toUpperCase(), cx, y);
+            ctx.letterSpacing = '0px';
+            y += eyeSize + gap2;
+          }
+
+          if (showTitle) {
+            ctx.font = '700 ' + titleSize + 'px Manrope';
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            titleLines.forEach((line, i) => {
+              ctx.fillText(line, cx, y + i * titleSize * 1.2);
+            });
+            y += titleH;
+          }
+
+          if (hasSub) {
+            y += gap3;
+            ctx.font = '400 ' + subSize + 'px Manrope';
+            ctx.fillStyle = mutedColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            subLines.forEach((line, i) => {
+              ctx.fillText(line, cx, y + i * subSize * 1.35);
+            });
+          }
+          ctx.textAlign = 'left';
+        }
+      },
+
+      'social-square': {
+        label: 'Social Square (1080\u00d71080)',
+        width: 1080, height: 1080,
+        defaultTheme: 'dark', defaultGlow: true,
+        sizes: { logo: 28, eyebrow: 15, title: 50, subtitle: 24 },
+        fields: [
+          { id: 'eyebrow', label: 'Eyebrow', default: 'ALPHASMB', type: 'text' },
+          { id: 'title', label: 'Title', default: 'Transform Your Business with AI', type: 'text' },
+          { id: 'subtitle', label: 'Subtitle', default: 'Strategy calls now available', type: 'text' },
+        ],
+        render(ctx, w, h, f, opts) {
+          const isDark = opts.theme !== 'light';
+          const textColor = isDark ? C.white : C.charcoal;
+          const mutedColor = isDark ? C.stone : C.slate;
+          const pad = 90;
+          const cx = w * opts.position;
+          const maxW = w - pad * 2;
+          const v = f._visible;
+
+          const wmSize = f._sizes.logo;
+          const eyeSize = f._sizes.eyebrow;
+          const titleSize = f._sizes.title;
+          const subSize = f._sizes.subtitle;
+          const gap1 = 60;
+          const gap2 = 16;
+          const gap3 = 20;
+
+          const showLogo = v.logo !== false;
+          const hasEye = v.eyebrow !== false && f.eyebrow && f.eyebrow.trim();
+          const showTitle = v.title !== false;
+          const hasSub = v.subtitle !== false && f.subtitle && f.subtitle.trim();
+
+          ctx.font = '700 ' + titleSize + 'px Manrope';
+          const titleLines = showTitle ? wrapText(ctx, f.title || '', maxW) : [];
+          const titleH = titleLines.length * (titleSize * 1.2);
+
+          const wmH = showLogo ? wmSize * 1.15 : 0;
+          const eyeH = hasEye ? eyeSize + gap2 : 0;
+          const subH = hasSub ? gap3 + subSize : 0;
+          const totalH = wmH + (showLogo ? gap1 : 0) + eyeH + titleH + subH;
+          let y = (h - totalH) / 2;
+
+          if (showLogo) {
+            drawWordmark(ctx, cx, y, wmSize, opts.theme, 'center', opts.shadow);
+            y += wmH + gap1;
+          }
+
+          if (hasEye) {
+            ctx.font = '600 ' + eyeSize + 'px Manrope';
+            ctx.fillStyle = C.ember;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.letterSpacing = '0.12em';
+            ctx.fillText(f.eyebrow.toUpperCase(), cx, y);
+            ctx.letterSpacing = '0px';
+            y += eyeSize + gap2;
+          }
+
+          if (showTitle) {
+            ctx.font = '700 ' + titleSize + 'px Manrope';
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            titleLines.forEach((line, i) => {
+              ctx.fillText(line, cx, y + i * titleSize * 1.2);
+            });
+            y += titleH;
+          }
+
+          if (hasSub) {
+            y += gap3;
+            ctx.font = '400 ' + subSize + 'px Manrope';
+            ctx.fillStyle = mutedColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText(f.subtitle, cx, y);
+          }
+          ctx.textAlign = 'left';
+        }
+      },
+
+      'social-landscape': {
+        label: 'Social Landscape (1200\u00d7628)',
+        width: 1200, height: 628,
+        defaultTheme: 'dark', defaultGlow: true,
+        sizes: { logo: 34, eyebrow: 15, title: 54, subtitle: 26 },
+        fields: [
+          { id: 'eyebrow', label: 'Eyebrow', default: '', type: 'text' },
+          { id: 'title', label: 'Title', default: 'AI Transformation for SMBs', type: 'text' },
+          { id: 'subtitle', label: 'Subtitle', default: 'Strategy \u00b7 Implementation \u00b7 Results', type: 'text' },
+        ],
+        render(ctx, w, h, f, opts) {
+          // Same layout as og-image
+          TEMPLATES['og-image'].render(ctx, w, h, f, opts);
+        }
+      },
+
+      'article-header': {
+        label: 'Article Header (1200\u00d7400)',
+        width: 1200, height: 400,
+        defaultTheme: 'dark', defaultGlow: true,
+        sizes: { logo: 24, eyebrow: 14, title: 44 },
+        fields: [
+          { id: 'eyebrow', label: 'Eyebrow', default: 'INSIGHT', type: 'text' },
+          { id: 'title', label: 'Title', default: 'Why Most AI Implementations Fail', type: 'text' },
+        ],
+        render(ctx, w, h, f, opts) {
+          const isDark = opts.theme !== 'light';
+          const textColor = isDark ? C.white : C.charcoal;
+          const pad = 64;
+          const cx = w * opts.position;
+          const maxW = w - pad * 2 - 200; // leave room for wordmark
+          const v = f._visible;
+
+          const eyeSize = f._sizes.eyebrow;
+          const titleSize = f._sizes.title;
+          const gap = 14;
+          const showLogo = v.logo !== false;
+          const hasEye = v.eyebrow !== false && f.eyebrow && f.eyebrow.trim();
+          const showTitle = v.title !== false;
+
+          ctx.font = '700 ' + titleSize + 'px Manrope';
+          const titleLines = showTitle ? wrapText(ctx, f.title || '', maxW) : [];
+          const titleH = titleLines.length * (titleSize * 1.2);
+
+          const eyeH = hasEye ? eyeSize + gap : 0;
+          const totalH = eyeH + titleH;
+          let y = (h - totalH) / 2;
+
+          if (hasEye) {
+            ctx.font = '600 ' + eyeSize + 'px Manrope';
+            ctx.fillStyle = C.ember;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.letterSpacing = '0.12em';
+            ctx.fillText(f.eyebrow.toUpperCase(), cx, y);
+            ctx.letterSpacing = '0px';
+            y += eyeSize + gap;
+          }
+
+          if (showTitle) {
+            ctx.font = '700 ' + titleSize + 'px Manrope';
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            titleLines.forEach((line, i) => {
+              ctx.fillText(line, cx, y + i * titleSize * 1.2);
+            });
+          }
+
+          // Wordmark bottom-right
+          if (showLogo) {
+            const wmSize = f._sizes.logo;
+            drawWordmark(ctx, w - pad, h - pad - wmSize, wmSize, opts.theme, 'right', opts.shadow);
+          }
+          ctx.textAlign = 'left';
+        }
+      },
+
+      'quote-card': {
+        label: 'Quote Card (1080\u00d71080)',
+        width: 1080, height: 1080,
+        defaultTheme: 'dark', defaultGlow: true,
+        sizes: { logo: 24, quote: 34, attribution: 20 },
+        fields: [
+          { id: 'quote', label: 'Quote', default: 'The goal isn\u2019t to replace your team with AI \u2014 it\u2019s to make your team irreplaceable because of AI.', type: 'textarea' },
+          { id: 'attribution', label: 'Attribution', default: 'Zach Henderson', type: 'text' },
+        ],
+        render(ctx, w, h, f, opts) {
+          const isDark = opts.theme !== 'light';
+          const textColor = isDark ? C.white : C.charcoal;
+          const mutedColor = isDark ? C.stone : C.slate;
+          const pad = 100;
+          const cx = w * opts.position;
+          const maxW = w - pad * 2;
+          const v = f._visible;
+
+          const showLogo = v.logo !== false;
+          const showQuote = v.quote !== false;
+          const hasAttr = v.attribution !== false && f.attribution && f.attribution.trim();
+
+          // Decorative open quote
+          if (showQuote) {
+            ctx.font = '700 280px Manrope';
+            ctx.fillStyle = isDark ? 'rgba(232, 69, 13, 0.07)' : 'rgba(232, 69, 13, 0.1)';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText('\u201C', cx, 80);
+          }
+
+          // Quote text
+          const quoteSize = f._sizes.quote;
+          const quoteLH = quoteSize * 1.5;
+          ctx.font = '400 ' + quoteSize + 'px Manrope';
+          const quoteLines = showQuote ? wrapText(ctx, f.quote || '', maxW) : [];
+          const quoteH = quoteLines.length * quoteLH;
+
+          const attrSize = f._sizes.attribution;
+          const wmSize = f._sizes.logo;
+          const gap1 = 32;
+          const gap2 = 48;
+          const attrH = hasAttr ? gap1 + attrSize : 0;
+          const wmH = showLogo ? gap2 + wmSize * 1.15 : 0;
+          const totalH = quoteH + attrH + wmH;
+          let y = (h - totalH) / 2;
+
+          if (showQuote) {
+            ctx.font = '400 ' + quoteSize + 'px Manrope';
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            quoteLines.forEach((line, i) => {
+              ctx.fillText(line, cx, y + i * quoteLH);
+            });
+            y += quoteH;
+          }
+
+          if (hasAttr) {
+            y += gap1;
+            ctx.font = '600 ' + attrSize + 'px Manrope';
+            ctx.fillStyle = mutedColor;
+            ctx.fillText('\u2014 ' + f.attribution, cx, y);
+            y += attrSize;
+          }
+
+          if (showLogo) {
+            y += gap2;
+            drawWordmark(ctx, cx, y, wmSize, opts.theme, 'center', opts.shadow);
+          }
+          ctx.textAlign = 'left';
+        }
+      },
+
+      'x-header': {
+        label: 'X/Twitter Header (1500\u00d7500)',
+        width: 1500, height: 500,
+        defaultTheme: 'dark', defaultGlow: true,
+        sizes: { logo: 38, eyebrow: 14, title: 48, subtitle: 24 },
+        fields: [
+          { id: 'eyebrow', label: 'Eyebrow', default: '', type: 'text' },
+          { id: 'title', label: 'Title', default: 'AI Transformation for SMBs', type: 'text' },
+          { id: 'subtitle', label: 'Subtitle', default: 'Strategy \u00b7 Implementation \u00b7 Results', type: 'text' },
+        ],
+        render(ctx, w, h, f, opts) {
+          TEMPLATES['linkedin-banner'].render(ctx, w, h, f, opts);
+        }
+      },
+
+      'facebook-cover': {
+        label: 'Facebook Cover (820\u00d7312)',
+        width: 820, height: 312,
+        defaultTheme: 'dark', defaultGlow: true,
+        sizes: { logo: 22, eyebrow: 11, title: 30, subtitle: 16 },
+        fields: [
+          { id: 'eyebrow', label: 'Eyebrow', default: '', type: 'text' },
+          { id: 'title', label: 'Title', default: 'AI Transformation for SMBs', type: 'text' },
+          { id: 'subtitle', label: 'Subtitle', default: 'Strategy \u00b7 Implementation \u00b7 Results', type: 'text' },
+        ],
+        render(ctx, w, h, f, opts) {
+          const isDark = opts.theme !== 'light';
+          const textColor = isDark ? C.white : C.charcoal;
+          const mutedColor = isDark ? C.stone : C.slate;
+          const pad = 48;
+          const cx = w * opts.position;
+          const maxW = w - pad * 2;
+          const v = f._visible;
+
+          const wmSize = f._sizes.logo;
+          const eyeSize = f._sizes.eyebrow;
+          const titleSize = f._sizes.title;
+          const subSize = f._sizes.subtitle;
+          const gap1 = 18;
+          const gap2 = 8;
+          const gap3 = 10;
+
+          const showLogo = v.logo !== false;
+          const hasEye = v.eyebrow !== false && f.eyebrow && f.eyebrow.trim();
+          const showTitle = v.title !== false;
+          const hasSub = v.subtitle !== false && f.subtitle && f.subtitle.trim();
+
+          ctx.font = '700 ' + titleSize + 'px Manrope';
+          const titleLines = showTitle ? wrapText(ctx, f.title || '', maxW) : [];
+          const titleH = titleLines.length * (titleSize * 1.25);
+
+          const wmH = showLogo ? wmSize * 1.15 : 0;
+          const eyeH = hasEye ? eyeSize + gap2 : 0;
+          const totalH = wmH + (showLogo ? gap1 : 0) + eyeH + titleH + (hasSub ? gap3 + subSize : 0);
+          let y = (h - totalH) / 2;
+
+          if (showLogo) {
+            drawWordmark(ctx, cx, y, wmSize, opts.theme, 'center', opts.shadow);
+            y += wmH + gap1;
+          }
+
+          if (hasEye) {
+            ctx.font = '600 ' + eyeSize + 'px Manrope';
+            ctx.fillStyle = C.ember;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.letterSpacing = '0.12em';
+            ctx.fillText(f.eyebrow.toUpperCase(), cx, y);
+            ctx.letterSpacing = '0px';
+            y += eyeSize + gap2;
+          }
+
+          if (showTitle) {
+            ctx.font = '700 ' + titleSize + 'px Manrope';
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            titleLines.forEach((line, i) => {
+              ctx.fillText(line, cx, y + i * titleSize * 1.25);
+            });
+            y += titleH;
+          }
+
+          if (hasSub) {
+            y += gap3;
+            ctx.font = '400 ' + subSize + 'px Manrope';
+            ctx.fillStyle = mutedColor;
+            ctx.fillText(f.subtitle, cx, y);
+          }
+          ctx.textAlign = 'left';
+        }
+      },
+
+      'story': {
+        label: 'Story (1080\u00d71920)',
+        width: 1080, height: 1920,
+        defaultTheme: 'dark', defaultGlow: true,
+        sizes: { logo: 36, eyebrow: 18, title: 72, subtitle: 32 },
+        fields: [
+          { id: 'eyebrow', label: 'Eyebrow', default: 'ALPHASMB', type: 'text' },
+          { id: 'title', label: 'Title', default: 'Transform Your Business with AI', type: 'text' },
+          { id: 'subtitle', label: 'Subtitle', default: 'Book a free strategy call', type: 'text' },
+        ],
+        render(ctx, w, h, f, opts) {
+          const isDark = opts.theme !== 'light';
+          const textColor = isDark ? C.white : C.charcoal;
+          const mutedColor = isDark ? C.stone : C.slate;
+          const pad = 80;
+          const cx = w * opts.position;
+          const maxW = w - pad * 2;
+          const v = f._visible;
+
+          const wmSize = f._sizes.logo;
+          const eyeSize = f._sizes.eyebrow;
+          const titleSize = f._sizes.title;
+          const subSize = f._sizes.subtitle;
+          const gap1 = 80;
+          const gap2 = 24;
+          const gap3 = 32;
+
+          const showLogo = v.logo !== false;
+          const hasEye = v.eyebrow !== false && f.eyebrow && f.eyebrow.trim();
+          const showTitle = v.title !== false;
+          const hasSub = v.subtitle !== false && f.subtitle && f.subtitle.trim();
+
+          ctx.font = '700 ' + titleSize + 'px Manrope';
+          const titleLines = showTitle ? wrapText(ctx, f.title || '', maxW) : [];
+          const titleH = titleLines.length * (titleSize * 1.2);
+
+          const wmH = showLogo ? wmSize * 1.15 : 0;
+          const eyeH = hasEye ? eyeSize + gap2 : 0;
+          const totalH = wmH + (showLogo ? gap1 : 0) + eyeH + titleH + (hasSub ? gap3 + subSize : 0);
+          let y = (h - totalH) / 2;
+
+          if (showLogo) {
+            drawWordmark(ctx, cx, y, wmSize, opts.theme, 'center', opts.shadow);
+            y += wmH + gap1;
+          }
+
+          if (hasEye) {
+            ctx.font = '600 ' + eyeSize + 'px Manrope';
+            ctx.fillStyle = C.ember;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.letterSpacing = '0.12em';
+            ctx.fillText(f.eyebrow.toUpperCase(), cx, y);
+            ctx.letterSpacing = '0px';
+            y += eyeSize + gap2;
+          }
+
+          if (showTitle) {
+            ctx.font = '700 ' + titleSize + 'px Manrope';
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            titleLines.forEach((line, i) => {
+              ctx.fillText(line, cx, y + i * titleSize * 1.2);
+            });
+            y += titleH;
+          }
+
+          if (hasSub) {
+            y += gap3;
+            ctx.font = '400 ' + subSize + 'px Manrope';
+            ctx.fillStyle = mutedColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText(f.subtitle, cx, y);
+          }
+          ctx.textAlign = 'left';
+        }
+      },
+
+      'profile-picture': {
+        label: 'Profile Picture (400\u00d7400)',
+        width: 400, height: 400,
+        defaultTheme: 'dark', defaultGlow: false,
+        sizes: { logo: 140 },
+        fields: [],
+        render(ctx, w, h, f, opts) {
+          if (f._visible.logo === false) return;
+          drawMark(ctx, w * opts.position, h / 2, f._sizes.logo, opts.theme, opts.shadow);
+        }
+      },
+
+      'favicon': {
+        label: 'Favicon',
+        width: 512, height: 512,
+        defaultTheme: 'dark', defaultGlow: false,
+        sizes: { logo: 450 },
+        fields: [
+          { id: 'dimension', label: 'Dimension', default: '512', type: 'select',
+            options: [
+              { value: '16', label: '16\u00d716' },
+              { value: '32', label: '32\u00d732' },
+              { value: '48', label: '48\u00d748' },
+              { value: '180', label: '180\u00d7180' },
+              { value: '192', label: '192\u00d7192' },
+              { value: '512', label: '512\u00d7512' },
+            ],
+            onchange(value) {
+              const dim = parseInt(value) || 512;
+              const el = document.getElementById('size-logo');
+              if (el) el.value = Math.round(dim * 0.88);
+            }
+          },
+        ],
+        getDimensions(fields) {
+          const dim = parseInt(fields.dimension) || 512;
+          return { width: dim, height: dim };
+        },
+        render(ctx, w, h, f, opts) {
+          if (f._visible.logo === false) return;
+          drawMark(ctx, w * opts.position, h / 2, f._sizes.logo, opts.theme, opts.shadow);
+        }
+      },
+
+      'wordmark': {
+        label: 'Wordmark Export',
+        width: 1200, height: 300,
+        defaultTheme: 'dark', defaultGlow: false,
+        sizes: { logo: 72 },
+        fields: [],
+        render(ctx, w, h, f, opts) {
+          if (f._visible.logo === false) return;
+          const fontSize = f._sizes.logo;
+          const dh = fontSize * 1.15;
+          const topY = (h - dh) / 2;
+          drawWordmark(ctx, w * opts.position, topY, fontSize, opts.theme, 'center', opts.shadow);
+        }
+      },
+
+      'mark': {
+        label: 'Mark Export ("Al")',
+        width: 512, height: 512,
+        defaultTheme: 'dark', defaultGlow: false,
+        sizes: { logo: 160 },
+        fields: [],
+        render(ctx, w, h, f, opts) {
+          if (f._visible.logo === false) return;
+          drawMark(ctx, w * opts.position, h / 2, f._sizes.logo, opts.theme, opts.shadow);
+        }
+      },
+    };
+
+    /* ── Core Render ── */
+    function render() {
+      const tmpl = TEMPLATES[currentTemplate];
+      const fields = getFieldValues();
+      let w = tmpl.width;
+      let h = tmpl.height;
+      if (tmpl.getDimensions) {
+        const d = tmpl.getDimensions(fields);
+        w = d.width;
+        h = d.height;
+        document.getElementById('dimensions').textContent = w + ' \u00d7 ' + h + 'px';
+      }
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      const theme = getTheme();
+      const glow = getGlow();
+      const position = getPosition();
+      const isTransparent = theme === 'transparent';
+
+      // Background
+      if (!isTransparent) {
+        ctx.fillStyle = theme === 'light' ? C.sand : C.charcoal;
+        ctx.fillRect(0, 0, w, h);
+        if (glow) drawEmberGlow(ctx, w, h, w * position, h * 0.5, undefined, getGlowOpacity());
+        drawNoise(ctx, w, h);
+      }
+
+      // Template content — for transparent, pass 'dark' as effective theme
+      const effectiveTheme = isTransparent ? 'dark' : theme;
+      const shadow = getShadow();
+      tmpl.render(ctx, w, h, fields, { theme: effectiveTheme, glow, position, shadow });
+
+      fitCanvas();
+      updateURL();
+    }
+
+    /* ── Canvas Display Scaling ── */
+    function fitCanvas() {
+      const container = document.getElementById('preview');
+      const maxW = container.clientWidth - 64;
+      const maxH = container.clientHeight - 64;
+      const cw = canvas.width;
+      const ch = canvas.height;
+      const scale = Math.min(maxW / cw, maxH / ch, 1);
+      canvas.style.width = (cw * scale) + 'px';
+      canvas.style.height = (ch * scale) + 'px';
+    }
+
+    /* ── Form Helpers ── */
+    function getFieldValues() {
+      const tmpl = TEMPLATES[currentTemplate];
+      const vals = {};
+      tmpl.fields.forEach(f => {
+        const el = document.getElementById('field-' + f.id);
+        if (el) vals[f.id] = el.value;
+      });
+      vals._sizes = {};
+      if (tmpl.sizes) {
+        for (const [key, def] of Object.entries(tmpl.sizes)) {
+          const el = document.getElementById('size-' + key);
+          vals._sizes[key] = el ? (parseInt(el.value, 10) || def) : def;
+        }
+      }
+      vals._visible = {};
+      // Logo visibility
+      const logoVis = document.getElementById('vis-logo');
+      vals._visible.logo = logoVis ? logoVis.checked : true;
+      // Field visibilities
+      tmpl.fields.forEach(f => {
+        const el = document.getElementById('vis-' + f.id);
+        vals._visible[f.id] = el ? el.checked : true;
+      });
+      return vals;
+    }
+
+    function getTheme() {
+      const el = document.querySelector('input[name="theme"]:checked');
+      return el ? el.value : 'dark';
+    }
+
+    function getGlow() {
+      return document.getElementById('glow-check').checked;
+    }
+
+    function defaultGlowOpacity() {
+      return getTheme() === 'light' ? 36 : 27;
+    }
+
+    function getGlowOpacity() {
+      const el = document.getElementById('glow-opacity');
+      return el ? (parseInt(el.value, 10) || defaultGlowOpacity()) / 100 : defaultGlowOpacity() / 100;
+    }
+
+    function getShadow() {
+      return document.getElementById('shadow-check').checked;
+    }
+
+    function getPosition() {
+      const el = document.querySelector('input[name="position"]:checked');
+      return el ? parseFloat(el.value) : 0.5;
+    }
+
+    function getFormat() {
+      const el = document.querySelector('input[name="format"]:checked');
+      return el ? el.value : 'png';
+    }
+
+    /* ── Size Stepper Helper ── */
+    function createStepper(id, defaultVal) {
+      const wrap = document.createElement('div');
+      wrap.className = 'size-stepper';
+
+      const dec = document.createElement('button');
+      dec.textContent = '\u2212';
+      dec.addEventListener('click', () => {
+        const inp = document.getElementById(id);
+        inp.value = Math.max(8, parseInt(inp.value, 10) - 1);
+        render();
+      });
+
+      const inp = document.createElement('input');
+      inp.type = 'number';
+      inp.id = id;
+      inp.value = defaultVal;
+      inp.min = 8;
+      inp.max = 300;
+      inp.addEventListener('input', debouncedRender);
+
+      const inc = document.createElement('button');
+      inc.textContent = '+';
+      inc.addEventListener('click', () => {
+        const inp = document.getElementById(id);
+        inp.value = Math.min(300, parseInt(inp.value, 10) + 1);
+        render();
+      });
+
+      const unit = document.createElement('span');
+      unit.className = 'size-unit';
+      unit.textContent = 'px';
+
+      wrap.appendChild(dec);
+      wrap.appendChild(inp);
+      wrap.appendChild(inc);
+      wrap.appendChild(unit);
+      return wrap;
+    }
+
+    /* ── UI Build ── */
+    function buildFields() {
+      const tmpl = TEMPLATES[currentTemplate];
+      const container = document.getElementById('dynamic-fields');
+      container.innerHTML = '';
+
+      // Logo size (standalone row if template has sizes.logo)
+      if (tmpl.sizes && tmpl.sizes.logo != null) {
+        const group = document.createElement('div');
+        group.className = 'field-group';
+        const row = document.createElement('div');
+        row.className = 'field-label-row';
+        const vis = document.createElement('div');
+        vis.className = 'vis-toggle';
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.id = 'vis-logo';
+        cb.checked = true;
+        cb.addEventListener('change', render);
+        const label = document.createElement('label');
+        label.textContent = 'Logo';
+        vis.appendChild(cb);
+        vis.appendChild(label);
+        row.appendChild(vis);
+        row.appendChild(createStepper('size-logo', tmpl.sizes.logo));
+        group.appendChild(row);
+        container.appendChild(group);
+      }
+
+      tmpl.fields.forEach(f => {
+        const group = document.createElement('div');
+        group.className = 'field-group';
+
+        // Label row with visibility toggle + optional size stepper
+        const row = document.createElement('div');
+        row.className = 'field-label-row';
+        const vis = document.createElement('div');
+        vis.className = 'vis-toggle';
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.id = 'vis-' + f.id;
+        cb.checked = true;
+        cb.addEventListener('change', render);
+        const label = document.createElement('label');
+        label.textContent = f.label;
+        label.setAttribute('for', 'field-' + f.id);
+        vis.appendChild(cb);
+        vis.appendChild(label);
+        row.appendChild(vis);
+        if (tmpl.sizes && tmpl.sizes[f.id] != null) {
+          row.appendChild(createStepper('size-' + f.id, tmpl.sizes[f.id]));
+        }
+        group.appendChild(row);
+
+        let input;
+        if (f.type === 'textarea') {
+          input = document.createElement('textarea');
+          input.rows = 3;
+          input.addEventListener('input', debouncedRender);
+        } else if (f.type === 'select') {
+          input = document.createElement('select');
+          f.options.forEach(opt => {
+            const o = document.createElement('option');
+            o.value = opt.value;
+            o.textContent = opt.label;
+            input.appendChild(o);
+          });
+          input.addEventListener('change', () => {
+            if (f.onchange) f.onchange(input.value);
+            render();
+          });
+        } else {
+          input = document.createElement('input');
+          input.type = 'text';
+          input.addEventListener('input', debouncedRender);
+        }
+        input.id = 'field-' + f.id;
+        input.value = f.default || '';
+        group.appendChild(input);
+
+        container.appendChild(group);
+      });
+
+      // Set defaults
+      const themeRadio = document.querySelector('input[name="theme"][value="' + tmpl.defaultTheme + '"]');
+      if (themeRadio) themeRadio.checked = true;
+      document.getElementById('glow-check').checked = tmpl.defaultGlow;
+      document.getElementById('glow-opacity').value = tmpl.defaultTheme === 'light' ? 36 : 27;
+
+      // Dimensions
+      document.getElementById('dimensions').textContent =
+        tmpl.width + ' \u00d7 ' + tmpl.height + 'px';
+    }
+
+    function buildTemplateSelect() {
+      const select = document.getElementById('template-select');
+      select.innerHTML = '';
+      for (const [id, tmpl] of Object.entries(TEMPLATES)) {
+        const opt = document.createElement('option');
+        opt.value = id;
+        opt.textContent = tmpl.label;
+        select.appendChild(opt);
+      }
+      select.value = currentTemplate;
+    }
+
+    /* ── URL Params ── */
+    function parseURLParams() {
+      const p = new URLSearchParams(window.location.search);
+
+      if (p.has('template') && TEMPLATES[p.get('template')]) {
+        currentTemplate = p.get('template');
+        document.getElementById('template-select').value = currentTemplate;
+      }
+
+      buildFields();
+
+      // Apply field values from URL
+      const tmpl = TEMPLATES[currentTemplate];
+      tmpl.fields.forEach(f => {
+        if (p.has(f.id)) {
+          const el = document.getElementById('field-' + f.id);
+          if (el) el.value = p.get(f.id);
+        }
+      });
+
+      // Apply sizes from URL
+      if (tmpl.sizes) {
+        for (const key of Object.keys(tmpl.sizes)) {
+          const param = key + '_size';
+          if (p.has(param)) {
+            const el = document.getElementById('size-' + key);
+            if (el) el.value = p.get(param);
+          }
+        }
+      }
+
+      if (p.has('theme')) {
+        const r = document.querySelector('input[name="theme"][value="' + p.get('theme') + '"]');
+        if (r) r.checked = true;
+      }
+      if (p.has('glow')) {
+        document.getElementById('glow-check').checked = p.get('glow') === 'true';
+      }
+      if (p.has('glow_opacity')) {
+        document.getElementById('glow-opacity').value = p.get('glow_opacity');
+      }
+      if (p.has('shadow')) {
+        document.getElementById('shadow-check').checked = p.get('shadow') === 'true';
+      }
+      if (p.has('position')) {
+        const r = document.querySelector('input[name="position"][value="' + p.get('position') + '"]');
+        if (r) r.checked = true;
+      }
+      if (p.has('format')) {
+        const r = document.querySelector('input[name="format"][value="' + p.get('format') + '"]');
+        if (r) r.checked = true;
+      }
+
+      render();
+
+      // Auto-download
+      if (p.get('download') === 'true') {
+        const fn = p.get('filename') || currentTemplate;
+        const fmt = p.get('format') || 'png';
+        setTimeout(() => doDownload(fn, fmt), 600);
+      }
+    }
+
+    function updateURL() {
+      const base = window.location.origin + window.location.pathname;
+      const p = new URLSearchParams();
+      p.set('template', currentTemplate);
+
+      const tmpl = TEMPLATES[currentTemplate];
+      tmpl.fields.forEach(f => {
+        const el = document.getElementById('field-' + f.id);
+        if (el && el.value && el.value !== f.default) {
+          p.set(f.id, el.value);
+        }
+      });
+
+      // Sizes
+      if (tmpl.sizes) {
+        for (const [key, def] of Object.entries(tmpl.sizes)) {
+          const el = document.getElementById('size-' + key);
+          const val = el ? parseInt(el.value, 10) : def;
+          if (val !== def) p.set(key + '_size', val);
+        }
+      }
+
+      const theme = getTheme();
+      if (theme !== tmpl.defaultTheme) p.set('theme', theme);
+
+      const glow = getGlow();
+      if (glow !== tmpl.defaultGlow) p.set('glow', String(glow));
+
+      const glowOpacity = parseInt(document.getElementById('glow-opacity').value, 10);
+      if (glowOpacity !== defaultGlowOpacity()) p.set('glow_opacity', glowOpacity);
+
+      const shadow = getShadow();
+      if (!shadow) p.set('shadow', 'false');
+
+      const position = getPosition();
+      if (position !== 0.5) p.set('position', String(position));
+
+      document.getElementById('url-display').value = base + '?' + p.toString();
+    }
+
+    /* ── Download ── */
+    function doDownload(filename, format) {
+      format = format || getFormat();
+      filename = filename || currentTemplate;
+      const mime = format === 'jpg' ? 'image/jpeg' : 'image/png';
+      const quality = format === 'jpg' ? 0.92 : undefined;
+      const ext = format === 'jpg' ? '.jpg' : '.png';
+
+      let exportCanvas = canvas;
+      if (format === 'jpg') {
+        exportCanvas = document.createElement('canvas');
+        exportCanvas.width = canvas.width;
+        exportCanvas.height = canvas.height;
+        const ectx = exportCanvas.getContext('2d');
+        ectx.fillStyle = '#FFFFFF';
+        ectx.fillRect(0, 0, canvas.width, canvas.height);
+        ectx.drawImage(canvas, 0, 0);
+      }
+
+      exportCanvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename + ext;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }, mime, quality);
+    }
+
+    /* ── Public API ── */
+    window.BrandGen = {
+      download(filename, format) {
+        doDownload(filename || currentTemplate, format || 'png');
+      },
+      getDataURL(format) {
+        format = format || 'png';
+        const mime = format === 'jpg' ? 'image/jpeg' : 'image/png';
+        if (format === 'jpg') {
+          const tmp = document.createElement('canvas');
+          tmp.width = canvas.width;
+          tmp.height = canvas.height;
+          const t = tmp.getContext('2d');
+          t.fillStyle = '#FFFFFF';
+          t.fillRect(0, 0, canvas.width, canvas.height);
+          t.drawImage(canvas, 0, 0);
+          return tmp.toDataURL(mime, 0.92);
+        }
+        return canvas.toDataURL(mime);
+      },
+      setField(fieldId, value) {
+        const el = document.getElementById('field-' + fieldId);
+        if (el) { el.value = value; render(); }
+      },
+      setTemplate(id) {
+        if (TEMPLATES[id]) {
+          currentTemplate = id;
+          document.getElementById('template-select').value = id;
+          buildFields();
+          render();
+        }
+      },
+      setTheme(theme) {
+        const r = document.querySelector('input[name="theme"][value="' + theme + '"]');
+        if (r) {
+          r.checked = true;
+          document.getElementById('glow-opacity').value = defaultGlowOpacity();
+          render();
+        }
+      },
+      setSize(key, value) {
+        const el = document.getElementById('size-' + key);
+        if (el) { el.value = value; render(); }
+      },
+      setPosition(value) {
+        const r = document.querySelector('input[name="position"][value="' + value + '"]');
+        if (r) { r.checked = true; render(); }
+      },
+      setGlowOpacity(percent) {
+        const el = document.getElementById('glow-opacity');
+        if (el) { el.value = Math.max(1, Math.min(50, percent)); render(); }
+      },
+      setShadow(on) {
+        document.getElementById('shadow-check').checked = !!on;
+        render();
+      },
+      render() { render(); },
+    };
+
+    /* ── Event Wiring ── */
+    const debouncedRender = debounce(render, 150);
+
+    document.getElementById('template-select').addEventListener('change', e => {
+      currentTemplate = e.target.value;
+      buildFields();
+      render();
+    });
+
+    document.querySelectorAll('input[name="theme"]').forEach(r => {
+      r.addEventListener('change', () => {
+        document.getElementById('glow-opacity').value = defaultGlowOpacity();
+        render();
+      });
+    });
+
+    document.getElementById('glow-check').addEventListener('change', render);
+    document.getElementById('shadow-check').addEventListener('change', render);
+
+    document.getElementById('glow-dec').addEventListener('click', () => {
+      const inp = document.getElementById('glow-opacity');
+      inp.value = Math.max(1, parseInt(inp.value, 10) - 1);
+      render();
+    });
+    document.getElementById('glow-inc').addEventListener('click', () => {
+      const inp = document.getElementById('glow-opacity');
+      inp.value = Math.min(50, parseInt(inp.value, 10) + 1);
+      render();
+    });
+    document.getElementById('glow-opacity').addEventListener('input', debouncedRender);
+
+    document.querySelectorAll('input[name="position"]').forEach(r => {
+      r.addEventListener('change', render);
+    });
+
+    document.querySelectorAll('input[name="format"]').forEach(r => {
+      r.addEventListener('change', () => updateURL());
+    });
+
+    document.getElementById('download-btn').addEventListener('click', () => {
+      doDownload();
+    });
+
+    document.getElementById('copy-url-btn').addEventListener('click', () => {
+      const input = document.getElementById('url-display');
+      navigator.clipboard.writeText(input.value).then(() => {
+        const btn = document.getElementById('copy-url-btn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+      });
+    });
+
+    window.addEventListener('resize', debounce(fitCanvas, 100));
+
+    /* ── Init ── */
+    buildTemplateSelect();
+
+    const imgReady = new Promise(resolve => {
+      const img = new Image();
+      img.src = '../graphics/AlphaSMB-full-tpbg.png';
+      img.onload = () => {
+        wordmarkImg = img;
+        // Crop "Al" portion (including underline) to an offscreen canvas
+        const crop = document.createElement('canvas');
+        crop.width = 119;  // x: 81→199
+        crop.height = 118; // y: 92→209
+        crop.getContext('2d').drawImage(img, 81, 92, 119, 118, 0, 0, 119, 118);
+        markImg = crop;
+        resolve();
+      };
+      img.onerror = () => resolve(); // graceful fallback: render without logo
+    });
+
+    Promise.all([document.fonts.ready, imgReady]).then(() => {
+      parseURLParams();
+    });
+  </script>
+</body>
+</html>
