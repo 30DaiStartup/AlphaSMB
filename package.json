@@ -1,0 +1,14 @@
+{
+  "name": "alphasmb",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AlphaSMB website and tools",
+  "scripts": {
+    "generate-pdf": "node scripts/generate-pdf.js"
+  },
+  "dependencies": {
+    "canvas": "^3.2.1",
+    "markdown-it": "^14.1.1",
+    "playwright": "^1.52.0"
+  }
+}
