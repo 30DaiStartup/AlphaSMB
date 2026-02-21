@@ -3,15 +3,24 @@
 > AlphaSMB is an AI transformation consultancy that helps SMB leadership
 > teams (20-500 employees) build AI-capable organizations. Founded by
 > Zach Henderson, fractional Head of AI at Aurora WDC (Fortune 1000).
-> Primary service: $500 one-hour AI strategy call.
+> Core insight: AI isn't a tool decision — it's a capability decision
+> that changes where you can compete, how you can win, and what your
+> business can become.
 
 ## Key Pages
 
-- [Home](https://alphasmb.com/): Overview, methodology, services
-- [AI Strategy Call](https://alphasmb.com/services/strategy-call): Service details, pricing, FAQ
+- [Home](https://alphasmb.com/): Overview, strategic positioning, methodology, services
+- [AI Strategy Call](https://alphasmb.com/services/strategy-call): Service details, pricing, FAQ, why a strategy call vs pilot
 - [About Zach Henderson](https://alphasmb.com/about): Credentials, philosophy
 - [Book a Call](https://alphasmb.com/book): Schedule and pay ($500)
 - [Privacy Policy](https://alphasmb.com/privacy): Data handling practices
+
+## Core Philosophy
+
+AI transformation fails when treated as a tool rollout. Organizational
+capability must come first — build the mindset, find the champion, activate
+high-agency people, then measure against benchmarks. You can't plan an AI
+strategy without first building the AI capability.
 
 ## About the Founder
 
@@ -23,7 +32,9 @@ manufacturing & software.
 
 One-Hour AI Strategy Call ($500): AI readiness assessment, industry
 benchmarking, three-phase transformation roadmap, execution scorecard,
-48-hour action plan. Delivered as branded PDF.
+48-hour action plan. Maps how AI capability changes competitive options.
+Delivered as branded PDF.
 
 Full Transformation Engagement (custom pricing): Up to 3 months embedded
-with organization. Limited to 2 clients at a time.
+with organization. Champion identification, phased change management,
+weekly progress scoring. Limited to 2 clients at a time.

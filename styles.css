@@ -373,6 +373,35 @@ img {
   background: var(--alpha-charcoal-light);
 }
 
+/* ── Section: Manifesto ── */
+.section--manifesto {
+  background: var(--alpha-charcoal);
+  border-top: 1px solid var(--alpha-slate);
+  border-bottom: 1px solid var(--alpha-slate);
+  padding: 140px 24px;
+}
+
+.manifesto__headline {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: var(--alpha-white);
+  line-height: 1.2;
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+.manifesto__body {
+  font-size: 18px;
+  color: var(--alpha-sand);
+  line-height: 1.8;
+  max-width: 640px;
+}
+
+.manifesto__body p + p {
+  margin-top: 20px;
+}
+
 .section__inner {
   max-width: 720px;
   margin: 0 auto;
@@ -417,6 +446,16 @@ img {
   font-size: 16px;
   color: var(--alpha-sand);
   line-height: 1.7;
+}
+
+/* Strategy bridge paragraph */
+.strategy-bridge {
+  font-size: 17px;
+  font-style: italic;
+  color: var(--alpha-sand);
+  line-height: 1.7;
+  border-left: 4px solid var(--alpha-ember);
+  padding-left: 20px;
 }
 
 /* ── Section: Service Cards ── */
@@ -1279,6 +1318,19 @@ img {
   /* Content page */
   .content-page h1 {
     font-size: 28px;
+  }
+
+  /* Manifesto */
+  .section--manifesto {
+    padding: 100px 24px;
+  }
+
+  .manifesto__headline {
+    font-size: 26px;
+  }
+
+  .manifesto__body {
+    font-size: 16px;
   }
 
   /* Steps */

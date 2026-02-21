@@ -9,7 +9,7 @@ Layout and visual treatment for each section across all pages. See `copy.md` for
 - Background: `rgba(28, 25, 23, 0.95)` + `backdrop-filter: blur(10px)`
 - Border-bottom: `1px solid rgba(68, 64, 60, 0.3)`
 - Inner: max-width 1120px, height 64px, flex space-between
-- Left: nav wordmark — Sora 700, 22px, "Al" ember + "phaSMB" white
+- Left: nav wordmark — Manrope 700, 22px, "Al" ember + "phaSMB" white
 - Right: links (15px, sand) + CTA button (ember bg, 8px 20px padding, 6px radius)
 - Active link: `aria-current="page"` → ember color
 - Mobile (≤768px): hamburger toggle, slide-down menu
@@ -29,8 +29,8 @@ Layout and visual treatment for each section across all pages. See `copy.md` for
 - **Logo image:** 340px desktop, 240px mobile
   - `::before` radial gradient halo (sand @ 13% opacity)
   - Drop-shadow chain + ember glow pulse animation (2s, 0.4s delay)
-- **Eyebrow:** Sora 600, 13px, stone, uppercase, letter-spacing 0.12em, margin-top 24px
-- **Headline:** Sora 700, 42px desktop / 28px mobile, white, line-height 1.2
+- **Eyebrow:** Manrope 600, 13px, stone, uppercase, letter-spacing 0.12em, margin-top 24px
+- **Headline:** Manrope 700, 42px desktop / 28px mobile, white, line-height 1.2
 - **Subheadline:** 18px / 16px mobile, sand, line-height 1.6
 - **CTA button:** btn--primary btn--large → 16px 40px padding
 - **Credential bar:** 14px / 13px mobile, stone, line-height 1.5
@@ -40,9 +40,17 @@ Layout and visual treatment for each section across all pages. See `copy.md` for
 ### Problem (charcoal-light bg)
 - Max-width 720px, padding 120px / 80px mobile
 - Three blocks with 4px ember left-border, 20px left padding
-- Lead: Sora 600, 18px, white
+- Lead: Manrope 600, 18px, white
 - Body: 16px, sand, line-height 1.7
 - Scroll reveal with stagger (0ms / 150ms / 300ms)
+
+### Strategy Manifesto (charcoal bg, slate borders top/bottom)
+- Padding: 140px / 100px mobile
+- Max-width 720px (section__inner)
+- Headline: Manrope 700, 36px / 26px mobile, white, max-width 640px
+- Body: 18px / 16px mobile, sand, line-height 1.8, paragraph spacing 20px, max-width 640px
+- No CTA — pure positioning moment
+- Uses `.reveal` for scroll animation
 
 ### What You Get (charcoal bg)
 - Max-width 960px
@@ -50,7 +58,7 @@ Layout and visual treatment for each section across all pages. See `copy.md` for
 - Two-column card grid (stack on mobile)
 - Cards: charcoal-light bg, 1px slate border, 8px radius, 32px padding
 - Card hover: ember border-color
-- Price: Sora 700, 28px, ember
+- Price: Manrope 700, 28px, ember
 - List items: 15px with ember checkmark
 - CTA buttons: primary (strategy) or outline (transformation)
 
@@ -62,14 +70,14 @@ Layout and visual treatment for each section across all pages. See `copy.md` for
 
 ### Methodology (charcoal bg)
 - Four numbered steps, flex layout (number + content)
-- Numbers: Sora 700, 48px / 36px mobile, ember
-- Title: Sora 600, 20px, white
+- Numbers: Manrope 700, 48px / 36px mobile, ember
+- Title: Manrope 600, 20px, white
 - Body: 16px, sand, line-height 1.6
 - Stagger: 0ms / 150ms / 300ms / 450ms
 
 ### Bottom CTA (charcoal-light bg)
 - Centered, max-width 720px, padding 120px / 80px mobile
-- Headline: Sora 700, 48px / 32px mobile, gradient text white→ember (135deg)
+- Headline: Manrope 700, 48px / 32px mobile, gradient text white→ember (135deg)
 - Subtext: 18px, sand, margin-bottom 32px
 - CTA: btn--primary btn--large
 
@@ -85,12 +93,22 @@ Layout and visual treatment for each section across all pages. See `copy.md` for
 ### Time Blocks
 - 4-column grid (2-col tablet, 1-col phone)
 - Each: charcoal-light bg, 1px slate border, 8px radius, centered text
-- Time: Sora 700, 20px, ember
-- Label: Sora 600, 15px, white
+- Time: Manrope 700, 20px, ember
+- Label: Manrope 600, 15px, white
 
 ### Deliverables
 - Checklist with ember checkmarks (18px, 700 weight)
 - Items: 16px, sand, line-height 1.6
+- **Strategy bridge** between deliverables summary and checklist: 17px italic, ember left-border (4px), 20px left padding, 32px vertical margin
+
+### Why a Strategy Call (charcoal-light bg)
+- Placed between "Is this right for you?" and FAQ
+- Max-width 720px
+- Headline: section-headline (Manrope 600, 30px)
+- Body: philosophy-text style (17px, sand, line-height 1.7)
+- Emphasis closing line in bold white
+- CTA: btn--primary btn--large → /book
+- Margin-top 40px on CTA wrapper
 
 ### Who For / Not For
 - Two-column grid (stack mobile)
@@ -99,7 +117,7 @@ Layout and visual treatment for each section across all pages. See `copy.md` for
 
 ### FAQ Accordion
 - Items separated by 1px slate border
-- Question: Sora 600, 16px, white, full-width button
+- Question: Manrope 600, 16px, white, full-width button
 - "+" icon: 24px, ember, rotates 45° when open
 - Answer: max-height transition (0.3s), 15px sand text
 
