@@ -32,11 +32,11 @@ The website primarily serves Stage 1 (getting bookings and building credibility)
 - **Healthcare IT / SMB practices** — Epic background + healthcare consulting experience. Positioned around "safe speed of adoption" within regulatory guardrails. Strongest pain-point severity, clearest product pipeline.
 - **Real estate** — Decades of investing and operational experience. Warmest network, fastest referral velocity. Transaction coordination, market analysis, property management workflows.
 
-Cross-industry credibility narrative: *"I run AI strategy for Aurora WDC, a human intelligence agency serving the Fortune 1000, and I've built and operated businesses across healthcare, real estate, manufacturing, and software. I'm not a tech consultant who knows AI — I'm a business operator at the cutting edge of AI."*
+Cross-industry credibility narrative: *"I lead AI transformation inside Aurora WDC, a human intelligence agency that serves Fortune 1000 clients, and I've built and operated businesses across healthcare, real estate, manufacturing, and software. I'm not a tech consultant who knows AI — I'm a business operator at the cutting edge of AI."*
 
 ### The Credential Stack
 
-- Fractional Head of AI, Aurora WDC — human intelligence agency serving the Fortune 1000 (current role)
+- Fractional Head of AI, Aurora WDC — leading AI transformation inside a human intelligence agency that serves Fortune 1000 clients (current role)
 - Early career at Epic + years in healthcare IT consulting
 - Decades of real estate investing across complex deal structures
 - Industrial engineering background
@@ -124,7 +124,7 @@ Links to /book or embedded scheduler.
 
 **Credential bar** (immediately below CTA, single line):
 ```
-Fractional Head of AI at Aurora WDC, a human intelligence agency serving the Fortune 1000 · Epic Systems · 20+ years across healthcare, real estate, manufacturing & software
+Fractional Head of AI at Aurora WDC — leading AI transformation inside a human intelligence agency that serves Fortune 1000 clients · Epic Systems · 20+ years across healthcare, real estate, manufacturing & software
 ```
 This is the trust signal. It's not a bio — it's a credibility punch in one line. "Current" and "named company" make it verifiable. "Fractional" signals availability.
 
@@ -203,7 +203,7 @@ This section starts empty and fills as testimonials accumulate from one-hour cal
 **Before testimonials exist**, this section can display the credential narrative instead:
 
 ```
-"I currently run AI strategy for Aurora WDC, a human intelligence agency serving the Fortune 1000. I've built and operated businesses across healthcare, real estate, manufacturing, and software. I don't just know AI — I know the operations, the politics, and the resistance that come with changing how an organization works."
+"I lead AI transformation inside Aurora WDC, a human intelligence agency that serves Fortune 1000 clients. I've built and operated businesses across healthcare, real estate, manufacturing, and software. I don't just know AI — I know the operations, the politics, and the resistance that come with changing how an organization works."
 ```
 
 #### The Methodology (Brief)
@@ -314,13 +314,13 @@ Social: LinkedIn icon (link to your profile)
 
 1. **The short version** (above the fold):
 ```
-I'm Zach Henderson. I currently serve as the fractional Head of AI for Aurora WDC, a human intelligence agency that provides strategic intel to the Fortune 1000. Before that, my career has spanned Epic Systems, healthcare IT consulting, decades of real estate investing, industrial engineering, and building product companies from scratch.
+I'm Zach Henderson. I lead AI transformation inside Aurora WDC, a human intelligence agency that serves Fortune 1000 clients. I focus on internal tooling, process automation, and integrating AI features into the products their clients use. Before that, my career has spanned Epic Systems, healthcare IT consulting, decades of real estate investing, industrial engineering, and building product companies from scratch.
 
-I started AlphaSMB because I watched too many capable businesses get left behind — not because they lacked resources, but because nobody showed them how to build an organization that could adapt. I bring the same AI transformation methodology I run at the Fortune 1000 level and translate it for SMB leadership teams who want to punch above their weight class.
+I started AlphaSMB because I watched too many capable businesses get left behind — not because they lacked resources, but because nobody showed them how to build an organization that could adapt. I bring the same methodology I built inside Aurora WDC and translate it for SMB leadership teams who want to punch above their weight class.
 ```
 
 2. **The credentials** (a clean, scannable list — NOT a resume):
-   - Fractional Head of AI, Aurora WDC — human intelligence agency serving the Fortune 1000 (current)
+   - Fractional Head of AI, Aurora WDC — leading AI transformation inside a human intelligence agency that serves Fortune 1000 clients (current)
    - Epic Systems + healthcare IT consulting
    - 20+ years in real estate investing (residential, commercial, complex deal structures)
    - Industrial engineering background
@@ -331,7 +331,7 @@ I started AlphaSMB because I watched too many capable businesses get left behind
 ```
 Most AI consultants sell you tools. I build the culture that actually uses them.
 
-Transformation doesn't start with a software purchase. It starts with a mindset shift at the leadership level, then finding the one person your organization already listens to and turning them into a catalyst. From there, it compounds — high-agency people self-identify, problems surface from the bottom up, and the organization builds a capability that outlasts any individual tool or engagement. I run this same methodology at the Fortune 1000 level. AlphaSMB is how I bring it to the businesses that need it most.
+Transformation doesn't start with a software purchase. It starts with a mindset shift at the leadership level, then finding the one person your organization already listens to and turning them into a catalyst. From there, it compounds — high-agency people self-identify, problems surface from the bottom up, and the organization builds a capability that outlasts any individual tool or engagement. I built this methodology inside Aurora WDC. AlphaSMB is how I bring it to the businesses that need it most.
 ```
 
 4. **Photo** — `headshot.jpg` from the graphics directory. Professional but approachable. Position prominently on the about page — this is where SMB leaders decide "I want to talk to this person."
@@ -398,7 +398,7 @@ Each industry page should have its own booking CTA and can be the target of indu
 
 Carry forward the v3 brand identity:
 - **Palette:** ember + charcoal + sand + stone (see Coming-Soon-Spec-v3 CSS variables)
-- **Typography:** Sora 400/600/700 from Google Fonts
+- **Typography:** Manrope 400/600/700 from Google Fonts
 - **Wordmark:** HTML/CSS "Al" in ember with white/charcoal underline (context-dependent)
 - **Accent treatment:** ember left-borders on lists, ember CTAs, ember focus states
 
@@ -449,7 +449,7 @@ All website copy should follow these principles:
 **Do:**
 - Write like a peer, not a vendor
 - Use "I" not "we" — this is a personal-brand consultancy, not a faceless firm
-- Be specific over generic: "I've led AI transformation inside a Fortune 1000 intelligence firm" > "I have extensive experience in AI"
+- Be specific over generic: "I lead AI transformation inside a human intelligence agency that serves Fortune 1000 clients" > "I have extensive experience in AI"
 - Name the pain before you name the solution
 - Use the client's language: "your best people are buried in work that doesn't move the needle" > "optimize resource allocation"
 - Let the credentials speak through context, not claims: show what you've done, don't just assert you're qualified

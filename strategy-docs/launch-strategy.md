@@ -85,7 +85,7 @@ The goal of launch week is simple: get the word out to your warm network and boo
 **LinkedIn Post #1: The origin story**
 
 This is your "why I started this" post. It should hit these beats:
-1. What you've seen doing AI work at the Fortune 1000 level
+1. What you've seen leading AI transformation inside Aurora WDC
 2. The gap you noticed -- SMBs can't access this kind of strategic thinking
 3. What AlphaSMB is and what problem it solves
 4. The offer ($500 strategy call, what they walk away with)
@@ -111,7 +111,7 @@ Send to your personal/professional contact list. Keep it short:
 >
 > Quick note to let you know I launched AlphaSMB -- an AI transformation consultancy for SMBs.
 >
-> The short version: I've been running AI strategy for Fortune 1000 companies at Aurora WDC. I kept seeing the same problem -- SMBs that know they need to move on AI but don't have access to the strategic thinking that makes it work. So I built a service that gives them exactly that.
+> The short version: I've been leading AI transformation inside Aurora WDC — a human intelligence agency that serves the Fortune 1000. I kept seeing the same problem -- SMBs that know they need to move on AI but don't have access to the strategic thinking that makes it work. So I built a service that gives them exactly that.
 >
 > The primary offering is a one-hour AI strategy call ($500) where I do an AI readiness assessment, build a transformation roadmap, and deliver a 48-hour action plan they can start executing immediately.
 >
@@ -142,7 +142,7 @@ Send to your personal/professional contact list. Keep it short:
 A value-first post that teaches something. Pick one element of your framework and go deep:
 - "Why giving everyone ChatGPT licenses doesn't work (and what to do instead)"
 - Or: "The one role every SMB needs to fill before they can adopt AI"
-- Or: "What I learned running AI transformation at the Fortune 1000 that applies to every 50-person company"
+- Or: "What I learned leading AI transformation inside a real operating company that applies to every 50-person company"
 
 End with a soft CTA: "If this resonates and you want to talk through what it looks like for your organization, the link is in my profile."
 
@@ -170,7 +170,7 @@ If you've had any calls by now, share a (anonymized) insight:
 - Or share a specific takeaway or framework element that resonated with callers
 
 If no calls yet, share a relevant observation from your Aurora WDC work:
-- "Something I see at every company I work with, from 50 employees to Fortune 1000..."
+- "Something I see at every company, whether it's 50 employees or 500..."
 
 **Personal outreach: Remaining Tier 3 contacts (10 DMs)**
 
@@ -200,7 +200,7 @@ If no calls yet, share a relevant observation from your Aurora WDC work:
 
 **Tier 1 -- Close contacts (the ones who would book or refer)**
 
-> Hey [name] -- wanted to give you a heads up on something I just launched. I started AlphaSMB, an AI transformation consultancy for SMBs. Been doing this work at the Fortune 1000 level at Aurora WDC and kept seeing smaller companies get left behind because they don't have access to the same strategic thinking.
+> Hey [name] -- wanted to give you a heads up on something I just launched. I started AlphaSMB, an AI transformation consultancy for SMBs. Been leading AI transformation inside Aurora WDC — a company that serves the Fortune 1000 — and kept seeing smaller companies get left behind because they don't have access to the same strategic thinking.
 >
 > The core offering is a one-hour strategy call ($500) where I assess their AI readiness, build a roadmap, and give them a 48-hour action plan.
 >
@@ -424,7 +424,7 @@ If the people booking calls aren't the target (solopreneurs, people wanting tool
 
 If another AI consultant launches something similar or you start seeing competitive pressure:
 
-- **Double down on what's unique.** No one else has your specific combination of Fortune 1000 AI leadership (current, verifiable at Aurora WDC) + 20 years of cross-industry operating experience + SMB-accessible pricing.
+- **Double down on what's unique.** No one else has your specific combination of leading AI transformation inside a real operating company (current, verifiable at Aurora WDC) + 20 years of cross-industry operating experience + SMB-accessible pricing.
 - **Don't engage with competitors publicly.** Never mention them by name. Focus on your own positioning.
 - **Speed matters.** The first mover with real testimonials and a visible track record wins in local/niche consulting. Get those first 10 testimonials as fast as possible.
 
@@ -481,7 +481,7 @@ Suggested posting rhythm: 2-3 posts per week. Mix of formats to keep your audien
 ### Content Themes That Work for This Positioning
 
 - **"Everyone has the same tools" posts** -- variations on why AI adoption is an organizational capability, not a software purchase
-- **"What I see at the Fortune 1000 vs. SMBs" posts** -- your unique vantage point is seeing both worlds
+- **"What I see inside a real operating company vs. the SMBs I advise" posts** -- your unique vantage point is doing the work AND advising on it
 - **"Here's what actually happened" posts** -- real (anonymized) stories from strategy calls
 - **Contrarian takes** -- "Stop buying AI tools" / "Your AI pilot program is wasting money" / "The problem with AI training"
 - **Framework breakdowns** -- teach one piece of the mindset-champion-activation-measurement framework per post

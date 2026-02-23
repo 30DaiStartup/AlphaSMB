@@ -86,7 +86,7 @@ Reuse these exact phrases:
 
 - "AI-capable organizations, not just AI-equipped employees"
 - "The gap isn't about tools. It's about your organization."
-- "Fortune 1000 methodology at SMB prices"
+- "Methodology built inside a real company, translated for SMBs"
 
 ---
 """

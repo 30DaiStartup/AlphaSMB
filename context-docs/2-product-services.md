@@ -40,7 +40,7 @@ Key stat: 80% of employees stop using AI tools within 30 days of rollout when th
 
 - Not a sales pitch — the deliverable stands on its own
 - Can be expensed under professional development or strategic consulting
-- Same methodology used at Fortune 1000 level, translated for SMBs
+- Same methodology built inside Aurora WDC (an SMB serving Fortune 1000 clients), translated for other SMBs
 - Invoice provided after booking
 
 ---

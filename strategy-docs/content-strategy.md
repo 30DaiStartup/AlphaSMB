@@ -152,14 +152,14 @@ Specific post ideas organized by pillar. Each can be adapted into multiple forma
     Framework. Month 1: your competitor starts building AI capability. Month 3: they've found 2-3 workflows that save 10+ hours/week. Month 6: those workflows are embedded in how they operate. Month 12: they've built institutional AI knowledge you can't replicate by just buying the same tools. The gap isn't the tools. It's the 12 months of learning they have that you don't.
 
 12. **"The $500 question every SMB leader should be asking right now"**
-    Story. Frame the strategy call as the specific, low-risk first step. "I talk to SMB leaders every week who've been 'thinking about AI' for 6-12 months. Thinking isn't a strategy. A strategy is what you have after one focused hour with someone who's done this at the Fortune 1000 level."
+    Story. Frame the strategy call as the specific, low-risk first step. "I talk to SMB leaders every week who've been 'thinking about AI' for 6-12 months. Thinking isn't a strategy. A strategy is what you have after one focused hour with someone who's doing this inside a real company right now."
 
 13. **"You don't need a $50K consulting engagement to start"**
     Hot take. The big consulting firms have convinced everyone that AI transformation requires a six-figure engagement and a six-month timeline. It doesn't. You need clarity on where you stand, a plan for where to go, and a first step you can take this week. That's an hour of focused work, not a quarter of handholding.
 
 ### Bonus: Cross-pillar / brand-building
 
-14. **"I run AI strategy for a Fortune 1000 company. Here's why I started working with SMBs."**
+14. **"I lead AI transformation inside a real operating company. Here's why I started working with SMBs."**
     Story. Origin post. The methodology works. It shouldn't be locked behind enterprise budgets. SMBs can actually move faster because they have less bureaucracy. This is the work I find most meaningful — helping capable businesses stop getting left behind.
 
 15. **"What 'anti-consultant' actually means"**
@@ -195,7 +195,7 @@ Book page (Cal.com embed, $500 Stripe payment)
 
 **The LinkedIn profile** is the conversion bridge. It must clearly communicate:
 - What Zach does (headline: something like "Fractional Head of AI | I help SMB leaders build AI-capable organizations")
-- Why he's credible (Aurora WDC, Fortune 1000, 20+ years)
+- Why he's credible (Aurora WDC, leading AI transformation inside a real operating company, 20+ years)
 - What the next step is (Featured section: link to alphasmb.com/services/strategy-call with a brief description)
 - The profile "About" section should read like a condensed version of the AlphaSMB about page — first person, direct, credential-dense but not braggy
 

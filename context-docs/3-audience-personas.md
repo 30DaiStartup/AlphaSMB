@@ -11,7 +11,7 @@
 
 **Cares about:** Competitive position, ROI, not wasting money on another failed initiative
 **Challenge:** Doesn't know where to start, worried about picking the wrong approach, has seen other tech initiatives fail
-**Value we promise:** A clear plan you can start executing this week, built by someone who's done this at the Fortune 1000 level
+**Value we promise:** A clear plan you can start executing this week, built by someone who's doing this inside a real company right now
 
 **What they say:**
 - "We bought ChatGPT licenses but nobody's using them"

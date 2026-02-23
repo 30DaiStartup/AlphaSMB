@@ -26,7 +26,7 @@
 ## Personas
 | Persona | Cares about | Challenge | Value we promise |
 |---------|-------------|-----------|------------------|
-| CEO/Founder (Decision Maker + Financial Buyer) | Competitive position, ROI, not wasting money on another failed initiative | Doesn't know where to start, worried about picking the wrong approach, has seen other tech initiatives fail | A clear plan you can start executing this week, built by someone who's done this at the Fortune 1000 level |
+| CEO/Founder (Decision Maker + Financial Buyer) | Competitive position, ROI, not wasting money on another failed initiative | Doesn't know where to start, worried about picking the wrong approach, has seen other tech initiatives fail | A clear plan you can start executing this week, built by someone who's doing this inside a real company right now |
 | COO/VP Ops (Champion) | Operational efficiency, team adoption, practical implementation | Knows AI could help but can't get the organization to change, tools sit unused | A transformation methodology that actually gets people to change behavior, not just another tool rollout |
 | IT/Tech Lead (Technical Influencer) | Tool selection, integration, security, practical concerns | Gets asked to "implement AI" without organizational support or clear direction | A strategic framework that gives technical work organizational backing and clear priorities |
 
@@ -42,20 +42,20 @@
 **Emotional tension:** Fear of being left behind. Frustration that they've spent money on AI tools with nothing to show for it. Doubt about whether they're big enough or sophisticated enough to "do AI." Overwhelm at the pace of change and the number of options.
 
 ## Competitive Landscape
-**Direct:** Other AI transformation consultants / fractional AI leaders — most are either (a) too enterprise-focused and expensive, or (b) tool-focused implementers who don't address organizational change. AlphaSMB uniquely combines Fortune 1000 methodology with SMB accessibility and pricing.
+**Direct:** Other AI transformation consultants / fractional AI leaders — most are either (a) too enterprise-focused and expensive, or (b) tool-focused implementers who don't address organizational change. AlphaSMB uniquely combines a methodology built inside a real operating company (Aurora WDC) with SMB accessibility and pricing.
 **Secondary:** AI tool vendors (Microsoft Copilot rollouts, ChatGPT Team plans) — they sell subscriptions and basic training but don't address the mindset, culture, and organizational capability gaps that determine whether tools actually get used.
 **Indirect:** Doing nothing / figuring it out internally — the default for most SMBs. Fails because AI transformation requires expertise in organizational change management that most SMBs don't have in-house. Trial and error is too slow when the competitive window is closing.
 
 ## Differentiation
 **Key differentiators:**
-- Fortune 1000 methodology (same playbook run at Aurora WDC) translated for SMB budgets and team sizes
+- Methodology built inside Aurora WDC (an SMB that serves Fortune 1000 clients) translated for other SMB budgets and team sizes
 - Organizational transformation focus, not tool implementation — "I build the culture that actually uses the tools"
 - Anti-consultant positioning — an operator who's been in the fire, not a vendor with a slide deck
 - Proven framework: mindset first → find the champion → activate high-agency people → measure against benchmarks
 - Skin in the game: limited to 2 anchor clients at a time (real scarcity, not artificial)
 **How we do it differently:** Start with leadership mindset, not technology. Identify the internal champion the organization already listens to. Activate high-agency employees to lead from within. Measure weekly against industry benchmarks.
 **Why that's better:** Organizations that change their culture sustain AI adoption. Organizations that just buy tools see 80% drop-off in 30 days. The methodology outlasts the engagement.
-**Why customers choose us:** Credibility (current Fortune 1000 AI leadership role), practical experience (20+ years across multiple industries as an operator, not a consultant), accessible pricing ($500 entry point vs. $50K+ for traditional consulting), and a deliverable that stands on its own (you can execute the plan independently).
+**Why customers choose us:** Credibility (currently leading AI transformation inside a real operating company), practical experience (20+ years across multiple industries as an operator, not a consultant), accessible pricing ($500 entry point vs. $50K+ for traditional consulting), and a deliverable that stands on its own (you can execute the plan independently).
 
 ## Objections
 | Objection | Response |
@@ -68,7 +68,7 @@
 
 ## Switching Dynamics
 **Push:** Wasted money on AI tool subscriptions nobody uses. Watching competitors adopt AI faster. Board/investor pressure to have an AI strategy. Fear of irrelevance. Failed internal attempts at AI adoption.
-**Pull:** A clear, actionable plan from someone who's done this at the Fortune 1000 level. Low-risk entry point ($500 strategy call, not a $50K engagement). Proven methodology with specific framework and deliverables. Credibility of current Fortune 1000 AI leadership role.
+**Pull:** A clear, actionable plan from someone who's doing this inside a real company right now. Low-risk entry point ($500 strategy call, not a $50K engagement). Proven methodology with specific framework and deliverables. Credibility of currently leading AI transformation at Aurora WDC.
 **Habit:** "We'll figure it out ourselves eventually." Comfort with current tools and processes. Reluctance to admit they need outside help. Inertia of existing workflows.
 **Anxiety:** "What if this is just another consultant who takes our money and leaves us with a generic deck?" "What if our team resists?" "What if we're too far behind to catch up?" "Is $500 worth it for just one hour?"
 
@@ -103,14 +103,14 @@
 ## Proof Points
 **Metrics:** (Accumulating — early stage)
 - 20+ years of cross-industry operational experience
-- Fortune 1000 AI strategy leadership (current, verifiable)
-**Customers:** Aurora WDC (current fractional Head of AI role — Fortune 1000 client base)
+- Leading AI transformation inside Aurora WDC (current, verifiable)
+**Customers:** Aurora WDC (current fractional Head of AI role — SMB that serves Fortune 1000 clients)
 **Testimonials:** (Collecting — post-launch)
 > Placeholder for first client testimonials from strategy calls
 **Value themes:**
 | Theme | Proof |
 |-------|-------|
-| Fortune 1000 methodology at SMB prices | Current Head of AI role at Aurora WDC, $500 entry point |
+| Methodology built inside a real company, translated for SMBs | Current Head of AI role at Aurora WDC (SMB serving F1000), $500 entry point |
 | Operator, not consultant | Epic Systems, healthcare IT, 20+ years real estate investing, built product companies |
 | Organizational transformation, not tool implementation | Methodology: mindset → champion → high-agency activation → measurement |
 | Cross-industry credibility | Healthcare, real estate, manufacturing, software, professional services |

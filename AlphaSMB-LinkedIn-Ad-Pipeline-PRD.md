@@ -140,7 +140,7 @@ The generator MUST follow these rules from the brand voice doc. Validate every g
 **Approved key phrases to weave in:**
 
 - "AI-capable organizations, not just AI-equipped employees"
-- "Fortune 1000 methodology at SMB prices"
+- "Methodology tested inside a real operating company — translated for SMBs"
 - "Tools without culture change is just an expensive experiment"
 - "An operator who's been in the fire, not a vendor with a slide deck"
 - "Organizational capability, not a software purchase"

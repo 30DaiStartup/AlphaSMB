@@ -24,7 +24,7 @@ All copy across the site. Use exactly as written.
 - **Headline:** Your competitors aren't waiting. Neither should you.
 - **Subheadline:** I help SMB leadership teams build AI-capable organizations — not just AI-equipped employees — so they can compete with anyone regardless of budget or headcount.
 - **CTA:** Book a Strategy Call — $500
-- **Credential bar:** Fractional Head of AI at Aurora WDC, a human intelligence agency serving the Fortune 1000 · Epic Systems · 20+ years across healthcare, real estate, manufacturing & software
+- **Credential bar:** Fractional Head of AI at Aurora WDC — leading AI transformation inside a human intelligence agency that serves Fortune 1000 clients · Epic Systems · 20+ years across healthcare, real estate, manufacturing & software
 
 ### Problem Section
 
@@ -54,7 +54,7 @@ All copy across the site. Use exactly as written.
 ### Social Proof
 
 - **Headline:** What leaders are saying
-- **Quote:** "I currently run AI strategy for Aurora WDC, a human intelligence agency serving the Fortune 1000. I've built and operated businesses across healthcare, real estate, manufacturing, and software. I don't just know AI — I know the operations, the politics, and the resistance that come with changing how an organization works."
+- **Quote:** "I lead AI transformation inside Aurora WDC, a human intelligence agency that serves Fortune 1000 clients. I've built and operated businesses across healthcare, real estate, manufacturing, and software. I don't just know AI — I know the operations, the politics, and the resistance that come with changing how an organization works."
 - **Attribution:** — Zach Henderson, Founder of AlphaSMB
 
 ### Methodology
@@ -80,7 +80,7 @@ All copy across the site. Use exactly as written.
 - **Price:** $500
 - **Description:** A focused, high-intensity session for SMB leaders who know they need to move on AI but want a clear plan before they do.
 - **CTA:** Book Your Call — $500
-- **Trust line:** Fractional Head of AI at Aurora WDC, serving the Fortune 1000 · Epic Systems · 20+ years across healthcare, real estate, manufacturing & software
+- **Trust line:** Fractional Head of AI at Aurora WDC — leading AI transformation inside a human intelligence agency that serves Fortune 1000 clients · Epic Systems · 20+ years across healthcare, real estate, manufacturing & software
 
 ### Time Blocks
 - 15 min — Deep Dive (current state, operations, tools, team dynamics, competitive landscape)

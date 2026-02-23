@@ -78,7 +78,7 @@ I built something.
 
 It took 20 years of operating businesses — healthcare IT, real estate, manufacturing, software — to be ready to build this.
 
-For the past year, I've been running AI strategy at the Fortune 1000 level as the fractional Head of AI at Aurora WDC. What I kept seeing was this:
+For the past year, I've been leading AI transformation inside Aurora WDC — a human intelligence agency that serves the Fortune 1000. What I kept seeing was this:
 
 The methodology works. The framework is proven. But it's only available to companies with six-figure consulting budgets.
 
@@ -90,7 +90,7 @@ So I built AlphaSMB.
 
 It's an AI transformation consultancy designed specifically for SMB leadership teams. Not a SaaS platform. Not a course. Not a vendor who shows up with a slide deck and leaves you with a generic playbook.
 
-It's the same methodology I run at the Fortune 1000 level — translated for the budgets, team sizes, and decision speed of smaller businesses.
+It's the same methodology I built leading AI transformation inside a real operating company — translated for the budgets, team sizes, and decision speed of smaller businesses.
 
 The site is live. The calendar is open.
 
@@ -158,7 +158,7 @@ The best tool in the world fails if the culture won't adopt it. The worst proces
 
 When AI hit an inflection point, I realized everything I'd spent two decades learning was suddenly the thing that mattered most — how organizations actually change. Not the theory. The real, messy, political, human reality of it.
 
-Now I run AI strategy at the Fortune 1000 level as the fractional Head of AI at Aurora WDC. And I started AlphaSMB to bring that same methodology to the businesses that can't afford McKinsey but shouldn't have to figure this out alone.
+Now I lead AI transformation inside Aurora WDC — a human intelligence agency that serves the Fortune 1000. And I started AlphaSMB to bring that same methodology to the businesses that can't afford McKinsey but shouldn't have to figure this out alone.
 
 That's the whole story. No TED talk. Just 20 years of being in the fire.
 

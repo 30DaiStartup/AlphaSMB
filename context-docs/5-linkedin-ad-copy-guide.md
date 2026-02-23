@@ -203,7 +203,7 @@ One hour. $500. Six deliverables.
 ## Content Themes That Work
 
 - **"Everyone has the same tools"** — AI adoption is organizational capability, not software
-- **"What I see at the Fortune 1000 vs. SMBs"** — unique vantage point from both worlds
+- **"What I see inside a real operating company vs. the SMBs I advise"** — unique vantage point of doing the work AND advising on it
 - **"Here's what actually happened"** — real anonymized stories from strategy calls
 - **Contrarian takes** — "Stop buying AI tools" / "The problem with AI training"
 - **Framework breakdowns** — teach one piece of the methodology per post

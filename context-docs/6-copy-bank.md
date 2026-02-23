@@ -17,7 +17,7 @@ Proven copy from the live site and launch materials. Reference these for tone, s
 > A focused, high-intensity session for SMB leaders who know they need to move on AI but want a clear plan before they do.
 
 **About page opener:**
-> I'm Zach Henderson. I currently serve as the fractional Head of AI for Aurora WDC, a human intelligence agency that provides strategic intel to the Fortune 1000.
+> I'm Zach Henderson. I lead AI transformation inside Aurora WDC, a human intelligence agency that serves Fortune 1000 clients.
 
 ---
 
@@ -63,7 +63,7 @@ Proven copy from the live site and launch materials. Reference these for tone, s
 
 > I'm not a tech consultant who knows AI — I'm a business operator at the cutting edge of AI.
 
-> I bring the same AI transformation methodology I run at the Fortune 1000 level and translate it for SMB leadership teams who want to punch above their weight class.
+> I bring the same methodology I built inside Aurora WDC and translate it for SMB leadership teams who want to punch above their weight class.
 
 > The same tools. The same price. The same access. So why are some organizations 10x more productive with them? It's not the tools. It's the organization behind them.
 
@@ -134,7 +134,7 @@ Reuse these exact phrases — they've been refined for the brand voice:
 - "Tools without culture change is just an expensive experiment."
 - "The window to establish an AI-capable culture is open now and closing fast."
 - "An operator who's been in the fire, not a vendor with a slide deck"
-- "Fortune 1000 methodology at SMB prices"
+- "Methodology built inside a real company, translated for SMBs"
 - "Organizational capability, not a software purchase"
 - "Your best people are waiting for permission to move"
 - "The advantage is whether your organization knows how to think with them, not just use them"

@@ -8,7 +8,7 @@ AlphaSMB is an AI transformation consultancy for SMBs. Anti-consultant positioni
 
 - **First person.** Always "I" — never "we" or "the team." This is a personal-brand consultancy.
 - **Peer-to-peer.** Write like a peer talking to another operator, not a vendor selling to a client.
-- **Specific over generic.** "I've led AI transformation inside a Fortune 1000 intelligence firm" > "I have extensive experience in AI."
+- **Specific over generic.** "I lead AI transformation inside a human intelligence agency that serves Fortune 1000 clients" > "I have extensive experience in AI."
 - **Name the pain first.** Always describe the problem before introducing the solution.
 - **Let credentials speak through context.** Show what you've done — don't assert you're qualified.
 - **Confident without arrogance.** No hedging ("we might be able to help") — but no chest-beating either.
