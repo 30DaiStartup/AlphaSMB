@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Pipeline
+pipeline/data/
+pipeline/.venv/
+pipeline/config.yaml
+pipeline/__pycache__/
+pipeline/src/__pycache__/
+pipeline/src/**/__pycache__/
+pipeline/tests/__pycache__/
+pipeline/.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
