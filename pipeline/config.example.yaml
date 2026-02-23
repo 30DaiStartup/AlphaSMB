@@ -1,0 +1,46 @@
+# AlphaSMB Ad Pipeline Configuration
+# Copy to config.yaml and fill in your values
+
+linkedin:
+  client_id: ""
+  client_secret: ""
+  access_token: ""
+  refresh_token: ""
+  ad_account_id: ""
+  testing_campaign_id: ""
+  winners_campaign_id: ""
+
+claude:
+  api_key: ""
+  model: "claude-sonnet-4-5-20250929"
+
+thresholds:
+  min_impressions_for_decision: 500
+  max_cpm_threshold: 40.00
+  min_ctr_for_winner: 0.80
+  min_clicks_for_winner: 10
+  winner_observation_days: 3
+  loser_observation_hours: 48
+  max_daily_promotions: 3
+  min_active_ads: 5
+
+budget:
+  testing_pool_daily: 100.00
+  winner_ad_daily: 25.00
+  max_total_daily: 300.00
+
+generation:
+  ads_per_batch: 40
+
+reporting:
+  email_to: ""
+  slack_webhook: ""
+  report_dir: "./data/reports/"
+
+database:
+  path: "./data/alphasmb_ads.db"
+
+destination:
+  landing_url: "https://alphasmb.com/assessment"
+  booking_url: "https://alphasmb.com/book"
+  website_url: "https://alphasmb.com"

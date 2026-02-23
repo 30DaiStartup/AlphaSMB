@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book a Strategy Call — AlphaSMB</title>
-  <meta name="description" content="Book a one-hour AI strategy call with Zach Henderson. $500, collected at booking. Walk away with a transformation plan you can start executing this week.">
-  <link rel="canonical" href="https://alphasmb.com/book">
+  <title>Free AI Readiness Assessment — AlphaSMB</title>
+  <meta name="description" content="Find out where your organization stands on AI readiness. Free assessment for SMB leadership teams — scored across mindset, skillset, and toolset.">
+  <link rel="canonical" href="https://alphasmb.com/assessment">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://alphasmb.com/book">
-  <meta property="og:title" content="Book a Strategy Call — AlphaSMB">
-  <meta property="og:description" content="Book a one-hour AI strategy call with Zach Henderson. $500, collected at booking. Walk away with a transformation plan you can start executing this week.">
+  <meta property="og:url" content="https://alphasmb.com/assessment">
+  <meta property="og:title" content="Free AI Readiness Assessment — AlphaSMB">
+  <meta property="og:description" content="Find out where your organization stands on AI readiness. Free assessment for SMB leadership teams — scored across mindset, skillset, and toolset.">
   <meta property="og:image" content="https://alphasmb.com/graphics/AlphaSMB-full-tpbg.png">
   <meta property="og:site_name" content="AlphaSMB">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Book a Strategy Call — AlphaSMB">
-  <meta name="twitter:description" content="Book a one-hour AI strategy call with Zach Henderson. $500, collected at booking.">
+  <meta name="twitter:title" content="Free AI Readiness Assessment — AlphaSMB">
+  <meta name="twitter:description" content="Find out where your organization stands on AI readiness. Free assessment for SMB leadership teams.">
   <meta name="twitter:image" content="https://alphasmb.com/graphics/AlphaSMB-full-tpbg.png">
 
   <link rel="icon" type="image/png" sizes="32x32" href="/graphics/Al-32x-tpbg.png">
@@ -48,33 +48,27 @@
       </button>
       <div class="nav__links">
         <a href="/services/strategy-call" class="nav__link">Services</a>
-        <a href="/assessment" class="nav__link">Assessment</a>
+        <a href="/assessment" class="nav__link" aria-current="page">Assessment</a>
         <a href="/about" class="nav__link">About</a>
-        <a href="/book" class="nav__link nav__link--cta" aria-current="page">Book a Call</a>
+        <a href="/book" class="nav__link nav__link--cta">Book a Call</a>
       </div>
     </div>
   </nav>
 
   <main>
 
-    <section class="section section--charcoal" style="padding-top: 140px;">
-      <div class="section__inner">
+    <section class="section section--charcoal" style="padding-top: 140px; min-height: 70vh; display: flex; align-items: center;">
+      <div class="section__inner" style="text-align: center; max-width: 640px; margin: 0 auto;">
 
-        <div class="book-intro">
-          <h1 class="book-intro__headline">Book a call with Zach</h1>
-          <p class="book-intro__price">$500</p>
-          <p class="book-intro__text">One hour. AI readiness assessment, transformation roadmap, execution scorecard, and a 48-hour action plan — delivered as a branded PDF you can share with your leadership team.</p>
-          <p class="book-prepare"><strong>What to prepare:</strong> Basic company info, current AI tools in use (if any), and your biggest pain points. That's it — I'll handle the rest.</p>
-          <p class="book-prepare"><strong>After booking:</strong> You'll receive a confirmation with a calendar invite and a brief pre-call questionnaire. Payment of $500 is collected at booking via Stripe.</p>
-        </div>
+        <p class="section__eyebrow" style="color: var(--alpha-ember); font-weight: 600; font-size: 0.875rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">Coming Soon</p>
 
-        <!-- Cal.com Inline Embed -->
-        <div class="cal-embed-wrapper" id="cal-inline"></div>
-        <noscript>
-          <div class="noscript-fallback">
-            <p>JavaScript is required to load the scheduling calendar. Please <a href="https://cal.com/alphasmb/60min">book directly on Cal.com</a> or email <a href="mailto:zach@alphasmb.com">zach@alphasmb.com</a>.</p>
-          </div>
-        </noscript>
+        <h1 style="font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem;">Free AI Readiness Assessment</h1>
+
+        <p style="font-size: 1.125rem; color: var(--alpha-stone); line-height: 1.7; margin-bottom: 2rem;">A free, interactive tool that scores your organization across mindset, skillset, and toolset -- the three dimensions that determine whether AI adoption sticks or stalls. Takes five minutes. No email required.</p>
+
+        <p style="font-size: 1rem; color: var(--alpha-stone); line-height: 1.7; margin-bottom: 2.5rem;">In the meantime, the strategy call covers this assessment in depth -- plus a transformation roadmap, execution scorecard, and 48-hour action plan.</p>
+
+        <a href="/book" class="btn btn--primary">Book a Strategy Call -- $500</a>
 
       </div>
     </section>
@@ -101,42 +95,6 @@
     </div>
   </footer>
 
-  <!-- Cal.com embed script -->
-  <script>
-    (function (C, A, L) {
-      var p = function (a, ar) { a.q.push(ar); };
-      var d = C.document;
-      C.Cal = C.Cal || function () {
-        var cal = C.Cal;
-        var ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement("script")).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          var api = function () { p(api, arguments); };
-          var namespace = ar[1];
-          api.q = api.q || [];
-          if (typeof namespace === "string") {
-            cal.ns[namespace] = cal.ns[namespace] || api;
-            p(cal.ns[namespace], ar);
-            p(cal, ["initNamespace", namespace]);
-          } else p(cal, ar);
-          return;
-        }
-        p(cal, ar);
-      };
-    })(window, "https://app.cal.com/embed/embed.js", "init");
-    Cal("init", {origin: "https://cal.com"});
-    Cal("inline", {
-      elementOrSelector: "#cal-inline",
-      calLink: "alphasmb/60min",
-      layout: "month_view",
-      config: {theme: "dark"}
-    });
-  </script>
   <!-- JSON-LD Schema -->
   <script type="application/ld+json">
   {
@@ -161,7 +119,7 @@
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Book a Call"
+            "name": "AI Readiness Assessment"
           }
         ]
       }
