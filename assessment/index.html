@@ -106,31 +106,56 @@
       <div class="assess__context">
         <h2 class="assess__context-heading">Two quick questions so I can tailor your results.</h2>
 
-        <div class="assess__form-group">
-          <label for="assess-industry">Industry</label>
-          <select id="assess-industry">
-            <option value="" disabled selected>Select your industry</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="real_estate">Real Estate</option>
-            <option value="manufacturing">Manufacturing</option>
-            <option value="professional_services">Professional Services</option>
-            <option value="software">Software</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
+        <fieldset class="assess__radio-group" id="assess-industry-group">
+          <legend class="assess__radio-legend">Industry</legend>
+          <div class="assess__radio-options">
+            <label class="assess__radio-card">
+              <input type="radio" name="industry" value="healthcare"><span>Healthcare</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="industry" value="real_estate"><span>Real Estate</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="industry" value="manufacturing"><span>Manufacturing</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="industry" value="professional_services"><span>Professional Services</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="industry" value="software"><span>Software</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="industry" value="other"><span>Other</span>
+            </label>
+          </div>
+          <div class="assess__other-input" id="assess-industry-other-wrap" style="display:none">
+            <input type="text" id="assess-industry-other" placeholder="Your industry" autocomplete="off">
+          </div>
+        </fieldset>
 
-        <div class="assess__form-group">
-          <label for="assess-company-size">Company Size</label>
-          <select id="assess-company-size">
-            <option value="" disabled selected>Select company size</option>
-            <option value="under_20">Under 20</option>
-            <option value="20-50">20-50</option>
-            <option value="51-100">51-100</option>
-            <option value="101-250">101-250</option>
-            <option value="251-500">251-500</option>
-            <option value="500+">500+</option>
-          </select>
-        </div>
+        <fieldset class="assess__radio-group" id="assess-size-group">
+          <legend class="assess__radio-legend">Company Size</legend>
+          <div class="assess__radio-options">
+            <label class="assess__radio-card">
+              <input type="radio" name="company_size" value="under_20"><span>Under 20</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="company_size" value="20-50"><span>20 – 50</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="company_size" value="51-100"><span>51 – 100</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="company_size" value="101-250"><span>101 – 250</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="company_size" value="251-500"><span>251 – 500</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="company_size" value="500+"><span>500+</span>
+            </label>
+          </div>
+        </fieldset>
 
         <button class="btn btn--primary" id="assess-context-next" disabled>Next</button>
       </div>

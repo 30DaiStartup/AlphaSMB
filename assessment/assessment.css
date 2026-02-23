@@ -157,7 +157,78 @@
   margin-bottom: 8px;
 }
 
-.assess__form-group select {
+/* Radio card groups (context screen) */
+.assess__radio-group {
+  border: none;
+  padding: 0;
+  margin: 0 0 28px;
+  text-align: left;
+}
+
+.assess__radio-legend {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--alpha-sand);
+  margin-bottom: 12px;
+}
+
+.assess__radio-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.assess__radio-card {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--alpha-charcoal-light);
+  border: 2px solid var(--alpha-slate);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+  min-height: 48px;
+}
+
+.assess__radio-card:hover {
+  border-color: var(--alpha-ember);
+  background: rgba(232, 69, 13, 0.05);
+}
+
+.assess__radio-card:has(input:checked) {
+  border-color: var(--alpha-ember);
+  background: rgba(232, 69, 13, 0.1);
+}
+
+.assess__radio-card:has(input:focus-visible) {
+  outline: 2px solid var(--alpha-ember);
+  outline-offset: 2px;
+}
+
+.assess__radio-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.assess__radio-card span {
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  color: var(--alpha-sand);
+  line-height: 1.4;
+}
+
+.assess__radio-card:has(input:checked) span {
+  color: var(--alpha-white);
+}
+
+.assess__other-input {
+  margin-top: 10px;
+}
+
+.assess__other-input input {
   width: 100%;
   padding: 12px 16px;
   background: var(--alpha-charcoal-light);
@@ -166,15 +237,9 @@
   color: var(--alpha-sand);
   font-family: 'Manrope', sans-serif;
   font-size: 16px;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2378716C' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  cursor: pointer;
 }
 
-.assess__form-group select:focus {
+.assess__other-input input:focus {
   outline: 2px solid var(--alpha-ember);
   outline-offset: 2px;
   border-color: var(--alpha-ember);
@@ -783,6 +848,10 @@
 
   .assess__email-gate {
     padding: 24px 20px;
+  }
+
+  .assess__radio-options {
+    grid-template-columns: 1fr;
   }
 
   .assess__context {

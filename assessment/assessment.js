@@ -416,22 +416,48 @@
       showScreen('context');
     });
 
-    // Context form validation
-    var industrySelect = $('assess-industry');
-    var sizeSelect = $('assess-company-size');
+    // Context form validation (radio buttons)
+    var industryRadios = document.querySelectorAll('input[name="industry"]');
+    var sizeRadios = document.querySelectorAll('input[name="company_size"]');
     var contextNext = $('assess-context-next');
+    var otherWrap = $('assess-industry-other-wrap');
+    var otherInput = $('assess-industry-other');
+
+    function getCheckedValue(radios) {
+      for (var i = 0; i < radios.length; i++) {
+        if (radios[i].checked) return radios[i].value;
+      }
+      return '';
+    }
 
     function validateContext() {
-      contextNext.disabled = !(industrySelect.value && sizeSelect.value);
+      var industry = getCheckedValue(industryRadios);
+      var size = getCheckedValue(sizeRadios);
+      var otherFilled = industry !== 'other' || (otherInput.value.trim() !== '');
+      contextNext.disabled = !(industry && size && otherFilled);
     }
-    industrySelect.addEventListener('change', validateContext);
-    sizeSelect.addEventListener('change', validateContext);
+
+    for (var i = 0; i < industryRadios.length; i++) {
+      industryRadios[i].addEventListener('change', function () {
+        var val = getCheckedValue(industryRadios);
+        otherWrap.style.display = val === 'other' ? '' : 'none';
+        if (val === 'other') otherInput.focus();
+        validateContext();
+      });
+    }
+    for (var i = 0; i < sizeRadios.length; i++) {
+      sizeRadios[i].addEventListener('change', validateContext);
+    }
+    otherInput.addEventListener('input', validateContext);
 
     // Context -> First question
     contextNext.addEventListener('click', function () {
+      var industry = getCheckedValue(industryRadios);
+      if (industry === 'other') industry = 'other:' + otherInput.value.trim();
+
       state.sessionId = generateId();
-      state.industry = industrySelect.value;
-      state.companySize = sizeSelect.value;
+      state.industry = industry;
+      state.companySize = getCheckedValue(sizeRadios);
       state.startedAt = new Date().toISOString();
 
       track('Assessment Started', {
