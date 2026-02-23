@@ -2,7 +2,7 @@
 
 > AlphaSMB is an AI transformation consultancy that helps SMB leadership
 > teams (20-500 employees) build AI-capable organizations. Founded by
-> Zach Henderson, fractional Head of AI at Aurora WDC (Fortune 1000).
+> Zach Henderson, fractional Head of AI at Aurora WDC (an SMB that serves Fortune 1000 clients).
 > Core insight: AI isn't a tool decision — it's a capability decision
 > that changes where you can compete, how you can win, and what your
 > business can become.
@@ -24,7 +24,7 @@ strategy without first building the AI capability.
 
 ## About the Founder
 
-Zach Henderson — Fractional Head of AI at Aurora WDC (Fortune 1000),
+Zach Henderson — Fractional Head of AI at Aurora WDC (an SMB that serves Fortune 1000 clients),
 Epic Systems alum, 20+ years across healthcare, real estate,
 manufacturing & software.
 

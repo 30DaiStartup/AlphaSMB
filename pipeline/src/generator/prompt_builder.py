@@ -120,7 +120,7 @@ def build_user_prompt(assets: CopyAssets, count: int = 40) -> str:
 10. **CTA type:** Either "LEARN_MORE" or "BOOK_NOW"
 11. **Destination URL:** Always "https://alphasmb.com/assessment"
 12. **Tone:** Direct, conversational, peer-to-peer. Like an operator talking to another operator. Not a vendor pitching a client.
-13. **Specificity:** Use real details (Aurora WDC, Fortune 1000, 80% stat, six deliverables). No vague claims.
+13. **Specificity:** Use real details (Aurora WDC — an SMB serving the Fortune 1000, 80% stat, six deliverables). No vague claims.
 14. **"AlphaSMB" capitalization:** Always one word — AlphaSMB (capital A, S, M, B).
 
 ## What makes great AlphaSMB ad copy:
