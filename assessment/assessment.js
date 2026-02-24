@@ -459,7 +459,7 @@
       }
     };
 
-    fetch('/api/assessment/complete', {
+    state.completionPromise = fetch('/api/assessment/complete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -757,14 +757,18 @@
         var prevError = emailForm.querySelector('.assess__form-error');
         if (prevError) prevError.remove();
 
-        fetch('/api/assessment/report', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            sessionId: state.sessionId,
-            name: name,
-            email: email
-          })
+        // Wait for assessment record to be stored before requesting the report
+        var ready = state.completionPromise || Promise.resolve();
+        ready.then(function () {
+          return fetch('/api/assessment/report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              sessionId: state.sessionId,
+              name: name,
+              email: email
+            })
+          });
         })
         .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
         .then(function (result) {
