@@ -163,6 +163,7 @@
   padding: 0;
   margin: 0 0 28px;
   text-align: left;
+  scroll-margin-top: 80px;
 }
 
 .assess__radio-legend {
