@@ -18,7 +18,10 @@
     answers: {},         // { q1: { score: 3, text: '...' }, ... }
     startedAt: null,
     completedAt: null,
-    scores: null
+    scores: null,
+    assessmentId: null,
+    userName: null,
+    userEmail: null
   };
 
   // ── Helpers ──
@@ -413,6 +416,9 @@
       pattern: scores.pattern
     });
 
+    // Store assessment in backend (fire-and-forget)
+    postAssessmentComplete();
+
     // Render share section before showing results
     renderShareSection();
 
@@ -433,6 +439,39 @@
 
     // Clear saved session — assessment is complete
     clearState();
+  }
+
+  // ── API Helpers ──
+  function postAssessmentComplete() {
+    var payload = {
+      sessionId: state.sessionId,
+      role: state.role,
+      industry: state.industry,
+      companySize: state.companySize,
+      startedAt: state.startedAt,
+      completedAt: state.completedAt || new Date().toISOString(),
+      answers: state.answers,
+      scores: {
+        raw: state.scores.raw,
+        display: state.scores.display,
+        tiers: state.scores.tiers,
+        pattern: state.scores.pattern
+      }
+    };
+
+    fetch('/api/assessment/complete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      if (data.id) state.assessmentId = data.id;
+    })
+    .catch(function (err) {
+      // Non-blocking — log but don't disrupt UX
+      console.error('Failed to store assessment:', err);
+    });
   }
 
   // ── Event Bindings ──
@@ -690,13 +729,14 @@
       }
     });
 
-    // Email form (Ship 1: non-functional, shows confirmation)
+    // Email form — sends full report via API
     var emailForm = $('assess-email-form');
     if (emailForm) {
       emailForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        var name = $('assess-name').value;
-        var email = $('assess-email').value;
+        var name = $('assess-name').value.trim();
+        var email = $('assess-email').value.trim();
+        if (!name || !email) return;
 
         track('Assessment Email Submitted', {
           overall_score: state.scores ? state.scores.display.overall : 0
@@ -706,20 +746,65 @@
         var domain = extractDomain(email);
         if (domain) prefillShareEmails(domain);
 
-        // Replace form with confirmation
-        emailForm.innerHTML =
-          '<div style="text-align:center;padding:24px;">' +
-            '<p style="font-size:18px;color:var(--alpha-white);font-weight:600;margin-bottom:12px;">Thank you, ' + escapeHtml(name) + '.</p>' +
-            '<p style="font-size:15px;color:var(--alpha-sand);line-height:1.6;">The full PDF report is coming soon. I\'ll send it to ' + escapeHtml(email) + ' as soon as it\'s ready.</p>' +
-          '</div>';
-
-        // Scroll to share section
-        var shareSection = $('assess-share-section');
-        if (shareSection && shareSection.style.display !== 'none') {
-          setTimeout(function () {
-            shareSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 300);
+        // Disable form while sending
+        var submitBtn = emailForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending...';
         }
+
+        // Remove any previous error
+        var prevError = emailForm.querySelector('.assess__form-error');
+        if (prevError) prevError.remove();
+
+        fetch('/api/assessment/report', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId: state.sessionId,
+            name: name,
+            email: email
+          })
+        })
+        .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+        .then(function (result) {
+          if (!result.ok) throw new Error(result.data.error || 'Failed to send report');
+
+          // Store user info for share flow
+          state.userName = name;
+          state.userEmail = email;
+
+          // Enable share send buttons
+          enableShareButtons();
+
+          // Replace form with confirmation
+          emailForm.innerHTML =
+            '<div style="text-align:center;padding:24px;">' +
+              '<p style="font-size:18px;color:var(--alpha-white);font-weight:600;margin-bottom:12px;">Thank you, ' + escapeHtml(name) + '.</p>' +
+              '<p style="font-size:15px;color:var(--alpha-sand);line-height:1.6;">Your full AI Readiness Report has been sent to ' + escapeHtml(email) + '.</p>' +
+            '</div>';
+
+          // Scroll to share section
+          var shareSection = $('assess-share-section');
+          if (shareSection && shareSection.style.display !== 'none') {
+            setTimeout(function () {
+              shareSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+          }
+        })
+        .catch(function (err) {
+          console.error('Report email error:', err);
+          // Show inline error, keep form visible
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send My Full Report';
+          }
+          var errorEl = document.createElement('p');
+          errorEl.className = 'assess__form-error';
+          errorEl.style.cssText = 'color:#DC2626;font-size:14px;margin-top:12px;text-align:center;';
+          errorEl.textContent = 'Something went wrong. Please try again.';
+          emailForm.appendChild(errorEl);
+        });
       });
     }
 
@@ -873,6 +958,12 @@
     var emailsContainer = $(emailsContainerId);
     if (!sendBtn || !emailsContainer) return;
 
+    // Gated on report form — can't send shares without user identity
+    if (!state.userEmail) {
+      sendBtn.disabled = true;
+      return;
+    }
+
     var inputs = emailsContainer.querySelectorAll('.assess__share-email-input');
     var hasValid = false;
     for (var i = 0; i < inputs.length; i++) {
@@ -971,7 +1062,25 @@
     var sendBtn = $(sendBtnId);
     if (!sendBtn) return;
 
+    // Gate: require report form submission first
+    var note = $(noteId);
+    if (!state.userEmail) {
+      sendBtn.disabled = true;
+      if (note) {
+        note.textContent = 'Submit the report form above to enable sharing.';
+        note.style.display = '';
+      }
+    }
+
     sendBtn.addEventListener('click', function () {
+      if (!state.userEmail || !state.userName) {
+        if (note) {
+          note.textContent = 'Submit the report form above first.';
+          note.style.display = '';
+        }
+        return;
+      }
+
       var intent = collectShareIntent(type);
 
       track('Assessment Share Intent', {
@@ -981,12 +1090,66 @@
         visibility: intent.visibility
       });
 
-      // Ship 1: show "Coming Soon" note
-      sendBtn.textContent = 'Coming Soon';
+      // Disable button while sending
       sendBtn.disabled = true;
-      var note = $(noteId);
-      if (note) note.style.display = '';
+      sendBtn.textContent = 'Sending...';
+      if (note) note.style.display = 'none';
+
+      var payload = {
+        sessionId: state.sessionId,
+        type: type,
+        senderRole: state.role,
+        senderName: state.userName,
+        senderEmail: state.userEmail,
+        recipients: intent.recipients,
+        visibility: intent.visibility
+      };
+
+      fetch('/api/assessment/share', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+      .then(function (result) {
+        if (!result.ok) throw new Error(result.data.error || 'Failed to send');
+
+        sendBtn.textContent = 'Sent!';
+        sendBtn.disabled = true;
+        if (note) {
+          note.textContent = result.data.sent + ' email' + (result.data.sent !== 1 ? 's' : '') + ' sent.';
+          note.style.display = '';
+        }
+      })
+      .catch(function (err) {
+        console.error('Share error:', err);
+        sendBtn.disabled = false;
+        sendBtn.textContent = type === 'distribute' ? 'Send Invitations' : 'Share My Results';
+        if (note) {
+          note.textContent = 'Something went wrong. Please try again.';
+          note.style.display = '';
+        }
+      });
     });
+  }
+
+  function enableShareButtons() {
+    // Called after report form is submitted — remove the gating notes and re-enable
+    var buttons = ['share-leader-send', 'share-member-send'];
+    var notes = ['share-leader-note', 'share-member-note'];
+    for (var i = 0; i < buttons.length; i++) {
+      var btn = $(buttons[i]);
+      var note = $(notes[i]);
+      if (btn && btn.textContent !== 'Sent!') {
+        // Re-run the send button validation to check if valid emails exist
+        var emailsContainerId = i === 0 ? 'share-leader-emails' : 'share-member-emails';
+        updateSendBtn(buttons[i], emailsContainerId);
+      }
+      if (note && note.textContent === 'Submit the report form above to enable sharing.') {
+        note.style.display = 'none';
+        note.textContent = '';
+      }
+    }
   }
 
   function escapeHtml(str) {
