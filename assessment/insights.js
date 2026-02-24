@@ -21,21 +21,12 @@ var Insights = (function () {
       green: 'Genuine AI skill depth across the organization. People are finding new use cases on their own and sustaining it. This is uncommon and a real competitive asset.'
     },
     toolset: {
-      red: 'You haven\u2019t deployed AI tools yet, or deployment is completely ad-hoc. This is actually the easiest dimension to fix \u2014 but it should not be the first thing you fix. Tools without organizational readiness is just an expensive experiment.',
-      orange: 'You have some AI tools in play, but selection was reactive, not strategic. Some licenses might be sitting unused. This is workable \u2014 but tool strategy should follow organizational readiness, not precede it.',
+      red: 'You haven\u2019t deployed AI tools yet, or deployment is completely ad-hoc. This is actually the easiest dimension to fix \u2014 but it should not be the first thing you fix. Tools without the right mindset and skills is just an expensive experiment.',
+      orange: 'You have some AI tools in play, but selection was reactive, not strategic. Some licenses might be sitting unused. This is workable \u2014 but tool strategy should follow mindset and skill development, not precede it.',
       yellow: 'Tools are deployed and some thought has gone into selection and policy. This is where most organizations that \u201Ctook action on AI\u201D land \u2014 and where many stall.',
       'light-green': 'Your tool infrastructure is solid. Here\u2019s the honest truth: this is often the strongest dimension, and it matters the least. The tools are the easy part. The organizational capability to use them is the hard part.',
       green: 'Your tool infrastructure is solid. Here\u2019s the honest truth: this is often the strongest dimension, and it matters the least. The tools are the easy part. The organizational capability to use them is the hard part.'
     }
-  };
-
-  // Org OS insights — shown on results screen (the reveal)
-  var orgOs = {
-    red: 'Your organization evaluates all work \u2014 including AI initiatives \u2014 through a single lens. This means every AI initiative will get quietly reshaped into the safest possible version of itself. This is the hidden dimension most leaders don\u2019t see until someone maps it from the outside.',
-    orange: 'There\u2019s some flexibility in how your organization evaluates new work, but the default is still the existing scoreboard. Your best AI ideas are probably surviving in a watered-down form \u2014 not because they were bad ideas, but because the system forced them into compliance.',
-    yellow: 'Your organization is starting to recognize that different kinds of work need different evaluation criteria. The gap is usually in formalization \u2014 the flexibility exists informally but isn\u2019t baked into how decisions are made.',
-    'light-green': 'Your organization can support different types of work with different evaluation criteria. That\u2019s rare. AI experiments get evaluated on proof of concept, not just immediate metric impact.',
-    green: 'Your organizational operating system is built to support transformation. You match accountability to the type of work being done. This is the most uncommon score in the assessment.'
   };
 
   // Gap pattern display data
@@ -52,10 +43,6 @@ var Insights = (function () {
       name: 'Vision Without Infrastructure',
       summary: 'Your leadership gets it, but the organization below leadership can\u2019t yet execute on that vision.'
     },
-    structural_bottleneck: {
-      name: 'Structural Bottleneck',
-      summary: 'Your biggest barrier to AI transformation isn\u2019t tools, skills, or even mindset \u2014 it\u2019s the way your organization evaluates and manages new work.'
-    },
     balanced_growth: {
       name: 'Balanced Growth',
       summary: 'Your scores are relatively balanced across dimensions, which tells me your organization has been thoughtful about AI adoption rather than rushing into one area.'
@@ -69,17 +56,12 @@ var Insights = (function () {
     return '';
   }
 
-  function getOrgOsInsight(tierKey) {
-    return orgOs[tierKey] || '';
-  }
-
   function getPattern(patternKey) {
     return patterns[patternKey] || patterns.balanced_growth;
   }
 
   return {
     getMidInsight: getMidInsight,
-    getOrgOsInsight: getOrgOsInsight,
     getPattern: getPattern
   };
 

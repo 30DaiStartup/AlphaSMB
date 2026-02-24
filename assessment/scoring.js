@@ -33,7 +33,6 @@ var Scoring = (function () {
     var mindset = scores.mindset;
     var skillset = scores.skillset;
     var toolset = scores.toolset;
-    var org_os = scores.org_os;
     var overall = scores.overall;
 
     // 1. Not started: overall < 3.5
@@ -42,23 +41,16 @@ var Scoring = (function () {
     }
 
     // 2. Tools without foundation: toolset > each other by 1.5+
-    if (toolset - mindset >= 1.5 && toolset - skillset >= 1.5 && toolset - org_os >= 1.5) {
+    if (toolset - mindset >= 1.5 && toolset - skillset >= 1.5) {
       return 'tools_without_foundation';
     }
 
-    // 3. Vision without infrastructure: mindset > skillset AND > org_os by 1.5+
-    if (mindset - skillset >= 1.5 && mindset - org_os >= 1.5) {
+    // 3. Vision without infrastructure: mindset > skillset AND > toolset by 1.5+
+    if (mindset - skillset >= 1.5 && mindset - toolset >= 1.5) {
       return 'vision_without_infrastructure';
     }
 
-    // 4. Structural bottleneck: org_os lowest by 1.5+ AND at least one other > 5.0
-    if (org_os <= mindset - 1.5 && org_os <= skillset - 1.5 && org_os <= toolset - 1.5) {
-      if (mindset > 5.0 || skillset > 5.0 || toolset > 5.0) {
-        return 'structural_bottleneck';
-      }
-    }
-
-    // 5. Balanced growth: fallback
+    // 4. Balanced growth: fallback
     return 'balanced_growth';
   }
 
@@ -68,11 +60,10 @@ var Scoring = (function () {
     var dimensions = {
       mindset: { questions: ['q1', 'q2', 'q3', 'q4', 'q5'], raw: 0 },
       skillset: { questions: ['q6', 'q7', 'q8', 'q9', 'q10'], raw: 0 },
-      toolset: { questions: ['q11', 'q12', 'q13', 'q14', 'q15'], raw: 0 },
-      org_os: { questions: ['q16', 'q17', 'q18', 'q19', 'q20'], raw: 0 }
+      toolset: { questions: ['q11', 'q12', 'q13', 'q14', 'q15'], raw: 0 }
     };
 
-    var keys = ['mindset', 'skillset', 'toolset', 'org_os'];
+    var keys = ['mindset', 'skillset', 'toolset'];
     var result = { raw: {}, display: {}, tiers: {} };
     var overallRaw = 0;
     var displaySum = 0;
@@ -93,7 +84,7 @@ var Scoring = (function () {
     });
 
     result.raw.overall = overallRaw;
-    result.display.overall = Math.round((displaySum / 4) * 10) / 10;
+    result.display.overall = Math.round((displaySum / 3) * 10) / 10;
     result.tiers.overall = getOverallTier(result.display.overall);
     result.pattern = detectPattern(result.display);
 
@@ -105,8 +96,7 @@ var Scoring = (function () {
     var qMap = {
       mindset: ['q1', 'q2', 'q3', 'q4', 'q5'],
       skillset: ['q6', 'q7', 'q8', 'q9', 'q10'],
-      toolset: ['q11', 'q12', 'q13', 'q14', 'q15'],
-      org_os: ['q16', 'q17', 'q18', 'q19', 'q20']
+      toolset: ['q11', 'q12', 'q13', 'q14', 'q15']
     };
     var raw = 0;
     qMap[dimension].forEach(function (qId) {

@@ -22,7 +22,7 @@ Static HTML/CSS/JS, deployed on Vercel. No framework, no bundler, no build tools
 ```
 index.html                  # Home page (hero, problem, services, proof, methodology, CTA)
 services/strategy-call.html # Strategy call detail (time blocks, deliverables, fit, FAQ)
-assessment/                 # AI readiness diagnostic (20 questions, client-side scoring)
+assessment/                 # AI readiness diagnostic (15 questions, client-side scoring)
   index.html                #   Assessment page
   assessment.css             #   Assessment-specific styles
   assessment.js / questions.js / scoring.js / insights.js / speech.js
