@@ -437,11 +437,18 @@
       contextNext.disabled = !(industry && size && otherFilled);
     }
 
+    var sizeGroup = $('assess-size-group');
     for (var i = 0; i < industryRadios.length; i++) {
       industryRadios[i].addEventListener('change', function () {
         var val = getCheckedValue(industryRadios);
         otherWrap.style.display = val === 'other' ? '' : 'none';
-        if (val === 'other') otherInput.focus();
+        if (val === 'other') {
+          otherInput.focus();
+        } else {
+          setTimeout(function () {
+            sizeGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 150);
+        }
         validateContext();
       });
     }

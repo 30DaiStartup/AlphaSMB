@@ -112,7 +112,7 @@ var QUESTIONS = [
     id: 'q7',
     dimension: 'skillset',
     section: 2,
-    text: 'When you rolled out AI tools (or if you were to roll them out), what happened (or what would you expect)?',
+    text: 'If you have rolled out AI tools, what happened with adoption?',
     options: [
       { text: 'We haven\u2019t rolled out any AI tools yet', score: 1 },
       { text: 'Initial excitement, then usage dropped off within a month or two', score: 2 },
