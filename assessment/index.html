@@ -180,6 +180,31 @@
         <!-- Options rendered by JS -->
       </div>
 
+      <div class="assess__free-response" id="assess-free-response" style="display:none">
+        <button class="assess__context-toggle" id="assess-context-toggle"
+                aria-expanded="false" aria-controls="assess-context-panel">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="8" y1="4" x2="8" y2="12"/><line x1="4" y1="8" x2="12" y2="8"/></svg>
+          Add context
+        </button>
+        <div class="assess__context-panel" id="assess-context-panel">
+          <div class="assess__textarea-wrap">
+            <textarea class="assess__free-textarea" id="assess-free-textarea" rows="3" maxlength="500"
+                      placeholder="What's behind your answer? Any specifics help..."></textarea>
+            <span class="assess__char-count" id="assess-char-count">0 / 500</span>
+          </div>
+          <div class="assess__mic-row" id="assess-mic-row">
+            <button class="assess__mic-btn" id="assess-mic-btn" aria-label="Record voice note">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 14a3 3 0 003-3V5a3 3 0 10-6 0v6a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 0014 0h-2zm-5 9a1 1 0 01-1-1v-1.07A7.003 7.003 0 015 11H3a9.003 9.003 0 008 8.93V21a1 1 0 102 0v-1.07A9.003 9.003 0 0021 11h-2a7.003 7.003 0 01-6 6.93V19a1 1 0 01-1 1z"/></svg>
+            </button>
+            <span class="assess__mic-status" id="assess-mic-status" aria-live="polite"></span>
+          </div>
+          <div class="assess__model-progress" id="assess-model-progress" style="display:none" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="assess__model-progress-fill" id="assess-model-progress-fill"></div>
+          </div>
+          <button class="btn btn--primary assess__next-btn" id="assess-next-btn">Next</button>
+        </div>
+      </div>
+
       <button class="assess__back-btn" id="assess-back-btn" aria-label="Go to previous question" style="display:none">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12L6 8l4-4"/></svg>
         Back
@@ -338,6 +363,7 @@
   <script src="/assessment/questions.js"></script>
   <script src="/assessment/scoring.js"></script>
   <script src="/assessment/insights.js"></script>
+  <script src="/assessment/speech.js"></script>
   <script src="/assessment/assessment.js"></script>
   <script src="/main.js"></script>
 </body>
