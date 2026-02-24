@@ -11,6 +11,7 @@
   var state = {
     screen: 'landing',
     sessionId: null,
+    role: null,
     industry: null,
     companySize: null,
     currentQuestion: 0, // 0-indexed into QUESTIONS array
@@ -58,6 +59,7 @@
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
         sessionId: state.sessionId,
+        role: state.role,
         industry: state.industry,
         companySize: state.companySize,
         currentQuestion: state.currentQuestion,
@@ -405,10 +407,14 @@
 
     // Track completion
     track('Assessment Completed', {
+      role: state.role,
       overall_score: scores.display.overall,
       overall_tier: scores.tiers.overall.label,
       pattern: scores.pattern
     });
+
+    // Render share section before showing results
+    renderShareSection();
 
     announce('Your AI Readiness Score: ' + scores.display.overall.toFixed(1) + ' out of 10. ' + scores.tiers.overall.label);
     showScreen('results');
@@ -438,6 +444,7 @@
       var resume = confirm('You have an assessment in progress. Resume where you left off?');
       if (resume) {
         state.sessionId = saved.sessionId;
+        state.role = saved.role;
         state.industry = saved.industry;
         state.companySize = saved.companySize;
         state.currentQuestion = saved.currentQuestion;
@@ -455,9 +462,12 @@
     });
 
     // Context form validation (radio buttons)
+    var roleRadios = document.querySelectorAll('input[name="role"]');
     var industryRadios = document.querySelectorAll('input[name="industry"]');
     var sizeRadios = document.querySelectorAll('input[name="company_size"]');
     var contextNext = $('assess-context-next');
+    var roleOtherWrap = $('assess-role-other-wrap');
+    var roleOtherInput = $('assess-role-other');
     var otherWrap = $('assess-industry-other-wrap');
     var otherInput = $('assess-industry-other');
 
@@ -469,12 +479,33 @@
     }
 
     function validateContext() {
+      var role = getCheckedValue(roleRadios);
+      var roleFilled = role !== 'other' || (roleOtherInput.value.trim() !== '');
       var industry = getCheckedValue(industryRadios);
       var size = getCheckedValue(sizeRadios);
-      var otherFilled = industry !== 'other' || (otherInput.value.trim() !== '');
-      contextNext.disabled = !(industry && size && otherFilled);
+      var industryFilled = industry !== 'other' || (otherInput.value.trim() !== '');
+      contextNext.disabled = !(role && roleFilled && industry && industryFilled && size);
     }
 
+    // Role radios
+    var industryGroup = $('assess-industry-group');
+    for (var i = 0; i < roleRadios.length; i++) {
+      roleRadios[i].addEventListener('change', function () {
+        var val = getCheckedValue(roleRadios);
+        roleOtherWrap.style.display = val === 'other' ? '' : 'none';
+        if (val === 'other') {
+          roleOtherInput.focus();
+        } else {
+          setTimeout(function () {
+            industryGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 150);
+        }
+        validateContext();
+      });
+    }
+    roleOtherInput.addEventListener('input', validateContext);
+
+    // Industry radios
     var sizeGroup = $('assess-size-group');
     for (var i = 0; i < industryRadios.length; i++) {
       industryRadios[i].addEventListener('change', function () {
@@ -497,15 +528,20 @@
 
     // Context -> First question
     contextNext.addEventListener('click', function () {
+      var role = getCheckedValue(roleRadios);
+      if (role === 'other') role = 'other:' + roleOtherInput.value.trim();
+
       var industry = getCheckedValue(industryRadios);
       if (industry === 'other') industry = 'other:' + otherInput.value.trim();
 
       state.sessionId = generateId();
+      state.role = role;
       state.industry = industry;
       state.companySize = getCheckedValue(sizeRadios);
       state.startedAt = new Date().toISOString();
 
       track('Assessment Started', {
+        role: state.role,
         industry: state.industry,
         company_size: state.companySize
       });
@@ -702,6 +738,223 @@
     if (resuming) {
       renderQuestion(state.currentQuestion);
     }
+  }
+
+  // ── Share / Distribute Logic ──
+  var LEADERSHIP_ROLES = ['ceo_founder', 'cto', 'coo', 'cpo', 'cmo'];
+
+  var ROLE_LABELS = {
+    ceo_founder: 'CEO / Founder',
+    cto: 'CTO',
+    coo: 'COO',
+    cpo: 'CPO',
+    cmo: 'CMO',
+    other: 'Other'
+  };
+
+  function isLeadership(role) {
+    if (!role) return false;
+    // Strip "other:" prefix for comparison
+    var baseRole = role.indexOf('other:') === 0 ? 'other' : role;
+    return LEADERSHIP_ROLES.indexOf(baseRole) !== -1;
+  }
+
+  function renderShareSection() {
+    var section = $('assess-share-section');
+    var leaderView = $('share-leader-view');
+    var memberView = $('share-member-view');
+
+    if (!section) return;
+
+    var role = state.role;
+    var userIsLeader = isLeadership(role);
+
+    section.style.display = '';
+
+    if (userIsLeader) {
+      leaderView.style.display = '';
+      memberView.style.display = 'none';
+
+      // Roles to distribute to: all leadership roles except user's own, plus "Other"
+      var baseRole = role.indexOf('other:') === 0 ? 'other' : role;
+      var roles = LEADERSHIP_ROLES.filter(function (r) { return r !== baseRole; });
+      roles.push('other');
+      renderRoleSelector('share-leader-roles', 'share-leader-emails', roles, 'share-leader-send');
+      bindSendButton('share-leader-send', 'share-leader-note', 'distribute');
+    } else {
+      leaderView.style.display = 'none';
+      memberView.style.display = '';
+
+      // Non-leader shares with leadership roles
+      renderRoleSelector('share-member-roles', 'share-member-emails', LEADERSHIP_ROLES, 'share-member-send');
+      bindSendButton('share-member-send', 'share-member-note', 'share_with_leader');
+    }
+  }
+
+  function renderRoleSelector(rolesContainerId, emailsContainerId, roles, sendBtnId) {
+    var rolesContainer = $(rolesContainerId);
+    var emailsContainer = $(emailsContainerId);
+
+    rolesContainer.innerHTML = '';
+    emailsContainer.innerHTML = '';
+
+    roles.forEach(function (roleKey) {
+      var label = ROLE_LABELS[roleKey] || roleKey;
+
+      // Role toggle button
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'assess__share-role-btn';
+      btn.setAttribute('aria-pressed', 'false');
+      btn.setAttribute('data-role', roleKey);
+      btn.textContent = label;
+      rolesContainer.appendChild(btn);
+
+      // Email row (hidden initially)
+      var emailRow = document.createElement('div');
+      emailRow.className = 'assess__share-email-row';
+      emailRow.id = 'share-email-row-' + rolesContainerId + '-' + roleKey;
+      emailRow.style.display = 'none';
+
+      var emailLabel = document.createElement('label');
+      emailLabel.className = 'assess__share-email-label';
+      emailLabel.textContent = label + ' email';
+      emailLabel.setAttribute('for', 'share-email-' + rolesContainerId + '-' + roleKey);
+
+      var emailInput = document.createElement('input');
+      emailInput.type = 'email';
+      emailInput.className = 'assess__share-email-input';
+      emailInput.id = 'share-email-' + rolesContainerId + '-' + roleKey;
+      emailInput.placeholder = label.toLowerCase().replace(/\s*\/\s*/g, '.').replace(/\s+/g, '') + '@company.com';
+      emailInput.setAttribute('data-role', roleKey);
+      emailInput.autocomplete = 'off';
+
+      emailRow.appendChild(emailLabel);
+      emailRow.appendChild(emailInput);
+      emailsContainer.appendChild(emailRow);
+
+      // Button click → toggle role + email field
+      btn.addEventListener('click', function () {
+        var pressed = btn.getAttribute('aria-pressed') === 'true';
+        btn.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+        btn.classList.toggle('assess__share-role-btn--selected', !pressed);
+        emailRow.style.display = pressed ? 'none' : '';
+        if (!pressed) emailInput.focus();
+        updateSendBtn(sendBtnId, emailsContainerId);
+        updateVisibility(rolesContainerId);
+      });
+
+      // Email input → auto-select role button
+      emailInput.addEventListener('input', function () {
+        var hasValue = emailInput.value.trim() !== '';
+        if (hasValue && btn.getAttribute('aria-pressed') !== 'true') {
+          btn.setAttribute('aria-pressed', 'true');
+          btn.classList.add('assess__share-role-btn--selected');
+        }
+        updateSendBtn(sendBtnId, emailsContainerId);
+      });
+    });
+  }
+
+  function updateSendBtn(sendBtnId, emailsContainerId) {
+    var sendBtn = $(sendBtnId);
+    var emailsContainer = $(emailsContainerId);
+    if (!sendBtn || !emailsContainer) return;
+
+    var inputs = emailsContainer.querySelectorAll('.assess__share-email-input');
+    var hasValid = false;
+    for (var i = 0; i < inputs.length; i++) {
+      var row = inputs[i].closest('.assess__share-email-row');
+      if (row && row.style.display !== 'none' && inputs[i].value.trim() && inputs[i].validity.valid) {
+        hasValid = true;
+        break;
+      }
+    }
+    sendBtn.disabled = !hasValid;
+  }
+
+  function updateVisibility(rolesContainerId) {
+    // Only relevant for leader view
+    var visSection = $('share-leader-visibility');
+    if (!visSection) return;
+
+    var rolesContainer = $(rolesContainerId);
+    if (!rolesContainer) return;
+
+    // Check if leader view is active
+    var leaderView = $('share-leader-view');
+    if (!leaderView || leaderView.style.display === 'none') return;
+
+    var buttons = rolesContainer.querySelectorAll('.assess__share-role-btn');
+    var anySelected = false;
+    for (var i = 0; i < buttons.length; i++) {
+      if (buttons[i].getAttribute('aria-pressed') === 'true') {
+        anySelected = true;
+        break;
+      }
+    }
+    visSection.style.display = anySelected ? '' : 'none';
+  }
+
+  function collectShareIntent(type) {
+    var isLeaderView = type === 'distribute';
+    var rolesContainerId = isLeaderView ? 'share-leader-roles' : 'share-member-roles';
+    var emailsContainerId = isLeaderView ? 'share-leader-emails' : 'share-member-emails';
+
+    var rolesContainer = $(rolesContainerId);
+    var emailsContainer = $(emailsContainerId);
+    var recipients = [];
+
+    var buttons = rolesContainer.querySelectorAll('.assess__share-role-btn');
+    for (var i = 0; i < buttons.length; i++) {
+      if (buttons[i].getAttribute('aria-pressed') === 'true') {
+        var roleKey = buttons[i].getAttribute('data-role');
+        var emailInput = emailsContainer.querySelector('input[data-role="' + roleKey + '"]');
+        if (emailInput && emailInput.value.trim()) {
+          recipients.push({ role: roleKey, email: emailInput.value.trim() });
+        }
+      }
+    }
+
+    var visibility = 'leader_only';
+    if (isLeaderView) {
+      var visRadios = document.querySelectorAll('input[name="share_visibility"]');
+      for (var j = 0; j < visRadios.length; j++) {
+        if (visRadios[j].checked) {
+          visibility = visRadios[j].value;
+          break;
+        }
+      }
+    }
+
+    return {
+      type: type,
+      senderRole: state.role,
+      recipients: recipients,
+      visibility: visibility
+    };
+  }
+
+  function bindSendButton(sendBtnId, noteId, type) {
+    var sendBtn = $(sendBtnId);
+    if (!sendBtn) return;
+
+    sendBtn.addEventListener('click', function () {
+      var intent = collectShareIntent(type);
+
+      track('Assessment Share Intent', {
+        type: type,
+        sender_role: state.role,
+        recipient_count: intent.recipients.length,
+        visibility: intent.visibility
+      });
+
+      // Ship 1: show "Coming Soon" note
+      sendBtn.textContent = 'Coming Soon';
+      sendBtn.disabled = true;
+      var note = $(noteId);
+      if (note) note.style.display = '';
+    });
   }
 
   function escapeHtml(str) {
