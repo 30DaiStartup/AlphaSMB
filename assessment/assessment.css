@@ -789,28 +789,6 @@
   margin-left: 4px;
 }
 
-/* Org OS insight section */
-.assess__org-os-reveal {
-  background: var(--alpha-charcoal-light);
-  border: 1px solid var(--alpha-slate);
-  border-radius: 8px;
-  padding: 32px;
-  margin: 48px 0;
-}
-
-.assess__org-os-reveal h3 {
-  font-weight: 600;
-  font-size: 18px;
-  color: var(--alpha-white);
-  margin-bottom: 16px;
-}
-
-.assess__org-os-reveal p {
-  font-size: 15px;
-  color: var(--alpha-sand);
-  line-height: 1.7;
-}
-
 /* Gap pattern */
 .assess__gap-pattern {
   border-left: 4px solid var(--alpha-ember);

@@ -117,13 +117,13 @@
     var qNum = qIdx + 1;
 
     // Progress bar
-    $('assess-section-label').textContent = 'Section ' + section.number + ' of 4: ' + section.name;
-    $('assess-q-count').textContent = 'Question ' + qNum + ' of 20';
-    $('assess-progress-fill').style.width = ((qNum / 20) * 100) + '%';
+    $('assess-section-label').textContent = 'Section ' + section.number + ' of 3: ' + section.name;
+    $('assess-q-count').textContent = 'Question ' + qNum + ' of 15';
+    $('assess-progress-fill').style.width = ((qNum / 15) * 100) + '%';
 
     var progressbar = $('assess-progressbar');
     progressbar.setAttribute('aria-valuenow', qNum);
-    progressbar.setAttribute('aria-valuetext', 'Question ' + qNum + ' of 20, Section ' + section.number + ' of 4: ' + section.name);
+    progressbar.setAttribute('aria-valuetext', 'Question ' + qNum + ' of 15, Section ' + section.number + ' of 3: ' + section.name);
 
     // Section framing (only show on first question of section)
     var framing = $('assess-framing');
@@ -204,7 +204,7 @@
       backBtn.style.display = '';
     }
 
-    announce('Question ' + qNum + ' of 20. ' + q.text);
+    announce('Question ' + qNum + ' of 15. ' + q.text);
     showScreen('question');
   }
 
@@ -260,15 +260,7 @@
         score: dimScore.display
       });
 
-      if (sectionNum < 4) {
-        // Show insight screen for sections 1-3
-        renderInsight(sectionNum);
-      } else {
-        // Section 4 (Org OS) — go to processing
-        state.completedAt = new Date().toISOString();
-        saveState();
-        showProcessingScreen();
-      }
+      renderInsight(sectionNum);
     } else {
       // Next question
       state.currentQuestion = qIdx + 1;
@@ -357,7 +349,7 @@
   // ── Processing Screen ──
   function showProcessingScreen() {
     showScreen('processing');
-    announce('Scoring your assessment across four dimensions and mapping the patterns.');
+    announce('Scoring your assessment across three dimensions and mapping the patterns.');
 
     // Compute scores during the pause
     state.scores = Scoring.computeScores(state.answers);
@@ -387,8 +379,7 @@
     var dims = [
       { key: 'mindset', label: 'Mindset' },
       { key: 'skillset', label: 'Skillset' },
-      { key: 'toolset', label: 'Toolset' },
-      { key: 'org_os', label: 'Org OS' }
+      { key: 'toolset', label: 'Toolset' }
     ];
 
     dims.forEach(function (dim, idx) {
@@ -407,10 +398,7 @@
       dimContainer.appendChild(row);
     });
 
-    // C. Org OS insight
-    $('results-org-os-text').textContent = Insights.getOrgOsInsight(scores.tiers.org_os.key);
-
-    // D. Gap pattern
+    // C. Gap pattern
     var pattern = Insights.getPattern(scores.pattern);
     $('results-gap-name').textContent = pattern.name;
     $('results-gap-summary').textContent = pattern.summary;
@@ -652,12 +640,17 @@
       advanceFromQuestion(state.currentQuestion);
     });
 
-    // Insight -> Next section
+    // Insight -> Next section or processing
     $('assess-insight-next').addEventListener('click', function () {
       var nextQ = state.currentQuestion + 1;
       if (nextQ < QUESTIONS.length) {
         state.currentQuestion = nextQ;
         renderQuestion(nextQ);
+      } else {
+        // Final section — go to processing
+        state.completedAt = new Date().toISOString();
+        saveState();
+        showProcessingScreen();
       }
     });
 

@@ -1,5 +1,5 @@
 // AlphaSMB AI Readiness Assessment — Question Data
-// 20 questions across 4 dimensions, 5 per section
+// 15 questions across 3 dimensions, 5 per section
 
 var SECTIONS = [
   {
@@ -21,14 +21,7 @@ var SECTIONS = [
     name: 'Toolset',
     dimension: 'toolset',
     framing: 'These questions assess your AI tool deployment \u2014 what\u2019s in place, how it was selected, and how intentional the strategy is.',
-    transitionPrelude: 'One section left. This is the one most leaders haven\u2019t thought about \u2014 and the one that changes how you see everything else.',
-    transitionCta: 'Next: Organizational Operating System'
-  },
-  {
-    number: 4,
-    name: 'Organizational Operating System',
-    dimension: 'org_os',
-    framing: 'These questions assess whether your organization can actually support new ways of working \u2014 or whether everything gets forced back into how you\u2019ve always measured success.'
+    transitionCta: 'Get Your Score'
   }
 ];
 
@@ -216,68 +209,6 @@ var QUESTIONS = [
       { text: 'We\u2019ve spent money but aren\u2019t sure we\u2019re getting value from it', score: 2 },
       { text: 'We\u2019re spending and getting some value, but it feels ad-hoc', score: 3 },
       { text: 'Tool spend is intentional, tied to specific use cases, and we\u2019re tracking ROI', score: 4 }
-    ]
-  },
-
-  // ── Section 4: Organizational Operating System (Q16-Q20) ──
-  {
-    id: 'q16',
-    dimension: 'org_os',
-    section: 4,
-    text: 'When someone on your team tries a new AI-driven approach to their work, how is that effort typically evaluated?',
-    options: [
-      { text: 'It isn\u2019t \u2014 there\u2019s no process for evaluating new approaches', score: 1 },
-      { text: 'Against existing KPIs and metrics, same as everything else', score: 2 },
-      { text: 'With some flexibility, but leadership still wants to see impact on existing metrics quickly', score: 3 },
-      { text: 'New approaches get evaluated on their own terms \u2014 proof that the approach works, not immediate ROI', score: 4 }
-    ]
-  },
-  {
-    id: 'q17',
-    dimension: 'org_os',
-    section: 4,
-    text: 'Think about the last time an AI initiative (or any new initiative) started with excitement at your company. What happened?',
-    options: [
-      { text: 'We haven\u2019t really had any AI initiatives', score: 1 },
-      { text: 'It started strong but got quietly reshaped into something safe and familiar', score: 2 },
-      { text: 'It kept some of its original ambition but was scaled back significantly', score: 3 },
-      { text: 'It was given real room to prove itself before being judged by standard metrics', score: 4 }
-    ]
-  },
-  {
-    id: 'q18',
-    dimension: 'org_os',
-    section: 4,
-    text: 'When your organization evaluates whether to invest time or resources in something new, what\u2019s the first question that gets asked?',
-    options: [
-      { text: '\u201CWhat\u2019s the ROI?\u201D or \u201CWhat metric does this move?\u201D', score: 1 },
-      { text: '\u201CHow does this fit into what we\u2019re already doing?\u201D', score: 2 },
-      { text: '\u201CWhat\u2019s the risk if it doesn\u2019t work?\u201D', score: 2 },
-      { text: '\u201CWhat does this make possible that wasn\u2019t possible before?\u201D', score: 4 }
-    ]
-  },
-  {
-    id: 'q19',
-    dimension: 'org_os',
-    section: 4,
-    text: 'Does your organization have different definitions of \u201Cprogress\u201D for different types of work \u2014 or one definition applied to everything?',
-    options: [
-      { text: 'One definition \u2014 everything is measured the same way', score: 1 },
-      { text: 'Mostly one definition, with some informal flexibility for special projects', score: 2 },
-      { text: 'We\u2019ve started to recognize that different work needs different measures, but it\u2019s not formalized', score: 3 },
-      { text: 'We explicitly match how we measure progress to the type of work being done', score: 4 }
-    ]
-  },
-  {
-    id: 'q20',
-    dimension: 'org_os',
-    section: 4,
-    text: 'If a team member came to leadership and said, \u201CI need 30 days to test a new AI-driven approach \u2014 I can\u2019t promise ROI yet, but I\u2019ll bring back proof of whether it works,\u201D what would happen?',
-    options: [
-      { text: 'That request would be denied or ignored', score: 1 },
-      { text: 'It would be met with skepticism and heavy conditions', score: 2 },
-      { text: 'Leadership might allow it, but would check in frequently and expect metric-based updates', score: 3 },
-      { text: 'Leadership would support it \u2014 with a clear proof window and a go/kill decision at the end', score: 4 }
     ]
   }
 ];
