@@ -40,11 +40,11 @@ The result: the eye catches "AI" first (because ember pops against charcoal), th
 
 | Use | Font | Weight |
 |-----|------|--------|
-| Wordmark | Sora | 700 (Bold) |
-| Headlines | Sora | 600 (SemiBold) |
-| Body | Sora | 400 (Regular) |
+| Wordmark | Manrope | 700 (Bold) |
+| Headlines | Manrope | 600 (SemiBold) |
+| Body | Manrope | 400 (Regular) |
 
-Source: Google Fonts. Fallback: `Manrope, sans-serif`.
+Source: Google Fonts. Fallback: `sans-serif`.
 
 ---
 
@@ -74,7 +74,7 @@ ember (#E8450D)    — these two letters
 | Underline gap | ~4-6px below baseline (~8-10% of cap height) |
 | Underline corners | Sharp / square (no border-radius) |
 | Case | A uppercase, l lowercase, p-h-a lowercase, S-M-B uppercase |
-| Font | Sora Bold 700 |
+| Font | Manrope Bold 700 |
 | Letter spacing | Tight, -1% to -2% tracking |
 | Aspect ratio | ~4:1 horizontal |
 
@@ -88,7 +88,7 @@ ember (#E8450D)    — these two letters
 
 ```css
 .wordmark {
-  font-family: 'Sora', 'Manrope', sans-serif;
+  font-family: 'Manrope', sans-serif;
   font-weight: 700;
   font-size: 56px;
   letter-spacing: -0.02em;
@@ -129,7 +129,7 @@ Note: `text-underline-offset` and `text-decoration-thickness` have strong modern
 ## Primary Logo Generation Prompt
 
 ```
-A clean, modern wordmark logo on a pure white background. The word "AlphaSMB" is rendered in a single horizontal line using a bold geometric sans-serif typeface with slightly rounded terminals, similar to Sora Bold or Manrope Bold.
+A clean, modern wordmark logo on a pure white background. The word "AlphaSMB" is rendered in a single horizontal line using a bold geometric sans-serif typeface with slightly rounded terminals, similar to Manrope Bold.
 
 The first two letters "Al" are rendered in a vivid deep orange-red ember color, hex #E8450D. The remaining letters "phaSMB" are rendered in warm charcoal black, hex #1C1917. A thin horizontal underline bar sits beneath only the "Al" letters, in the same charcoal color as the rest of the word, not in the orange-red. The underline spans exactly the width of the "Al" characters and sits a few pixels below the text baseline.
 
@@ -180,4 +180,4 @@ No blue, no navy, no slash, no forward slash, no diagonal line, no gradients, no
 - The underline is too thick or looks like a highlight bar
 - Background has color or texture (should be pure white)
 
-**Realistic expectation:** AI generators struggle with precise two-color typography. Plan on 5-10 generations to get close, then refine manually. The manual build in Figma or Canva using the specs above is a 5-minute job with Sora Bold from Google Fonts.
+**Realistic expectation:** AI generators struggle with precise two-color typography. Plan on 5-10 generations to get close, then refine manually. The manual build in Figma or Canva using the specs above is a 5-minute job with Manrope Bold from Google Fonts.
