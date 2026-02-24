@@ -900,6 +900,148 @@
   margin-top: 16px;
 }
 
+/* ── Share / Distribute Section ── */
+.assess__share-section {
+  background: var(--alpha-charcoal-light);
+  border: 1px solid var(--alpha-slate);
+  border-radius: 8px;
+  padding: 36px;
+  margin: 48px 0;
+}
+
+.assess__share-section h3 {
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--alpha-white);
+  margin-bottom: 8px;
+}
+
+.assess__share-desc {
+  font-size: 15px;
+  color: var(--alpha-sand);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.assess__share-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.assess__share-role-btn {
+  padding: 8px 16px;
+  background: transparent;
+  border: 2px solid var(--alpha-slate);
+  border-radius: 6px;
+  color: var(--alpha-sand);
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.assess__share-role-btn:hover {
+  border-color: var(--alpha-ember);
+  background: rgba(232, 69, 13, 0.05);
+}
+
+.assess__share-role-btn:focus-visible {
+  outline: 2px solid var(--alpha-ember);
+  outline-offset: 2px;
+}
+
+.assess__share-role-btn--selected,
+.assess__share-role-btn[aria-pressed="true"] {
+  border-color: var(--alpha-ember);
+  background: rgba(232, 69, 13, 0.1);
+  color: var(--alpha-white);
+}
+
+.assess__share-emails {
+  margin-bottom: 20px;
+}
+
+.assess__share-email-row {
+  margin-bottom: 12px;
+}
+
+.assess__share-email-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--alpha-stone);
+  margin-bottom: 6px;
+}
+
+.assess__share-email-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--alpha-charcoal);
+  border: 1px solid var(--alpha-slate);
+  border-radius: 6px;
+  color: var(--alpha-sand);
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+}
+
+.assess__share-email-input:focus {
+  outline: 2px solid var(--alpha-ember);
+  outline-offset: 2px;
+  border-color: var(--alpha-ember);
+}
+
+.assess__share-visibility {
+  border-top: 1px solid var(--alpha-slate);
+  padding-top: 16px;
+  margin-bottom: 20px;
+}
+
+.assess__share-vis-heading {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--alpha-sand);
+  margin-bottom: 12px;
+}
+
+.assess__share-vis-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--alpha-sand);
+  cursor: pointer;
+}
+
+.assess__share-vis-label input[type="radio"] {
+  accent-color: var(--alpha-ember);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.assess__share-vis-label:has(input:focus-visible) {
+  outline: 2px solid var(--alpha-ember);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.assess__share-send-btn {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.assess__share-note {
+  font-size: 14px;
+  color: var(--alpha-stone);
+  font-style: italic;
+  text-align: center;
+  margin-top: 12px;
+}
+
 /* Strategy call CTA */
 .assess__cta-section {
   text-align: center;
@@ -992,6 +1134,23 @@
     padding: 24px 20px;
   }
 
+  .assess__share-section {
+    padding: 24px 20px;
+  }
+
+  .assess__share-roles {
+    gap: 6px;
+  }
+
+  .assess__share-role-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .assess__share-email-row {
+    margin-bottom: 14px;
+  }
+
   .assess__radio-options {
     grid-template-columns: 1fr;
   }
@@ -1044,6 +1203,10 @@
   }
 
   .assess__context-toggle svg {
+    transition: none;
+  }
+
+  .assess__share-role-btn {
     transition: none;
   }
 }

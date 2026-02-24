@@ -101,7 +101,34 @@
     <!-- ═══ Context Screen ═══ -->
     <section class="assess__screen" data-screen="context">
       <div class="assess__context">
-        <h2 class="assess__context-heading">Two quick questions so I can tailor your results.</h2>
+        <h2 class="assess__context-heading">Three quick questions so I can tailor your results.</h2>
+
+        <fieldset class="assess__radio-group" id="assess-role-group">
+          <legend class="assess__radio-legend">Your Role</legend>
+          <div class="assess__radio-options">
+            <label class="assess__radio-card">
+              <input type="radio" name="role" value="ceo_founder"><span>CEO / Founder</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="role" value="cto"><span>CTO</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="role" value="coo"><span>COO</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="role" value="cpo"><span>CPO</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="role" value="cmo"><span>CMO</span>
+            </label>
+            <label class="assess__radio-card">
+              <input type="radio" name="role" value="other"><span>Other</span>
+            </label>
+          </div>
+          <div class="assess__other-input" id="assess-role-other-wrap" style="display:none">
+            <input type="text" id="assess-role-other" placeholder="Your role" autocomplete="off">
+          </div>
+        </fieldset>
 
         <fieldset class="assess__radio-group" id="assess-industry-group">
           <legend class="assess__radio-legend">Industry</legend>
@@ -257,6 +284,54 @@
         <div class="assess__gap-pattern" id="results-gap">
           <h3>Pattern: <span class="assess__gap-pattern-name" id="results-gap-name"></span></h3>
           <p id="results-gap-summary"></p>
+        </div>
+
+        <!-- D. Share / Distribute Section -->
+        <div class="assess__share-section" id="assess-share-section" style="display:none">
+
+          <!-- Leadership view: distribute to team -->
+          <div id="share-leader-view" style="display:none">
+            <h3>Distribute this assessment to your team</h3>
+            <p class="assess__share-desc">Select roles and enter email addresses to invite team members to take the assessment.</p>
+            <div class="assess__share-roles" id="share-leader-roles">
+              <!-- Role toggle buttons rendered by JS -->
+            </div>
+            <div class="assess__share-emails" id="share-leader-emails">
+              <!-- Email fields rendered by JS -->
+            </div>
+            <div class="assess__share-visibility" id="share-leader-visibility" style="display:none">
+              <p class="assess__share-vis-heading">Who can see results?</p>
+              <label class="assess__share-vis-label">
+                <input type="radio" name="share_visibility" value="leader_only" checked>
+                <span>Only you see all results</span>
+              </label>
+              <label class="assess__share-vis-label">
+                <input type="radio" name="share_visibility" value="csuite">
+                <span>All C-suite see aggregate</span>
+              </label>
+              <label class="assess__share-vis-label">
+                <input type="radio" name="share_visibility" value="everyone">
+                <span>Everyone sees all results</span>
+              </label>
+            </div>
+            <button class="btn btn--primary assess__share-send-btn" id="share-leader-send" disabled>Send Invitations</button>
+            <p class="assess__share-note" id="share-leader-note" style="display:none">Coming soon — org-wide distribution launches in the next update.</p>
+          </div>
+
+          <!-- Non-leadership view: share with leadership -->
+          <div id="share-member-view" style="display:none">
+            <h3>Share your results with leadership</h3>
+            <p class="assess__share-desc">Select which leaders should see your assessment results.</p>
+            <div class="assess__share-roles" id="share-member-roles">
+              <!-- Role toggle buttons rendered by JS -->
+            </div>
+            <div class="assess__share-emails" id="share-member-emails">
+              <!-- Email fields rendered by JS -->
+            </div>
+            <button class="btn btn--primary assess__share-send-btn" id="share-member-send" disabled>Share My Results</button>
+            <p class="assess__share-note" id="share-member-note" style="display:none">Coming soon — result sharing launches in the next update.</p>
+          </div>
+
         </div>
 
         <!-- E. Email Gate (non-functional in Ship 1) -->
