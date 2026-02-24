@@ -11,6 +11,9 @@ pipeline/src/**/__pycache__/
 pipeline/tests/__pycache__/
 pipeline/.pytest_cache/
 
+# Environment
+.env
+
 # OS
 .DS_Store
 Thumbs.db
