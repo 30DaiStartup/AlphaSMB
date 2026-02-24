@@ -4,6 +4,9 @@
 (function () {
   'use strict';
 
+  // ── Auto-advance timer ──
+  var autoAdvanceTimer = null;
+
   // ── State ──
   var state = {
     screen: 'landing',
@@ -156,6 +159,43 @@
       container.appendChild(btn);
     });
 
+    // Free-response panel setup
+    var freeContainer = $('assess-free-response');
+    var contextToggle = $('assess-context-toggle');
+    var contextPanel = $('assess-context-panel');
+    var freeTextarea = $('assess-free-textarea');
+    var charCount = $('assess-char-count');
+    var micRow = $('assess-mic-row');
+    var micBtn = $('assess-mic-btn');
+    var micStatus = $('assess-mic-status');
+    var modelProgress = $('assess-model-progress');
+    var modelProgressFill = $('assess-model-progress-fill');
+
+    // Show container, reset toggle
+    freeContainer.style.display = '';
+    contextToggle.setAttribute('aria-expanded', 'false');
+    freeTextarea.value = '';
+    charCount.textContent = '0 / 500';
+    micStatus.textContent = '';
+    modelProgress.style.display = 'none';
+    modelProgressFill.style.width = '0';
+    micBtn.classList.remove('assess__mic-btn--recording', 'assess__mic-btn--loading');
+
+    // Hide mic if speech not supported
+    if (typeof SpeechEngine !== 'undefined' && SpeechEngine.isSupported()) {
+      micRow.style.display = '';
+    } else {
+      micRow.style.display = 'none';
+    }
+
+    // Restore free text if exists (and auto-open panel)
+    var savedAnswer = state.answers[q.id];
+    if (savedAnswer && savedAnswer.freeText) {
+      freeTextarea.value = savedAnswer.freeText;
+      charCount.textContent = savedAnswer.freeText.length + ' / 500';
+      contextToggle.setAttribute('aria-expanded', 'true');
+    }
+
     // Back button — hidden at section start (Q1, Q6, Q11, Q16)
     var backBtn = $('assess-back-btn');
     if (isFirstOfSection(qIdx)) {
@@ -181,18 +221,28 @@
     btnEl.classList.add('assess__option--selected');
     btnEl.setAttribute('aria-checked', 'true');
 
-    // Store answer
+    // Store answer (preserve existing freeText if any)
+    var existing = state.answers[q.id];
     state.answers[q.id] = {
       score: option.score,
       text: option.text,
       dimension: q.dimension
     };
+    if (existing && existing.freeText) {
+      state.answers[q.id].freeText = existing.freeText;
+    }
     saveState();
 
-    // Auto-advance after brief delay
-    setTimeout(function () {
-      advanceFromQuestion(qIdx);
-    }, 300);
+    // Auto-advance only if context panel is closed
+    var toggle = $('assess-context-toggle');
+    var panelOpen = toggle && toggle.getAttribute('aria-expanded') === 'true';
+    if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
+    if (!panelOpen) {
+      autoAdvanceTimer = setTimeout(function () {
+        autoAdvanceTimer = null;
+        advanceFromQuestion(qIdx);
+      }, 300);
+    }
   }
 
   // ── Advance logic after answering ──
@@ -395,6 +445,7 @@
   function init() {
     // Check for saved state and offer resume
     var saved = loadState();
+    var resuming = false;
     if (saved && saved.sessionId && saved.screen === 'question' && Object.keys(saved.answers).length > 0) {
       var resume = confirm('You have an assessment in progress. Resume where you left off?');
       if (resume) {
@@ -404,8 +455,7 @@
         state.currentQuestion = saved.currentQuestion;
         state.answers = saved.answers;
         state.startedAt = saved.startedAt;
-        renderQuestion(state.currentQuestion);
-        return;
+        resuming = true;
       } else {
         clearState();
       }
@@ -484,6 +534,124 @@
       }
     });
 
+    // ── Free-response controls ──
+    // Context toggle
+    $('assess-context-toggle').addEventListener('click', function () {
+      var toggle = $('assess-context-toggle');
+      var expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+
+      // Cancel auto-advance when opening
+      if (!expanded && autoAdvanceTimer) {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = null;
+      }
+
+      // Focus textarea when opening
+      if (!expanded) {
+        setTimeout(function () { $('assess-free-textarea').focus(); }, 50);
+      }
+    });
+
+    // Textarea input — char count + save
+    $('assess-free-textarea').addEventListener('input', function () {
+      var textarea = $('assess-free-textarea');
+      var val = textarea.value;
+      $('assess-char-count').textContent = val.length + ' / 500';
+
+      var q = QUESTIONS[state.currentQuestion];
+      if (state.answers[q.id]) {
+        if (val.trim()) {
+          state.answers[q.id].freeText = val;
+        } else {
+          delete state.answers[q.id].freeText;
+        }
+        saveState();
+      }
+    });
+
+    // Mic button
+    $('assess-mic-btn').addEventListener('click', function () {
+      if (typeof SpeechEngine === 'undefined' || !SpeechEngine.isSupported()) return;
+
+      var micBtn = $('assess-mic-btn');
+      var micStatus = $('assess-mic-status');
+      var modelProgress = $('assess-model-progress');
+      var modelProgressFill = $('assess-model-progress-fill');
+      var textarea = $('assess-free-textarea');
+
+      if (SpeechEngine.isRecording()) {
+        SpeechEngine.stop();
+        return;
+      }
+
+      // Cancel auto-advance
+      if (autoAdvanceTimer) {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = null;
+      }
+
+      SpeechEngine.start({
+        onResult: function (text, isFinal) {
+          if (isFinal) {
+            // Append transcribed text to textarea
+            var current = textarea.value;
+            if (current && !current.endsWith(' ')) current += ' ';
+            textarea.value = current + text;
+            $('assess-char-count').textContent = textarea.value.length + ' / 500';
+
+            // Save to state
+            var q = QUESTIONS[state.currentQuestion];
+            if (state.answers[q.id]) {
+              state.answers[q.id].freeText = textarea.value;
+              saveState();
+            }
+
+            micBtn.classList.remove('assess__mic-btn--recording');
+            micStatus.textContent = '';
+          } else {
+            micStatus.textContent = text;
+          }
+        },
+        onEnd: function () {
+          micBtn.classList.remove('assess__mic-btn--recording');
+          micStatus.textContent = '';
+        },
+        onError: function (msg) {
+          micBtn.classList.remove('assess__mic-btn--recording', 'assess__mic-btn--loading');
+          micStatus.textContent = msg;
+          modelProgress.style.display = 'none';
+        },
+        onProgress: function (p) {
+          // Whisper model download progress
+          if (p.status === 'progress' && p.progress != null) {
+            modelProgress.style.display = '';
+            modelProgressFill.style.width = Math.round(p.progress) + '%';
+            modelProgress.setAttribute('aria-valuenow', Math.round(p.progress));
+            micBtn.classList.add('assess__mic-btn--loading');
+            micStatus.textContent = 'Loading speech model...';
+          }
+          if (p.status === 'done' || p.status === 'ready') {
+            modelProgress.style.display = 'none';
+            micBtn.classList.remove('assess__mic-btn--loading');
+            micStatus.textContent = '';
+          }
+        }
+      });
+
+      micBtn.classList.add('assess__mic-btn--recording');
+      micStatus.textContent = SpeechEngine.getEngine() === 'native' ? 'Listening...' : 'Starting...';
+    });
+
+    // Next button
+    $('assess-next-btn').addEventListener('click', function () {
+      // Stop any active recording
+      if (typeof SpeechEngine !== 'undefined' && SpeechEngine.isRecording()) {
+        SpeechEngine.stop();
+      }
+      advanceFromQuestion(state.currentQuestion);
+    });
+
     // Insight -> Next section
     $('assess-insight-next').addEventListener('click', function () {
       var nextQ = state.currentQuestion + 1;
@@ -536,6 +704,11 @@
         });
       }
     });
+
+    // Resume saved session (after all listeners are bound)
+    if (resuming) {
+      renderQuestion(state.currentQuestion);
+    }
   }
 
   function escapeHtml(str) {
