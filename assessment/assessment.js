@@ -702,12 +702,24 @@
           overall_score: state.scores ? state.scores.display.overall : 0
         });
 
+        // Extract domain and prefill share email placeholders
+        var domain = extractDomain(email);
+        if (domain) prefillShareEmails(domain);
+
         // Replace form with confirmation
         emailForm.innerHTML =
           '<div style="text-align:center;padding:24px;">' +
             '<p style="font-size:18px;color:var(--alpha-white);font-weight:600;margin-bottom:12px;">Thank you, ' + escapeHtml(name) + '.</p>' +
             '<p style="font-size:15px;color:var(--alpha-sand);line-height:1.6;">The full PDF report is coming soon. I\'ll send it to ' + escapeHtml(email) + ' as soon as it\'s ready.</p>' +
           '</div>';
+
+        // Scroll to share section
+        var shareSection = $('assess-share-section');
+        if (shareSection && shareSection.style.display !== 'none') {
+          setTimeout(function () {
+            shareSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 300);
+        }
       });
     }
 
@@ -933,6 +945,26 @@
       recipients: recipients,
       visibility: visibility
     };
+  }
+
+  function extractDomain(email) {
+    if (!email || email.indexOf('@') === -1) return '';
+    var domain = email.split('@')[1];
+    // Skip generic email providers
+    var generic = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'aol.com', 'icloud.com', 'mail.com', 'protonmail.com', 'proton.me'];
+    if (generic.indexOf(domain.toLowerCase()) !== -1) return '';
+    return domain;
+  }
+
+  function prefillShareEmails(domain) {
+    var inputs = document.querySelectorAll('.assess__share-email-input');
+    for (var i = 0; i < inputs.length; i++) {
+      if (!inputs[i].value) {
+        var roleKey = inputs[i].getAttribute('data-role');
+        var label = ROLE_LABELS[roleKey] || roleKey;
+        inputs[i].placeholder = label.toLowerCase().replace(/\s*\/\s*/g, '.').replace(/\s+/g, '') + '@' + domain;
+      }
+    }
   }
 
   function bindSendButton(sendBtnId, noteId, type) {

@@ -907,6 +907,7 @@
   border-radius: 8px;
   padding: 36px;
   margin: 48px 0;
+  scroll-margin-top: 80px;
 }
 
 .assess__share-section h3 {
