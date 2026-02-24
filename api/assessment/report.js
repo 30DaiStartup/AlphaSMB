@@ -26,6 +26,12 @@ module.exports = async function handler(req, res) {
       return res.status(404).json({ error: 'Assessment not found' });
     }
 
+    // Supabase returns numeric(3,1) columns as strings — coerce to numbers
+    assessment.overall_display = Number(assessment.overall_display);
+    assessment.mindset_display = Number(assessment.mindset_display);
+    assessment.skillset_display = Number(assessment.skillset_display);
+    assessment.toolset_display = Number(assessment.toolset_display);
+
     // Skip if report was already sent to this email (idempotency)
     if (assessment.report_sent_at && assessment.user_email === email) {
       return res.status(200).json({ success: true, alreadySent: true });

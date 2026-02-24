@@ -34,6 +34,12 @@ module.exports = async function handler(req, res) {
       return res.status(404).json({ error: 'Assessment not found' });
     }
 
+    // Supabase returns numeric(3,1) columns as strings — coerce to numbers
+    assessment.overall_display = Number(assessment.overall_display);
+    assessment.mindset_display = Number(assessment.mindset_display);
+    assessment.skillset_display = Number(assessment.skillset_display);
+    assessment.toolset_display = Number(assessment.toolset_display);
+
     // Insert share intent
     const { data: shareIntent, error: insertError } = await supabase
       .from('share_intents')
