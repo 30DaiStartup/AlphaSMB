@@ -664,7 +664,7 @@ img {
 
 /* ── Strategy Call Page ── */
 .page-hero {
-  padding: 140px 24px 80px;
+  padding: 100px 24px 80px;
   background: var(--alpha-charcoal);
   position: relative;
   overflow: hidden;
@@ -1019,7 +1019,7 @@ img {
 
 /* ── Privacy Page ── */
 .content-page {
-  padding-top: 120px;
+  padding-top: 100px;
   padding-bottom: 80px;
 }
 
@@ -1308,7 +1308,7 @@ img {
 
   /* Page hero */
   .page-hero {
-    padding: 120px 24px 60px;
+    padding: 100px 24px 60px;
   }
 
   .page-hero__headline {
