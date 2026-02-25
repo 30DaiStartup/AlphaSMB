@@ -86,8 +86,23 @@
   }
 
   // ── Plausible tracking ──
+  function getUtmProps() {
+    try {
+      var stored = sessionStorage.getItem('alphasmb_utm');
+      return stored ? JSON.parse(stored) : {};
+    } catch (e) { return {}; }
+  }
+
   function track(event, props) {
     if (typeof plausible !== 'undefined') {
+      // Include UTM data on key conversion events for attribution
+      var utmEvents = ['Assessment Started', 'Assessment Completed', 'Assessment Email Submitted', 'Assessment CTA Clicked'];
+      if (utmEvents.indexOf(event) !== -1) {
+        var utm = getUtmProps();
+        if (utm.utm_source) props.utm_source = utm.utm_source;
+        if (utm.utm_medium) props.utm_medium = utm.utm_medium;
+        if (utm.utm_campaign) props.utm_campaign = utm.utm_campaign;
+      }
       plausible(event, { props: props });
     }
   }

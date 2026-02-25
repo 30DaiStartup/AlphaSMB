@@ -99,8 +99,10 @@
       // Determine CTA location
       if (btn.closest('.hero') || btn.closest('.hero-anim')) section = 'hero';
       else if (btn.closest('.page-hero')) section = 'page-hero';
+      else if (btn.closest('.assess__hero-cta')) section = 'assess-hero';
       else if (btn.closest('.bottom-cta')) section = 'bottom-cta';
       else if (btn.closest('.card')) section = 'service-card';
+      else if (btn.closest('.assess__cta-section')) section = 'assess-cta';
       else section = 'other';
 
       plausible('CTA Clicked', {props: {text: text, section: section, page: location.pathname}});

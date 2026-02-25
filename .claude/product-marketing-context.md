@@ -1,13 +1,13 @@
 # Product Marketing Context
 
-*Last updated: 2026-02-19*
+*Last updated: 2026-02-25*
 
 ## Product Overview
 **One-liner:** AI transformation consultancy that builds AI-capable organizations, not just AI-equipped employees.
-**What it does:** AlphaSMB helps SMB leadership teams (20-500 employees) adopt AI at the organizational level through a proven methodology that starts with mindset shifts at the leadership level, identifies internal champions, activates high-agency employees, and measures progress against industry benchmarks. The primary service is a $500 one-hour strategy call that delivers an AI readiness assessment, transformation roadmap, and 48-hour action plan.
+**What it does:** AlphaSMB helps SMB leadership teams (20-500 employees) adopt AI at the organizational level through a proven methodology that starts with mindset shifts at the leadership level, identifies internal champions, activates high-agency employees, and measures progress against industry benchmarks. The primary entry point is a free AI Readiness Assessment (15-question diagnostic scoring mindset, skillset, and toolset) that provides an instant score and personalized report. The assessment funnels qualified leads to the $500 one-hour strategy call, which delivers a transformation roadmap and 48-hour action plan.
 **Product category:** AI consulting / AI transformation consulting / organizational change management
 **Product type:** Professional service (consulting)
-**Business model:** Two tiers — (1) One-hour AI strategy call at $500 (primary revenue and lead-gen engine, up to 10/week), (2) Full transformation engagement at custom pricing (~5 hrs/week for up to 3 months, limited to 2 clients at a time). Optional monthly follow-up calls at $500/month for strategy call clients.
+**Business model:** Three-tier funnel — (0) Free AI Readiness Assessment (lead capture and qualification via 15-question diagnostic with email-gated report), (1) One-hour AI strategy call at $500 (primary revenue, up to 10/week), (2) Full transformation engagement at custom pricing (~5 hrs/week for up to 3 months, limited to 2 clients at a time). Optional monthly follow-up calls at $500/month for strategy call clients. Assessment → strategy call → anchor engagement is the progression.
 
 ## Target Audience
 **Target companies:** SMBs with 20-500 employees across healthcare, real estate, manufacturing, professional services, and software. Companies that know they need to move on AI but haven't figured out how to make it stick organizationally.
@@ -60,7 +60,7 @@
 ## Objections
 | Objection | Response |
 |-----------|----------|
-| "$500 for an hour is expensive" | You walk away with an AI readiness assessment, benchmarking, a three-phase roadmap, an execution scorecard, and a 48-hour action plan — a branded PDF you can share with your leadership team. Many clients expense it under professional development or strategic consulting. |
+| "$500 for an hour is expensive" | Start with the free assessment — you'll see exactly where your organization stands before spending anything. If the strategy call makes sense based on your results, you walk away with a three-phase roadmap, an execution scorecard, and a 48-hour action plan. Many clients expense it under professional development or strategic consulting. |
 | "Is this just a sales pitch for a bigger engagement?" | No. The deliverable is valuable on its own — you'll leave with a plan you can execute independently. If a deeper engagement makes sense, I'll tell you. If it doesn't, I'll tell you that too. I'd rather give you an honest hour than a dishonest pitch. |
 | "We're too small for AI transformation" | If you have 20+ employees and knowledge workers, you're the perfect size. SMBs can actually move faster than enterprises because you have less bureaucracy and shorter decision chains. The methodology is designed for your scale. |
 
@@ -68,9 +68,9 @@
 
 ## Switching Dynamics
 **Push:** Wasted money on AI tool subscriptions nobody uses. Watching competitors adopt AI faster. Board/investor pressure to have an AI strategy. Fear of irrelevance. Failed internal attempts at AI adoption.
-**Pull:** A clear, actionable plan from someone who's doing this inside a real company right now. Low-risk entry point ($500 strategy call, not a $50K engagement). Proven methodology with specific framework and deliverables. Credibility of currently leading AI transformation at Aurora WDC.
+**Pull:** A clear, actionable plan from someone who's doing this inside a real company right now. Zero-risk entry point (free assessment with instant score — no commitment, no credit card). Low-cost next step ($500 strategy call, not a $50K engagement). Proven methodology with specific framework and deliverables. Credibility of currently leading AI transformation at Aurora WDC.
 **Habit:** "We'll figure it out ourselves eventually." Comfort with current tools and processes. Reluctance to admit they need outside help. Inertia of existing workflows.
-**Anxiety:** "What if this is just another consultant who takes our money and leaves us with a generic deck?" "What if our team resists?" "What if we're too far behind to catch up?" "Is $500 worth it for just one hour?"
+**Anxiety:** "What if this is just another consultant who takes our money and leaves us with a generic deck?" "What if our team resists?" "What if we're too far behind to catch up?" "Is the assessment actually useful or just a lead trap?" "Is $500 worth it for just one hour?"
 
 ## Customer Language
 **How they describe the problem:**
@@ -116,6 +116,7 @@
 | Cross-industry credibility | Healthcare, real estate, manufacturing, software, professional services |
 
 ## Goals
-**Business goal:** Generate consistent strategy call bookings (target: 5-10/week) that feed the consulting pipeline, build testimonials, and generate pattern data for future product development.
-**Conversion action:** Book a one-hour AI strategy call ($500, paid at booking via Cal.com + Stripe).
-**Current metrics:** Pre-launch — site is live but no traffic or bookings data yet. Plausible analytics installed, custom event tracking being set up.
+**Business goal:** Drive assessment completions that qualify and convert leads into strategy call bookings (target: 50+ assessments/week → 5-10 strategy calls/week), feeding the consulting pipeline, building testimonials, and generating pattern data for future product development.
+**Conversion action:** Take the free AI Readiness Assessment → receive score and personalized report → book a strategy call ($500 via Cal.com + Stripe). The assessment is the primary CTA across all pages; booking is the secondary/downstream action.
+**Funnel stages:** Visit → Start Assessment → Complete Assessment → Enter Email (for report) → View Score → Book Strategy Call. Share functionality (email report to colleagues) provides a viral loop.
+**Current metrics:** Early stage — site is live, assessment backend operational (Supabase + Resend). Plausible analytics with custom event tracking active.
