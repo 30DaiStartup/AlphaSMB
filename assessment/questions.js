@@ -46,7 +46,7 @@ var QUESTIONS = [
     text: 'How does your CEO or top leader personally engage with AI tools?',
     options: [
       { text: 'They don\u2019t use AI tools and haven\u2019t expressed interest', score: 1 },
-      { text: 'They\u2019ve tried ChatGPT or similar tools a few times', score: 2 },
+      { text: 'They\u2019ve tried AI tools and use them occasionally, but not as a regular part of their work', score: 2 },
       { text: 'They use AI tools regularly for their own work', score: 3 },
       { text: 'They use AI tools regularly AND actively push the organization to think differently about AI\u2019s strategic potential', score: 4 }
     ]
@@ -159,8 +159,8 @@ var QUESTIONS = [
     options: [
       { text: 'We haven\u2019t purchased or deployed any AI tools', score: 1 },
       { text: 'A few people have personal subscriptions, but nothing organization-wide', score: 2 },
-      { text: 'We\u2019ve purchased licenses (ChatGPT, Copilot, etc.) for the team', score: 3 },
-      { text: 'We have licensed tools AND have thought about which tools fit which workflows', score: 4 }
+      { text: 'We\u2019ve purchased team licenses and have thought about which tools fit which workflows', score: 3 },
+      { text: 'We\u2019ve allocated resources and deployed specific tools to specific workflows', score: 4 }
     ]
   },
   {
@@ -171,8 +171,8 @@ var QUESTIONS = [
     options: [
       { text: 'We haven\u2019t selected any yet', score: 1 },
       { text: 'Someone heard about a tool and we tried it', score: 2 },
-      { text: 'We evaluated a few options based on features and price', score: 3 },
-      { text: 'We mapped our workflows first, then selected tools based on where AI could have the most impact', score: 4 }
+      { text: 'We\u2019ve tried several tools and narrowed down to a few that seem useful', score: 3 },
+      { text: 'We\u2019ve tested tools against real work and are standardizing on what fits', score: 4 }
     ]
   },
   {
@@ -182,9 +182,9 @@ var QUESTIONS = [
     text: 'How well do your AI tools integrate with your existing systems and workflows?',
     options: [
       { text: 'We don\u2019t have AI tools deployed', score: 1 },
-      { text: 'Tools are standalone \u2014 people switch between AI tools and their regular work', score: 2 },
-      { text: 'Some integration, but mostly manual copy-paste between systems', score: 3 },
-      { text: 'AI tools are embedded into the workflows where people already work', score: 4 }
+      { text: 'People use AI chatbots alongside their work \u2014 switching back and forth, copying and pasting between tools', score: 2 },
+      { text: 'People have built repeatable processes \u2014 prompt libraries, templates, or saved workflows \u2014 that bring their real work into AI tools', score: 3 },
+      { text: 'AI is embedded through agentic tools, automations, or integrations that reduce manual handoff', score: 4 }
     ]
   },
   {
@@ -195,8 +195,8 @@ var QUESTIONS = [
     options: [
       { text: 'No \u2014 we haven\u2019t addressed this', score: 1 },
       { text: 'Informally \u2014 some verbal guidance but nothing documented', score: 2 },
-      { text: 'We have basic guidelines but they\u2019re not enforced consistently', score: 3 },
-      { text: 'Clear, documented policies that balance security with encouraging productive use', score: 4 }
+      { text: 'We have documented policies, but they\u2019re not consistently enforced or part of how we operate', score: 3 },
+      { text: 'AI policies are documented, enforced, and built into onboarding and how we operate day-to-day', score: 4 }
     ]
   },
   {
