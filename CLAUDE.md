@@ -11,27 +11,33 @@ Multi-page site (Phase 1) deployed on Vercel. Six pages: Home, Services/Strategy
 
 ## Stack
 
-Static HTML/CSS/JS, deployed on Vercel. No framework, no bundler, no build tools.
+Static HTML/CSS/JS frontend + Vercel serverless API, deployed on Vercel. No framework, no bundler.
 
 - `styles.css` — Shared CSS (design tokens at `:root`, nav, hero, sections, cards, FAQ, footer, responsive, reduced motion)
 - `main.js` — Shared JS (scroll reveal via IntersectionObserver, mobile nav toggle, FAQ accordion)
+- `api/` — Vercel serverless functions (Node.js) for assessment backend
 - `vercel.json` — Clean URLs config
+- Env vars: see `.env.example` (Supabase + Resend keys, set in Vercel dashboard)
 
 ## File Structure
 
 ```
-index.html                  # Home page (hero, problem, services, proof, methodology, CTA)
+index.html                  # Home page (hero, problem, services, methodology, CTA)
 services/strategy-call.html # Strategy call detail (time blocks, deliverables, fit, FAQ)
 assessment/                 # AI readiness diagnostic (15 questions, client-side scoring)
   index.html                #   Assessment page
-  assessment.css             #   Assessment-specific styles
+  assessment.css            #   Assessment-specific styles
   assessment.js / questions.js / scoring.js / insights.js / speech.js
+api/                        # Vercel serverless functions (assessment backend)
+  _lib/                     #   Shared: supabase.js, resend.js, report-email.js, share-email.js
+  assessment/               #   Routes: complete.js, report.js, share.js
 about.html                  # About Zach (headshot, credentials, philosophy)
 book.html                   # Cal.com scheduling embed
 privacy.html                # Privacy policy
 styles.css                  # Shared CSS
 main.js                     # Shared JS
-graphics/                   # Assets (logo, favicon, headshot)
+graphics/                   # Assets (logo, favicon, headshot, OG image: Al-pfp-512.png)
+supabase-schema.sql         # DB schema (assessments + share_intents tables)
 pipeline/                   # LinkedIn ad pipeline (Python, see agent_docs/pipeline.md)
 ```
 
@@ -48,7 +54,9 @@ pipeline/                   # LinkedIn ad pipeline (Python, see agent_docs/pipel
 | Integration | Implementation |
 |------------|---------------|
 | **Cal.com** | Inline embed on `/book`, link `https://cal.com/alphasmb/60min` |
-| **Plausible** | Script tag in `<head>` of every page |
+| **Plausible** | Script tag + init block in `<head>` of every page |
+| **Supabase** | Assessment persistence — stores completions, scores, share intents |
+| **Resend** | Transactional email — assessment reports and share emails |
 | **Stripe** | Handled by Cal.com at booking |
 | **Kit** | Post-booking automation only (no visible form on site) |
 
