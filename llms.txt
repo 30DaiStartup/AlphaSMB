@@ -1,40 +1,47 @@
 # AlphaSMB
 
-> AlphaSMB is an AI transformation consultancy that helps SMB leadership
-> teams (20-500 employees) build AI-capable organizations. Founded by
-> Zach Henderson, fractional Head of AI at Aurora WDC (an SMB that serves Fortune 1000 clients).
-> Core insight: AI isn't a tool decision — it's a capability decision
-> that changes where you can compete, how you can win, and what your
-> business can become.
+> AlphaSMB is an AI transformation consultancy for SMBs (20-500 employees).
+> Founded by Zach Henderson, who leads AI transformation inside Aurora WDC.
+> The primary entry point is a free AI Readiness Assessment — a 15-question
+> diagnostic scored across mindset, skillset, and toolset with a personalized
+> report. The methodology builds organizational AI capability, not just tool adoption.
 
 ## Key Pages
 
-- [Home](https://alphasmb.com/): Overview, strategic positioning, methodology, services
-- [AI Strategy Call](https://alphasmb.com/services/strategy-call): Service details, pricing, FAQ, why a strategy call vs pilot
-- [About Zach Henderson](https://alphasmb.com/about): Credentials, philosophy
-- [Book a Call](https://alphasmb.com/book): Schedule and pay ($500)
-- [Privacy Policy](https://alphasmb.com/privacy): Data handling practices
-
-## Core Philosophy
-
-AI transformation fails when treated as a tool rollout. Organizational
-capability must come first — build the mindset, find the champion, activate
-high-agency people, then measure against benchmarks. You can't plan an AI
-strategy without first building the AI capability.
+- [Home](https://alphasmb.com/): Value proposition, methodology, service tiers
+- [AI Readiness Assessment](https://alphasmb.com/assessment): Free 5-minute diagnostic — 15 questions, instant score, personalized report. No email required to start.
+- [AI Strategy Call](https://alphasmb.com/services/strategy-call): $500 one-hour session — readiness assessment, benchmarking, transformation roadmap, execution scorecard, 48-hour action plan
+- [About Zach Henderson](https://alphasmb.com/about): Credentials, philosophy, Aurora WDC role
+- [Book a Call](https://alphasmb.com/book): Schedule and pay ($500 via Cal.com + Stripe)
+- [Privacy Policy](https://alphasmb.com/privacy): Data handling for assessment, booking, analytics
 
 ## About the Founder
 
-Zach Henderson — Fractional Head of AI at Aurora WDC (an SMB that serves Fortune 1000 clients),
-Epic Systems alum, 20+ years across healthcare, real estate,
-manufacturing & software.
+Zach Henderson — Fractional Head of AI at Aurora WDC (a human intelligence
+agency serving Fortune 1000 clients). Leads AI transformation inside the
+company: internal tooling, process automation, AI product features. Prior:
+Epic Systems, healthcare IT consulting, 20+ years real estate investing,
+industrial engineering, built product companies.
 
 ## Services
 
-One-Hour AI Strategy Call ($500): AI readiness assessment, industry
-benchmarking, three-phase transformation roadmap, execution scorecard,
-48-hour action plan. Maps how AI capability changes competitive options.
-Delivered as branded PDF.
+AI Readiness Assessment (free): 15-question diagnostic scored across mindset,
+skillset, and toolset. Instant results with personalized report delivered via
+email. Primary entry point for the consulting funnel.
 
-Full Transformation Engagement (custom pricing): Up to 3 months embedded
-with organization. Champion identification, phased change management,
-weekly progress scoring. Limited to 2 clients at a time.
+One-Hour AI Strategy Call ($500): Deep-dive assessment, industry benchmarking,
+three-phase transformation roadmap, execution scorecard, 48-hour action plan.
+Delivered as a shareable report. Traditional AI consulting starts north of $50K.
+
+Full Transformation Engagement (custom pricing): Up to 3 months embedded with
+the organization. Champion identification, phased change management, weekly
+benchmarking. Limited to 2 clients at a time.
+
+## Methodology
+
+Four-phase approach: (1) Mindset first — leadership must think differently
+about AI before anything changes below them. (2) Find the champion — identify
+the person the organization already listens to and turn them into an AI
+transformation catalyst. (3) Activate high-agency people — surface proactive
+employees and give them tools and methods to lead from within. (4) Measure
+what matters — weekly scoring against industry benchmarks.
