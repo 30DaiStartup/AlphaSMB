@@ -53,10 +53,13 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ error: 'Failed to update assessment' });
     }
 
+    // Set user_name on local object so buildReportEmail uses the name
+    assessment.user_name = name;
+
     // Build and send email
     const html = buildReportEmail(assessment);
 
-    const { error: emailError } = await resend.emails.send({
+    const { data: emailData, error: emailError } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
       to: email,
       subject: `Your AI Readiness Score: ${assessment.overall_display.toFixed(1)} / 10`,
@@ -68,13 +71,15 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ error: 'Failed to send email' });
     }
 
+    console.log('Report email sent:', emailData?.id, 'to:', email);
+
     // Mark report as sent
     await supabase
       .from('assessments')
       .update({ report_sent_at: new Date().toISOString() })
       .eq('id', assessment.id);
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, emailId: emailData?.id });
   } catch (err) {
     console.error('Assessment report error:', err);
     return res.status(500).json({ error: 'Internal server error' });
