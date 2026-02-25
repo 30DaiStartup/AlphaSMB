@@ -19,7 +19,7 @@
   display: none;
   max-width: 720px;
   margin: 0 auto;
-  padding: 60px 24px 80px;
+  padding: 24px 24px 80px;
   opacity: 0;
   transition: opacity 0.2s ease-out;
 }
@@ -32,7 +32,7 @@
 /* ── Landing Screen ── */
 .assess__hero {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 12px;
 }
 
 .assess__hero-headline {
