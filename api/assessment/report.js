@@ -109,7 +109,7 @@ module.exports = async function handler(req, res) {
     assessment.user_name = name;
 
     // Build and send email
-    const html = buildReportEmail(assessment, benchmark);
+    const html = buildReportEmail(assessment, benchmark, assessment.answers);
 
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
