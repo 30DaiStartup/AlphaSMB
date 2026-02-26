@@ -17,3 +17,22 @@ pipeline/.pytest_cache/
 # OS
 .DS_Store
 Thumbs.db
+
+# Claude
+.claude/commands/
+.claude/plans/
+
+# Working docs
+AlphaSMB-LinkedIn-Profile-Copy-Guide.docx
+LinkedIn Profile Overhaul.txt
+\!-- Privacy-friendly analytics by P.txt
+Transcripts/
+feedback/
+transcript-skills/
+
+# Local tools & scripts
+scripts/
+tools/
+
+# Specs
+assessment/alphasmb-diagnostic-spec.md
