@@ -3,6 +3,7 @@
 // Route: /results/:sid → rewrites to /api/assessment/share-page?sid=:sid
 
 const supabase = require('../_lib/supabase');
+const { getSegmentSnapshot, formatSegmentLabel } = require('../_lib/benchmark');
 
 const BRAND = {
   charcoal: '#1C1917',
@@ -45,6 +46,32 @@ function esc(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+function buildBenchRow(label, userScore, median, tierKey) {
+  const userPct = Math.round((userScore / 10) * 100);
+  const medianPct = Math.round((median / 10) * 100);
+  const color = TIER_COLORS[tierKey] || TIER_COLORS.yellow;
+  const diff = userScore - median;
+  let comparison = '';
+  if (diff > 0.2) {
+    comparison = ' <strong>' + diff.toFixed(1) + ' above</strong> median';
+  } else if (diff < -0.2) {
+    comparison = ' <strong>' + Math.abs(diff).toFixed(1) + ' below</strong> median';
+  } else {
+    comparison = ' At median';
+  }
+  return `
+    <div class="bench-row">
+      <span class="bench-dim">${esc(label)}</span>
+      <div class="bench-track">
+        <div class="bench-user" style="width:${userPct}%;background:${color};"></div>
+        <div class="bench-median" style="left:${medianPct}%;">
+          <span class="bench-median-label">Median ${median.toFixed(1)}</span>
+        </div>
+      </div>
+      <span class="bench-value">${userScore.toFixed(1)}${comparison}</span>
+    </div>`;
 }
 
 function buildDimRow(label, score, tierKey) {
@@ -110,6 +137,15 @@ module.exports = async function handler(req, res) {
       }
     }
 
+    // Fetch benchmark snapshot for "How You Compare" section
+    const snapshot = await getSegmentSnapshot(assessment.industry, assessment.company_size);
+    const hasSnapshot = snapshot && snapshot.medians && snapshot.medians.overall != null;
+    const snapshotLabel = hasSnapshot
+      ? (snapshot.dataSource === 'peer_data'
+        ? 'Based on ' + snapshot.sampleCount + ' assessments — ' + formatSegmentLabel(assessment.industry, assessment.company_size)
+        : 'Based on industry research — ' + formatSegmentLabel(assessment.industry, assessment.company_size))
+      : '';
+
     // OG meta content
     const ogTitle = 'I scored ' + overall.toFixed(1) + '/10 \u2014 ' + overallLabel;
     const ogDesc = 'Mindset ' + mindset.toFixed(1) + ' \u00B7 Skillset ' + skillset.toFixed(1) + ' \u00B7 Toolset ' + toolset.toFixed(1) + (percentileText ? ' \u2014 ' + percentileText : '');
@@ -162,6 +198,18 @@ module.exports = async function handler(req, res) {
     .share-dim-fill { height: 100%; border-radius: 5px; }
     .share-dim-score { width: 36px; font-size: 14px; font-weight: 700; color: ${BRAND.white}; text-align: right; }
     .share-dim-tier { width: 80px; font-size: 12px; font-weight: 600; margin-left: 8px; }
+    /* Benchmark section */
+    .bench-section { background: ${BRAND.charcoalLight}; border: 1px solid ${BRAND.slate}; border-radius: 12px; padding: 36px; margin-bottom: 40px; }
+    .bench-section h2 { font-size: 20px; font-weight: 700; color: ${BRAND.white}; margin: 0 0 8px; }
+    .bench-source { font-size: 13px; color: ${BRAND.stone}; line-height: 1.5; margin: 0 0 20px; }
+    .bench-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .bench-dim { min-width: 80px; font-size: 13px; font-weight: 600; color: ${BRAND.sand}; text-align: right; }
+    .bench-track { flex: 1; height: 24px; background: ${BRAND.charcoal}; border-radius: 4px; position: relative; overflow: visible; }
+    .bench-user { position: absolute; top: 0; left: 0; height: 100%; border-radius: 4px; }
+    .bench-median { position: absolute; top: -2px; bottom: -2px; width: 2px; background: ${BRAND.sand}; opacity: 0.6; z-index: 1; }
+    .bench-median-label { position: absolute; top: -18px; font-size: 10px; color: ${BRAND.stone}; white-space: nowrap; transform: translateX(-50%); }
+    .bench-value { min-width: 100px; font-size: 13px; color: ${BRAND.sand}; text-align: left; }
+    .bench-value strong { color: ${BRAND.white}; font-weight: 700; }
     .share-cta { text-align: center; padding: 40px 0; border-top: 1px solid ${BRAND.slate}; }
     .share-cta h2 { font-size: 24px; font-weight: 700; color: ${BRAND.white}; margin-bottom: 12px; }
     .share-cta p { font-size: 15px; color: ${BRAND.sand}; line-height: 1.6; margin-bottom: 24px; }
@@ -196,6 +244,9 @@ module.exports = async function handler(req, res) {
       .dist-section { padding: 24px 20px; }
       .dist-roles { gap: 6px; }
       .dist-role-btn { padding: 6px 12px; font-size: 13px; }
+      .bench-section { padding: 24px 20px; }
+      .bench-dim { min-width: 64px; font-size: 12px; }
+      .bench-value { min-width: 80px; font-size: 12px; }
     }
   </style>
   <script async src="https://plausible.io/js/pa-Rev0XSByyBqh9fk6o5PPi.js" integrity="sha384-6YTkDhBXl3wLZiL8weqvbjIaJ2V5R7HDgryaE814JkwVMGJelE+PmT71+CQwLQ/b" crossorigin="anonymous"></script>
@@ -223,6 +274,17 @@ module.exports = async function handler(req, res) {
       ${buildDimRow('Skillset', skillset, assessment.skillset_tier)}
       ${buildDimRow('Toolset', toolset, assessment.toolset_tier)}
     </div>
+
+    ${hasSnapshot ? `
+    <div class="bench-section">
+      <h2>How You Compare</h2>
+      <p class="bench-source">${esc(snapshotLabel)}</p>
+      ${buildBenchRow('Overall', overall, snapshot.medians.overall, assessment.overall_tier)}
+      ${buildBenchRow('Mindset', mindset, snapshot.medians.mindset || snapshot.medians.overall, assessment.mindset_tier)}
+      ${buildBenchRow('Skillset', skillset, snapshot.medians.skillset || snapshot.medians.overall, assessment.skillset_tier)}
+      ${buildBenchRow('Toolset', toolset, snapshot.medians.toolset || snapshot.medians.overall, assessment.toolset_tier)}
+    </div>
+    ` : ''}
 
     <div class="dist-section" id="distribute" style="display:none;">
       <h2>Distribute this assessment to your team</h2>
