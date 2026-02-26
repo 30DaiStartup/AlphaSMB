@@ -298,11 +298,13 @@
 
     // Score
     var scoreEl = $('assess-insight-score');
+    // Safety: display value is a computed number from scoring.js, not user input
     scoreEl.innerHTML = dimScore.display.toFixed(1) + ' <span class="assess__score-max">/ 10</span>';
     scoreEl.style.color = dimScore.tier.color;
 
     // Tier badge
     var badgeContainer = $('assess-insight-badge');
+    // Safety: tier.key and tier.label are from internal scoring.js constants, not user input
     badgeContainer.innerHTML = '<span class="assess__tier-badge assess__tier--' + dimScore.tier.key + '">' + dimScore.tier.label + '</span>';
 
     // Insight text

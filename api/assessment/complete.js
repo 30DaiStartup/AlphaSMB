@@ -1,4 +1,6 @@
 const supabase = require('../_lib/supabase');
+const { validateEnv } = require('../_lib/config');
+const { validateSessionId } = require('../_lib/validate');
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -8,9 +10,15 @@ module.exports = async function handler(req, res) {
   try {
     const { sessionId, role, industry, companySize, startedAt, completedAt, answers, scores } = req.body;
 
+    validateEnv();
+
     // Validate required fields
     if (!sessionId || !answers || !scores) {
       return res.status(400).json({ error: 'Missing required fields: sessionId, answers, scores' });
+    }
+
+    if (!validateSessionId(sessionId)) {
+      return res.status(400).json({ error: 'Invalid session ID format' });
     }
 
     if (!scores.raw || !scores.display || !scores.tiers) {
