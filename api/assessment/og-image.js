@@ -2,8 +2,6 @@
 // Generates a 1200x630 branded PNG with scores baked in
 // Uses satori (HTML → SVG) + @resvg/resvg-js (SVG → PNG)
 
-const path = require('path');
-const fs = require('fs');
 const supabase = require('../_lib/supabase');
 
 const BRAND = {
@@ -48,14 +46,31 @@ function getOverallTierKey(display) {
   return 'green';
 }
 
-// Load fonts once at cold-start
+// Load fonts once at cold-start from Google Fonts (static subsets, compatible with opentype.js)
 let fontBold, fontSemiBold;
-function loadFonts() {
-  if (!fontBold) {
-    const fontsDir = path.join(__dirname, '..', '_lib', 'fonts');
-    fontBold = fs.readFileSync(path.join(fontsDir, 'Manrope-Bold.ttf'));
-    fontSemiBold = fs.readFileSync(path.join(fontsDir, 'Manrope-SemiBold.ttf'));
+async function loadFonts() {
+  if (fontBold && fontSemiBold) return [fontBold, fontSemiBold];
+
+  // Fetch CSS to get static font file URLs for weights 600 + 700
+  const css = await fetch(
+    'https://fonts.googleapis.com/css2?family=Manrope:wght@600;700',
+    { headers: { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' } }
+  ).then(r => r.text());
+
+  // Parse @font-face blocks by weight
+  const blocks = css.split('@font-face');
+  for (const block of blocks) {
+    const weightMatch = block.match(/font-weight:\s*(\d+)/);
+    const urlMatch = block.match(/src:\s*url\(([^)]+)\)/);
+    if (!weightMatch || !urlMatch) continue;
+
+    const weight = parseInt(weightMatch[1]);
+    const data = await fetch(urlMatch[1]).then(r => r.arrayBuffer());
+    if (weight === 700) fontBold = data;
+    if (weight === 600) fontSemiBold = data;
   }
+
+  if (!fontBold || !fontSemiBold) throw new Error('Failed to load Manrope fonts from Google Fonts');
   return [fontBold, fontSemiBold];
 }
 
@@ -291,11 +306,9 @@ module.exports = async function handler(req, res) {
       }
     }
 
-    // Load fonts
-    const [bold, semiBold] = loadFonts();
-
-    // Dynamic import of ESM-only modules
-    const [{ default: satori }, { Resvg }] = await Promise.all([
+    // Load fonts + ESM modules in parallel
+    const [[bold, semiBold], { default: satori }, { Resvg }] = await Promise.all([
+      loadFonts(),
       import('satori'),
       import('@resvg/resvg-js'),
     ]);
