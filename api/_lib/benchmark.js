@@ -21,7 +21,16 @@ function formatSegmentLabel(industry, companySize) {
     parts.push(label + ' companies');
   }
   if (companySize) {
-    parts.push('with ' + companySize + ' employees');
+    var sizeLabels = {
+      'under_20': 'under 20',
+      '20-50': '20\u201350',
+      '51-100': '51\u2013100',
+      '101-250': '101\u2013250',
+      '251-500': '251\u2013500',
+      '500+': '500+'
+    };
+    var sizeLabel = sizeLabels[companySize] || companySize.replace(/_/g, ' ');
+    parts.push('with ' + sizeLabel + ' employees');
   }
   if (parts.length === 0) return 'All assessed companies';
   return parts.join(' ');

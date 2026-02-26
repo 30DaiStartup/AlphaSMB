@@ -458,6 +458,13 @@
     // Store assessment in backend (fire-and-forget)
     postAssessmentComplete();
 
+    // Show social share buttons once backend record exists
+    state.completionPromise.then(function () {
+      renderSocialShare();
+    }).catch(function () {
+      renderSocialShare(); // Still show buttons even if backend POST failed
+    });
+
     // Render share section before showing results
     renderShareSection();
 
@@ -974,13 +981,6 @@
               '<p style="font-size:15px;color:var(--alpha-sand);line-height:1.6;">Your full AI Readiness Report has been sent to ' + escapeHtml(email) + '.</p>' +
             '</div>';
 
-          // Scroll to share section
-          var shareSection = $('assess-share-section');
-          if (shareSection && shareSection.style.display !== 'none') {
-            setTimeout(function () {
-              shareSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 300);
-          }
         })
         .catch(function (err) {
           console.error('Report email error:', err);
@@ -1024,6 +1024,78 @@
     // Resume saved session (after all listeners are bound)
     if (resuming) {
       renderQuestion(state.currentQuestion);
+    }
+  }
+
+  // ── Social Share (X, LinkedIn, Facebook) ──
+  var X_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>';
+  var LINKEDIN_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>';
+  var FB_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>';
+  var COPY_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+
+  function renderSocialShare() {
+    var container = $('assess-social-share');
+    var btnWrap = $('social-share-buttons');
+    if (!container || !btnWrap || !state.scores || !state.sessionId) return;
+    if (container.getAttribute('data-rendered')) return;
+    container.setAttribute('data-rendered', 'true');
+
+    var scores = state.scores;
+    var overall = scores.display.overall;
+    var tierLabel = scores.tiers.overall.label;
+    var m = scores.display.mindset;
+    var s = scores.display.skillset;
+    var t = scores.display.toolset;
+    var shareUrl = 'https://alphasmb.com/results/' + state.sessionId;
+
+    // X share text (~200 chars)
+    var xText = 'I scored ' + overall.toFixed(1) + '/10 on the AI Readiness Assessment \u2014 ' + tierLabel + '.\n\nMindset ' + m.toFixed(1) + ' \u00B7 Skillset ' + s.toFixed(1) + ' \u00B7 Toolset ' + t.toFixed(1) + '\n\nHow ready is your organization?';
+    var xUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(xText) + '&url=' + encodeURIComponent(shareUrl);
+
+    // LinkedIn share (relies on OG tags for card)
+    var liUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
+
+    // LinkedIn copy text
+    var liText = 'I just took the AlphaSMB AI Readiness Assessment and scored ' + overall.toFixed(1) + '/10 \u2014 ' + tierLabel + '.\n\nMindset: ' + m.toFixed(1) + '/10 | Skillset: ' + s.toFixed(1) + '/10 | Toolset: ' + t.toFixed(1) + '/10\n\nFree 5-minute diagnostic \u2014 worth taking if you\'re leading AI adoption.';
+
+    // Facebook share
+    var fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl);
+
+    btnWrap.innerHTML =
+      '<a href="' + escapeHtml(xUrl) + '" target="_blank" rel="noopener noreferrer" class="assess__social-btn assess__social-btn--x" data-platform="x">' + X_ICON + ' Share on X</a>' +
+      '<a href="' + escapeHtml(liUrl) + '" target="_blank" rel="noopener noreferrer" class="assess__social-btn assess__social-btn--linkedin" data-platform="linkedin">' + LINKEDIN_ICON + ' Share on LinkedIn</a>' +
+      '<a href="' + escapeHtml(fbUrl) + '" target="_blank" rel="noopener noreferrer" class="assess__social-btn assess__social-btn--facebook" data-platform="facebook">' + FB_ICON + ' Share on Facebook</a>' +
+      '<button type="button" class="assess__social-btn assess__social-btn--copy" data-platform="copy">' + COPY_ICON + ' Copy post</button>';
+
+    container.style.display = '';
+
+    // Track clicks
+    var btns = btnWrap.querySelectorAll('.assess__social-btn');
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener('click', function (e) {
+        var platform = this.getAttribute('data-platform');
+        track('Social Share Clicked', {
+          platform: platform,
+          overall_score: overall,
+          tier: tierLabel
+        });
+
+        // Copy LinkedIn text to clipboard
+        if (platform === 'copy') {
+          e.preventDefault();
+          var btn = this;
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(liText + '\n' + shareUrl).then(function () {
+              btn.innerHTML = COPY_ICON + ' Copied!';
+              btn.classList.add('copied');
+              setTimeout(function () {
+                btn.innerHTML = COPY_ICON + ' Copy post';
+                btn.classList.remove('copied');
+              }, 2000);
+            });
+          }
+        }
+      });
     }
   }
 

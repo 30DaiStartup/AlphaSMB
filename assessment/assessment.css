@@ -1200,6 +1200,113 @@
   margin-top: 12px;
 }
 
+/* ── Social Share Buttons ── */
+.assess__social-share {
+  background: var(--alpha-charcoal-light);
+  border: 1px solid var(--alpha-slate);
+  border-radius: 8px;
+  padding: 36px;
+  margin: 48px 0;
+  text-align: center;
+}
+
+.assess__social-share h3 {
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--alpha-white);
+  margin-bottom: 8px;
+}
+
+.assess__social-share p {
+  font-size: 15px;
+  color: var(--alpha-sand);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.assess__social-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.assess__social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  border: none;
+  cursor: pointer;
+}
+
+.assess__social-btn:hover {
+  opacity: 0.85;
+}
+
+.assess__social-btn:focus-visible {
+  outline: 2px solid var(--alpha-ember);
+  outline-offset: 2px;
+}
+
+.assess__social-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.assess__social-btn--x {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.assess__social-btn--linkedin {
+  background: #0A66C2;
+  color: #FFFFFF;
+}
+
+.assess__social-btn--facebook {
+  background: #1877F2;
+  color: #FFFFFF;
+}
+
+.assess__social-btn--copy {
+  background: var(--alpha-charcoal);
+  border: 1px solid var(--alpha-slate);
+  color: var(--alpha-sand);
+}
+
+.assess__social-btn--copy.copied {
+  border-color: var(--assess-tier-light-green);
+  color: var(--assess-tier-light-green);
+}
+
+@media (max-width: 768px) {
+  .assess__social-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .assess__social-btn {
+    justify-content: center;
+  }
+
+  .assess__social-share {
+    padding: 24px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .assess__social-btn {
+    transition: none;
+  }
+}
+
 /* Strategy call CTA */
 .assess__cta-section {
   text-align: center;

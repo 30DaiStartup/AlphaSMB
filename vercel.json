@@ -1,5 +1,14 @@
 {
+  "crons": [
+    {
+      "path": "/api/benchmark/recompute",
+      "schedule": "0 4 * * 0"
+    }
+  ],
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/results/:sid", "destination": "/api/assessment/share-page?sid=:sid" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
