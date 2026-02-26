@@ -458,6 +458,13 @@
     // Store assessment in backend (fire-and-forget)
     postAssessmentComplete();
 
+    // Show social share buttons once backend record exists
+    state.completionPromise.then(function () {
+      renderSocialShare();
+    }).catch(function () {
+      renderSocialShare(); // Still show buttons even if backend POST failed
+    });
+
     // Render share section before showing results
     renderShareSection();
 
@@ -974,16 +981,6 @@
               '<p style="font-size:15px;color:var(--alpha-sand);line-height:1.6;">Your full AI Readiness Report has been sent to ' + escapeHtml(email) + '.</p>' +
             '</div>';
 
-          // Show social share buttons
-          renderSocialShare();
-
-          // Scroll to social share section
-          var socialShare = $('assess-social-share');
-          if (socialShare && socialShare.style.display !== 'none') {
-            setTimeout(function () {
-              socialShare.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 300);
-          }
         })
         .catch(function (err) {
           console.error('Report email error:', err);
@@ -1040,6 +1037,8 @@
     var container = $('assess-social-share');
     var btnWrap = $('social-share-buttons');
     if (!container || !btnWrap || !state.scores || !state.sessionId) return;
+    if (container.getAttribute('data-rendered')) return;
+    container.setAttribute('data-rendered', 'true');
 
     var scores = state.scores;
     var overall = scores.display.overall;

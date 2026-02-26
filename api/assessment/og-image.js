@@ -259,11 +259,11 @@ module.exports = async function handler(req, res) {
     // Look up assessment
     const { data: assessment, error } = await supabase
       .from('assessments')
-      .select('id, overall_display, overall_tier, mindset_display, mindset_tier, skillset_display, skillset_tier, toolset_display, toolset_tier, email_captured, industry, company_size')
+      .select('id, overall_display, overall_tier, mindset_display, mindset_tier, skillset_display, skillset_tier, toolset_display, toolset_tier, industry, company_size')
       .eq('session_id', sid)
       .single();
 
-    if (error || !assessment || !assessment.email_captured) {
+    if (error || !assessment || assessment.overall_display == null) {
       return res.status(404).json({ error: 'Assessment not found' });
     }
 
