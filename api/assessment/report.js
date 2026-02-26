@@ -3,6 +3,8 @@ const resend = require('../_lib/resend');
 const { buildReportEmail } = require('../_lib/report-email');
 const { validateEnv } = require('../_lib/config');
 const { validateEmail, validateSessionId, validateName } = require('../_lib/validate');
+const { resolveCompany } = require('../_lib/company');
+const { computeBenchmark, cacheBenchmarkResult } = require('../_lib/benchmark');
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -69,11 +71,45 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ error: 'Failed to update assessment' });
     }
 
+    // Resolve company from email domain
+    const { company, domain: emailDomain } = await resolveCompany(email);
+
+    // Update assessment with company info
+    const companyUpdate = { email_domain: emailDomain };
+    if (company) companyUpdate.company_id = company.id;
+
+    await supabase
+      .from('assessments')
+      .update(companyUpdate)
+      .eq('id', assessment.id);
+
+    // Also need industry and company_size for benchmark computation
+    const { data: fullAssessment } = await supabase
+      .from('assessments')
+      .select('id, industry, company_size, overall_display, mindset_display, skillset_display, toolset_display')
+      .eq('id', assessment.id)
+      .single();
+
+    // Compute benchmark
+    let benchmark = null;
+    if (fullAssessment) {
+      // Parse numeric strings
+      fullAssessment.overall_display = Number(fullAssessment.overall_display);
+      fullAssessment.mindset_display = Number(fullAssessment.mindset_display);
+      fullAssessment.skillset_display = Number(fullAssessment.skillset_display);
+      fullAssessment.toolset_display = Number(fullAssessment.toolset_display);
+
+      benchmark = await computeBenchmark(fullAssessment);
+
+      // Cache the result
+      await cacheBenchmarkResult(assessment.id, company ? company.id : null, benchmark);
+    }
+
     // Set user_name on local object so buildReportEmail uses the name
     assessment.user_name = name;
 
     // Build and send email
-    const html = buildReportEmail(assessment);
+    const html = buildReportEmail(assessment, benchmark);
 
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
@@ -95,7 +131,10 @@ module.exports = async function handler(req, res) {
       .update({ report_sent_at: new Date().toISOString() })
       .eq('id', assessment.id);
 
-    return res.status(200).json({ success: true, emailId: emailData?.id });
+    const response = { success: true, emailId: emailData?.id };
+    if (benchmark) response.benchmark = benchmark;
+
+    return res.status(200).json(response);
   } catch (err) {
     console.error('Assessment report error:', err);
     return res.status(500).json({ error: 'Internal server error' });
