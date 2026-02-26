@@ -1202,6 +1202,7 @@
 
 /* ── Social Share Buttons ── */
 .assess__social-share {
+  position: relative;
   background: var(--alpha-charcoal-light);
   border: 1px solid var(--alpha-slate);
   border-radius: 8px;
@@ -1286,6 +1287,29 @@
   color: var(--assess-tier-light-green);
 }
 
+.assess__copy-toast {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--alpha-charcoal);
+  border: 1px solid var(--assess-tier-light-green);
+  color: var(--assess-tier-light-green);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.assess__copy-toast--visible {
+  opacity: 1;
+}
+
 @media (max-width: 768px) {
   .assess__social-buttons {
     flex-direction: column;
@@ -1302,7 +1326,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .assess__social-btn {
+  .assess__social-btn,
+  .assess__copy-toast {
     transition: none;
   }
 }

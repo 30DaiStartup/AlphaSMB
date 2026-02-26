@@ -1069,7 +1069,25 @@
 
     container.style.display = '';
 
-    // Track clicks
+    // Clipboard helper — copies text and shows a brief toast
+    function copyAndToast(text, label) {
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(text).then(function () {
+        var toast = document.createElement('div');
+        toast.className = 'assess__copy-toast';
+        toast.textContent = label + ' text copied — paste into your post';
+        container.appendChild(toast);
+        // Trigger reflow then animate in
+        toast.offsetHeight;
+        toast.classList.add('assess__copy-toast--visible');
+        setTimeout(function () {
+          toast.classList.remove('assess__copy-toast--visible');
+          setTimeout(function () { toast.remove(); }, 300);
+        }, 2500);
+      });
+    }
+
+    // Track clicks + auto-copy for platforms that don't support pre-filled text
     var btns = btnWrap.querySelectorAll('.assess__social-btn');
     for (var i = 0; i < btns.length; i++) {
       btns[i].addEventListener('click', function (e) {
@@ -1080,8 +1098,11 @@
           tier: tierLabel
         });
 
-        // Copy LinkedIn text to clipboard
-        if (platform === 'copy') {
+        if (platform === 'linkedin') {
+          copyAndToast(liText + '\n' + shareUrl, 'LinkedIn');
+        } else if (platform === 'facebook') {
+          copyAndToast(liText + '\n' + shareUrl, 'Facebook');
+        } else if (platform === 'copy') {
           e.preventDefault();
           var btn = this;
           if (navigator.clipboard) {
