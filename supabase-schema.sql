@@ -43,13 +43,90 @@ create table assessments (
   pattern text,
 
   -- Report tracking
-  report_sent_at timestamptz
+  report_sent_at timestamptz,
+
+  -- Benchmarking (Phase 1)
+  company_id uuid,
+  email_domain text
 );
 
 -- Indexes
 create index idx_assessments_session on assessments(session_id);
 create index idx_assessments_email on assessments(user_email) where user_email is not null;
 create index idx_assessments_created on assessments(created_at);
+
+create index idx_assessments_company on assessments(company_id) where company_id is not null;
+create index idx_assessments_domain on assessments(email_domain) where email_domain is not null;
+
+-- ── Benchmarking Tables (Phase 1) ──
+
+-- Company entities resolved from email domains
+create table companies (
+  id uuid primary key default gen_random_uuid(),
+  domain text not null unique,
+  name text,
+  industry text,
+  company_size text,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+create index idx_companies_domain on companies(domain);
+
+-- Add FK constraint to assessments
+alter table assessments
+  add constraint fk_assessments_company
+  foreign key (company_id) references companies(id);
+
+-- Static curated benchmarks from research reports
+create table industry_baselines (
+  id uuid primary key default gen_random_uuid(),
+  industry text not null,
+  company_size text,
+  dimension text not null,
+  metric text not null,
+  value numeric(4,1) not null,
+  source text,
+  source_year integer,
+  confidence numeric(3,2) default 0.60,
+  created_at timestamptz default now()
+);
+
+create index idx_baselines_segment on industry_baselines(industry, company_size, dimension);
+
+-- Pre-computed aggregate percentiles from assessment data
+create table benchmark_snapshots (
+  id uuid primary key default gen_random_uuid(),
+  segment_key text not null,
+  dimension text not null,
+  sample_count integer not null default 0,
+  p10 numeric(4,1),
+  p25 numeric(4,1),
+  median numeric(4,1),
+  p75 numeric(4,1),
+  p90 numeric(4,1),
+  mean numeric(4,1),
+  computed_at timestamptz default now()
+);
+
+create unique index idx_snapshots_segment_dim on benchmark_snapshots(segment_key, dimension);
+
+-- Per-assessment benchmark cache
+create table benchmark_results (
+  id uuid primary key default gen_random_uuid(),
+  assessment_id uuid references assessments(id),
+  company_id uuid references companies(id),
+  segment_key text not null,
+  sample_count integer not null default 0,
+  overall_percentile integer,
+  mindset_percentile integer,
+  skillset_percentile integer,
+  toolset_percentile integer,
+  data_source text not null default 'static_baseline',
+  computed_at timestamptz default now()
+);
+
+create unique index idx_benchmark_results_assessment on benchmark_results(assessment_id);
 
 -- Share intents
 create table share_intents (

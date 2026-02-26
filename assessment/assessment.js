@@ -376,9 +376,28 @@
     // Compute scores during the pause
     state.scores = Scoring.computeScores(state.answers);
 
+    // Fetch benchmark snapshot (non-blocking, fire-and-forget)
+    state.benchmarkSnapshot = null;
+    fetchBenchmarkSnapshot();
+
     setTimeout(function () {
       renderResults();
     }, 4000);
+  }
+
+  function fetchBenchmarkSnapshot() {
+    var url = '/api/benchmark/snapshot?industry=' +
+      encodeURIComponent(state.industry || '') +
+      '&companySize=' + encodeURIComponent(state.companySize || '');
+
+    fetch(url)
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data.success) state.benchmarkSnapshot = data;
+      })
+      .catch(function () {
+        // Non-blocking — skip benchmark if it fails
+      });
   }
 
   // ── Render: Results Screen ──
@@ -425,6 +444,9 @@
     $('results-gap-name').textContent = pattern.name;
     $('results-gap-summary').textContent = pattern.summary;
 
+    // D. Benchmark comparison (if snapshot loaded)
+    renderBenchmarkBasic();
+
     // Track completion
     track('Assessment Completed', {
       role: state.role,
@@ -456,6 +478,148 @@
 
     // Clear saved session — assessment is complete
     clearState();
+  }
+
+  // ── Benchmark Rendering ──
+  function renderBenchmarkBasic() {
+    var section = $('results-benchmark');
+    var snapshot = state.benchmarkSnapshot;
+    if (!section || !snapshot || !snapshot.medians || !snapshot.medians.overall) return;
+
+    var scores = state.scores;
+    var dims = [
+      { key: 'overall', label: 'Overall' },
+      { key: 'mindset', label: 'Mindset' },
+      { key: 'skillset', label: 'Skillset' },
+      { key: 'toolset', label: 'Toolset' }
+    ];
+
+    var sourceText = snapshot.dataSource === 'peer_data'
+      ? 'Based on ' + snapshot.sampleCount + ' assessments \u2014 ' + snapshot.segmentLabel
+      : 'Based on industry research \u2014 ' + snapshot.segmentLabel;
+
+    $('benchmark-source').textContent = sourceText;
+
+    var container = $('benchmark-bars');
+    container.innerHTML = '';
+
+    dims.forEach(function (dim) {
+      var median = snapshot.medians[dim.key];
+      if (!median) return;
+
+      var userScore = scores.display[dim.key];
+      var userPct = (userScore / 10) * 100;
+      var medianPct = (median / 10) * 100;
+      var tier = dim.key === 'overall' ? scores.tiers.overall : scores.tiers[dim.key];
+      var color = tier ? tier.color : 'var(--alpha-ember)';
+
+      var row = document.createElement('div');
+      row.className = 'assess__benchmark-row';
+
+      var comparison = '';
+      var diff = userScore - median;
+      if (diff > 0.2) {
+        comparison = ' <strong>' + diff.toFixed(1) + ' above</strong> median';
+      } else if (diff < -0.2) {
+        comparison = ' <strong>' + Math.abs(diff).toFixed(1) + ' below</strong> median';
+      } else {
+        comparison = ' At median';
+      }
+
+      row.innerHTML =
+        '<span class="assess__benchmark-dim">' + dim.label + '</span>' +
+        '<div class="assess__benchmark-track">' +
+          '<div class="assess__benchmark-user" style="background:' + color + ';" data-width="' + userPct + '%"></div>' +
+          '<div class="assess__benchmark-median" style="left:' + medianPct + '%;">' +
+            '<span class="assess__benchmark-median-label">Median ' + median.toFixed(1) + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<span class="assess__benchmark-value">' + userScore.toFixed(1) + comparison + '</span>';
+
+      container.appendChild(row);
+    });
+
+    // Show teaser for percentile detail
+    $('benchmark-teaser').style.display = '';
+
+    section.style.display = '';
+
+    // Animate bars
+    setTimeout(function () {
+      var fills = container.querySelectorAll('.assess__benchmark-user[data-width]');
+      for (var i = 0; i < fills.length; i++) {
+        (function (el, idx) {
+          setTimeout(function () {
+            el.style.width = el.getAttribute('data-width');
+          }, idx * 150);
+        })(fills[i], i);
+      }
+    }, 200);
+  }
+
+  function renderBenchmarkPersonalized(benchmark) {
+    var section = $('results-benchmark');
+    if (!section || !benchmark || !benchmark.overallPercentile) return;
+
+    var sourceText = benchmark.dataSource === 'peer_data'
+      ? 'Based on ' + benchmark.sampleCount + ' assessments \u2014 ' + benchmark.segmentLabel
+      : benchmark.dataSource === 'blended'
+      ? 'Peer data + industry research \u2014 ' + benchmark.segmentLabel
+      : 'Based on industry research \u2014 ' + benchmark.segmentLabel;
+
+    $('benchmark-source').textContent = sourceText;
+
+    // Hide teaser
+    $('benchmark-teaser').style.display = 'none';
+
+    var container = $('benchmark-bars');
+    container.innerHTML = '';
+
+    var dims = [
+      { key: 'overall', pctKey: 'overallPercentile', label: 'Overall' },
+      { key: 'mindset', pctKey: 'mindsetPercentile', label: 'Mindset' },
+      { key: 'skillset', pctKey: 'skillsetPercentile', label: 'Skillset' },
+      { key: 'toolset', pctKey: 'toolsetPercentile', label: 'Toolset' }
+    ];
+
+    dims.forEach(function (dim) {
+      var percentile = benchmark[dim.pctKey];
+      if (!percentile) return;
+
+      var color = percentile >= 75 ? 'var(--assess-tier-green)'
+        : percentile >= 50 ? 'var(--assess-tier-yellow)'
+        : percentile >= 25 ? 'var(--assess-tier-orange)'
+        : 'var(--assess-tier-red)';
+
+      var pctLabel = percentile >= 50
+        ? 'Top ' + (100 - percentile) + '%'
+        : percentile + 'th percentile';
+
+      var row = document.createElement('div');
+      row.className = 'assess__benchmark-pct';
+      row.innerHTML =
+        '<span class="assess__benchmark-pct-dim">' + dim.label + '</span>' +
+        '<div class="assess__benchmark-pct-track">' +
+          '<div class="assess__benchmark-pct-fill" style="background:' + color + ';" data-width="' + percentile + '%"></div>' +
+        '</div>' +
+        '<span class="assess__benchmark-pct-value">' + escapeHtml(pctLabel) + '</span>';
+
+      container.appendChild(row);
+    });
+
+    section.style.display = '';
+
+    // Animate
+    setTimeout(function () {
+      var fills = container.querySelectorAll('.assess__benchmark-pct-fill[data-width]');
+      for (var i = 0; i < fills.length; i++) {
+        (function (el, idx) {
+          setTimeout(function () {
+            el.style.width = el.getAttribute('data-width');
+          }, idx * 150);
+        })(fills[i], i);
+      }
+    }, 200);
   }
 
   // ── API Helpers ──
@@ -794,6 +958,11 @@
           // Store user info for share flow
           state.userName = name;
           state.userEmail = email;
+
+          // Render personalized benchmark if available
+          if (result.data.benchmark) {
+            renderBenchmarkPersonalized(result.data.benchmark);
+          }
 
           // Enable share send buttons
           enableShareButtons();

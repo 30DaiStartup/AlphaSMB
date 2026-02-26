@@ -102,7 +102,52 @@ function buildDimensionBar(label, display, tierKey) {
     </tr>`;
 }
 
-function buildReportEmail(assessment) {
+function buildBenchmarkBar(label, score, percentile) {
+  if (!percentile) return '';
+  var pct = Math.max(2, Math.min(98, percentile));
+  var color = percentile >= 75 ? '#15803D' : percentile >= 50 ? '#CA8A04' : percentile >= 25 ? '#EA580C' : '#DC2626';
+  var pctLabel = percentile >= 50
+    ? 'Top ' + (100 - percentile) + '%'
+    : 'Bottom ' + percentile + '%';
+
+  return `
+    <tr>
+      <td style="padding:6px 0;width:80px;font-size:14px;color:${BRAND.sand};">${esc(label)}</td>
+      <td style="padding:6px 12px;">
+        <div style="background:${BRAND.slate};border-radius:4px;height:8px;width:100%;position:relative;">
+          <div style="background:${color};border-radius:4px;height:8px;width:${pct}%;"></div>
+        </div>
+      </td>
+      <td style="padding:6px 0;width:100px;text-align:right;font-size:13px;">
+        <span style="color:${color};font-weight:600;">${esc(pctLabel)}</span>
+      </td>
+    </tr>`;
+}
+
+function buildBenchmarkSection(benchmark) {
+  if (!benchmark || !benchmark.overallPercentile) return '';
+
+  var sourceLabel = benchmark.dataSource === 'peer_data'
+    ? 'Based on ' + benchmark.sampleCount + ' assessments'
+    : benchmark.dataSource === 'blended'
+    ? 'Based on peer data + industry research'
+    : 'Based on industry research';
+
+  return `
+          <!-- How You Compare -->
+          <div style="border-top:1px solid ${BRAND.slate};padding-top:24px;margin-bottom:24px;">
+            <h3 style="font-size:16px;font-weight:700;color:${BRAND.white};margin:0 0 6px;">How You Compare</h3>
+            <p style="font-size:13px;color:${BRAND.stone};margin:0 0 16px;line-height:1.5;">${esc(sourceLabel)} &mdash; ${esc(benchmark.segmentLabel)}</p>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+              ${buildBenchmarkBar('Overall', null, benchmark.overallPercentile)}
+              ${buildBenchmarkBar('Mindset', null, benchmark.mindsetPercentile)}
+              ${buildBenchmarkBar('Skillset', null, benchmark.skillsetPercentile)}
+              ${buildBenchmarkBar('Toolset', null, benchmark.toolsetPercentile)}
+            </table>
+          </div>`;
+}
+
+function buildReportEmail(assessment, benchmark) {
   const { user_name, overall_display, overall_tier, mindset_display, skillset_display, toolset_display, mindset_tier, skillset_tier, toolset_tier, pattern } = assessment;
 
   const overallColor = TIER_COLORS[overall_tier] || TIER_COLORS.yellow;
@@ -180,6 +225,8 @@ function buildReportEmail(assessment) {
             <h3 style="font-size:14px;font-weight:600;color:${BRAND.ember};margin:0 0 8px;">Gap Pattern: ${esc(patternInfo.name)}</h3>
             <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;">${esc(patternInfo.summary)}</p>
           </div>
+
+          ${buildBenchmarkSection(benchmark)}
 
           <!-- What to do next -->
           <div style="border-top:1px solid ${BRAND.slate};padding-top:24px;margin-bottom:24px;">
