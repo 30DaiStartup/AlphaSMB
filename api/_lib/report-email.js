@@ -251,12 +251,20 @@ function buildReportEmail(assessment, benchmark) {
             </td></tr>
           </table>
 
+          <!-- Distribute to team -->
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr><td align="center" style="padding:24px 0 0;">
+              <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0 0 12px;">One perspective is useful. Multiple leaders reveal the full picture.</p>
+              <a href="https://alphasmb.com/assessment" style="display:inline-block;color:${BRAND.ember};font-size:14px;font-weight:600;text-decoration:none;">Invite your team to take the assessment &rarr;</a>
+            </td></tr>
+          </table>
+
         </td></tr>
 
         <!-- Footer -->
         <tr><td style="padding:24px 32px;text-align:center;">
           <p style="font-size:13px;color:${BRAND.stone};line-height:1.5;margin:0;">
-            Zach Henderson &mdash; Head of AI at Aurora WDC<br>
+            Zach Henderson<br>
             <a href="https://alphasmb.com" style="color:${BRAND.ember};text-decoration:none;">alphasmb.com</a>
           </p>
         </td></tr>
