@@ -43,22 +43,53 @@ const MID_INSIGHTS = {
   },
 };
 
+// Weekly actions keyed by question ID — surfaced when that question is one of the 2 lowest
+const WEEKLY_ACTIONS = {
+  q1: 'Schedule a 30-minute leadership meeting this week with one agenda item: \u201CWhat would change about our business if we could automate any 3 processes?\u201D Don\u2019t solve it \u2014 just start the conversation.',
+  q2: 'Block 1 hour this week for your CEO or top leader to use an AI tool on one real task \u2014 drafting a memo, analyzing a report, brainstorming strategy. Leaders who use AI tools make fundamentally different decisions about AI investment.',
+  q3: 'Bring one concrete AI use case to your next leadership meeting this week. Frame it as a 2-week experiment with a specific metric to measure \u2014 this shifts the conversation from abstract to actionable.',
+  q4: 'Spend 30 minutes this week researching how 3 companies in your industry are using AI. Share a one-paragraph summary with your leadership team \u2014 nothing motivates action like seeing competitors move.',
+  q5: 'Map your top 3 competitors\u2019 public AI moves this week \u2014 job postings mentioning AI, product announcements, press mentions. Share a quick brief with leadership so the competitive picture is concrete, not theoretical.',
+  q6: 'Identify 3 people in different roles. Ask each to try one AI tool on real work this week and report back what happened. You\u2019re not rolling out AI \u2014 you\u2019re finding out where it sticks.',
+  q7: 'Pick 3 people whose AI usage dropped off. Ask each one: \u201CWhat got in the way?\u201D This week, you\u2019ll learn whether the barrier is skill, permission, or relevance \u2014 and that tells you exactly what to fix.',
+  q8: 'Find the person on your team who\u2019s most curious about AI. Ask them to do a 15-minute show-and-tell for the team this week \u2014 one real example of how they\u2019ve used AI on actual work.',
+  q9: 'Identify one person in each department this week. Give them a specific AI task relevant to their role and 30 minutes to try it. You\u2019re looking for who picks it up fastest \u2014 those are your future champions.',
+  q10: 'Pick one workflow your team does weekly. Spend 30 minutes this week documenting how AI could assist each step. Don\u2019t implement anything yet \u2014 just make the opportunity visible.',
+  q11: 'Audit your current tool situation this week: list every AI tool anyone on your team has access to, who\u2019s using it, and what for. You can\u2019t strategize what you haven\u2019t inventoried.',
+  q12: 'Pick your most-used AI tool this week. Have 3 different team members test it on a real task from their actual workflow, then compare notes on what worked and what didn\u2019t.',
+  q13: 'Choose one repetitive workflow your team does weekly. Document each step and identify where someone is copying and pasting between an AI tool and another system \u2014 that\u2019s your integration opportunity.',
+  q14: 'Draft a one-page AI usage guideline this week: what tools are approved, what data can and can\u2019t go in, who to ask questions. Imperfect guidelines this week beat perfect guidelines next quarter.',
+  q15: 'List every AI subscription your organization pays for this week. For each one, write down: who uses it, how often, and one specific outcome it\u2019s produced. Cancel anything no one can justify.',
+};
+
+// Pattern-based third action (strategic context alongside the two tactical actions)
+const PATTERN_ACTIONS = {
+  not_started: 'Set aside one team meeting this week to answer one question: \u201CIf we could use AI to solve one problem in our business, what would it be?\u201D Don\u2019t worry about how \u2014 just align on where to start.',
+  tools_without_foundation: 'Pause any new tool purchases this week. Instead, pick one tool you already have and assign one specific person to build one specific workflow with it. Foundation before expansion.',
+  vision_without_infrastructure: 'Ask each member of your leadership team to write down their top AI priority this week. Compare notes \u2014 if they don\u2019t match, that\u2019s your first infrastructure gap: alignment.',
+  balanced_growth: 'Pick the dimension where you scored lowest and do one thing to move it forward this week. Balanced growth means your bottleneck is wherever you focus least.',
+};
+
 const PATTERNS = {
   not_started: {
     name: 'Not Started',
     summary: 'Your scores indicate your organization is at the very beginning of the AI transformation journey.',
+    implication: 'Most companies in your position feel like they\u2019ve already fallen behind \u2014 but the reality is that most SMBs haven\u2019t started either. The risk isn\u2019t that you\u2019re behind today. It\u2019s that the gap compounds every quarter you wait. Starting now, even small, gives you a real advantage over competitors who are still frozen.',
   },
   tools_without_foundation: {
     name: 'Tools Without Foundation',
     summary: 'Your organization has invested in AI tools, but the foundation to actually use them isn\u2019t in place.',
+    implication: 'This is the most common pattern I see \u2014 and the most expensive. Tool licenses are burning budget while the skills and mindset to use them haven\u2019t developed. The fix isn\u2019t more tools or different tools. It\u2019s building the organizational capability underneath.',
   },
   vision_without_infrastructure: {
     name: 'Vision Without Infrastructure',
     summary: 'Your leadership gets it, but the organization below leadership can\u2019t yet execute on that vision.',
+    implication: 'Your leadership is ahead of the organization \u2014 which is actually the right order. But vision without execution creates frustration on both sides. Leadership gets impatient, teams feel pressured but unsupported. The bridge is structured skill-building and clear permission to experiment.',
   },
   balanced_growth: {
     name: 'Balanced Growth',
     summary: 'Your scores are relatively balanced across dimensions, which tells me your organization has been thoughtful about AI adoption rather than rushing into one area.',
+    implication: 'Balanced doesn\u2019t mean slow. It means you\u2019ve avoided the traps that catch most organizations \u2014 buying tools nobody uses, or building vision nobody can execute. Your next move is acceleration: pick the dimension where a 1-point improvement would unlock the most value and focus there.',
   },
 };
 
@@ -77,6 +108,26 @@ function esc(str) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+// Find the 2 lowest-scoring questions from the answers object
+// answers format: { q1: { score: 3 }, q2: { score: 2 }, ... }
+function findLowestQuestions(answers) {
+  if (!answers || typeof answers !== 'object') return [];
+
+  const entries = [];
+  for (let i = 1; i <= 15; i++) {
+    const qId = 'q' + i;
+    const answer = answers[qId];
+    if (answer && typeof answer.score === 'number') {
+      entries.push({ id: qId, score: answer.score });
+    }
+  }
+
+  if (entries.length === 0) return [];
+
+  entries.sort((a, b) => a.score - b.score);
+  return entries.slice(0, 2).map(e => e.id);
 }
 
 function buildDimensionBar(label, display, tierKey) {
@@ -147,7 +198,62 @@ function buildBenchmarkSection(benchmark) {
           </div>`;
 }
 
-function buildReportEmail(assessment, benchmark) {
+// Build a competitive positioning sentence for a dimension
+function buildBenchmarkSentence(dimension, percentile, segmentLabel) {
+  if (!percentile || !segmentLabel) return '';
+  const position = percentile >= 50
+    ? 'top ' + (100 - percentile) + '%'
+    : 'bottom ' + percentile + '%';
+  return ` Among ${esc(segmentLabel)}, your ${esc(dimension.toLowerCase())} score puts you in the ${position}.`;
+}
+
+// Build the "Three Things You Can Do This Week" section
+function buildWeeklyActions(answers, pattern) {
+  const lowestQs = findLowestQuestions(answers);
+  const patternAction = PATTERN_ACTIONS[pattern] || PATTERN_ACTIONS.balanced_growth;
+
+  // If we couldn't extract lowest questions, fall back to pattern-only actions
+  if (lowestQs.length < 2) {
+    return `
+          <!-- Three things this week -->
+          <div style="border-top:1px solid ${BRAND.slate};padding-top:24px;margin-bottom:24px;">
+            <h3 style="font-size:16px;font-weight:700;color:${BRAND.white};margin:0 0 16px;">Three Things You Can Do This Week</h3>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+              <tr><td style="padding:0 0 12px;">
+                <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;"><strong style="color:${BRAND.white};">1.</strong> ${esc(patternAction)}</p>
+              </td></tr>
+              <tr><td style="padding:0 0 12px;">
+                <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;"><strong style="color:${BRAND.white};">2. Share this report with your leadership team.</strong> AI transformation is an organizational challenge, not a technology decision. Your team needs to see where you stand.</p>
+              </td></tr>
+              <tr><td style="padding:0 0 12px;">
+                <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;"><strong style="color:${BRAND.white};">3. Get a strategy call.</strong> I\u2019ll walk you through exactly what to prioritize based on your scores and your specific situation.</p>
+              </td></tr>
+            </table>
+          </div>`;
+  }
+
+  const action1 = WEEKLY_ACTIONS[lowestQs[0]] || WEEKLY_ACTIONS.q1;
+  const action2 = WEEKLY_ACTIONS[lowestQs[1]] || WEEKLY_ACTIONS.q2;
+
+  return `
+          <!-- Three things this week -->
+          <div style="border-top:1px solid ${BRAND.slate};padding-top:24px;margin-bottom:24px;">
+            <h3 style="font-size:16px;font-weight:700;color:${BRAND.white};margin:0 0 16px;">Three Things You Can Do This Week</h3>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+              <tr><td style="padding:0 0 12px;">
+                <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;"><strong style="color:${BRAND.white};">1.</strong> ${esc(action1)}</p>
+              </td></tr>
+              <tr><td style="padding:0 0 12px;">
+                <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;"><strong style="color:${BRAND.white};">2.</strong> ${esc(action2)}</p>
+              </td></tr>
+              <tr><td style="padding:0 0 12px;">
+                <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;"><strong style="color:${BRAND.white};">3.</strong> ${esc(patternAction)}</p>
+              </td></tr>
+            </table>
+          </div>`;
+}
+
+function buildReportEmail(assessment, benchmark, answers) {
   const { user_name, overall_display, overall_tier, mindset_display, skillset_display, toolset_display, mindset_tier, skillset_tier, toolset_tier, pattern } = assessment;
 
   const overallColor = TIER_COLORS[overall_tier] || TIER_COLORS.yellow;
@@ -159,6 +265,12 @@ function buildReportEmail(assessment, benchmark) {
   const toolsetInsight = MID_INSIGHTS.toolset[toolset_tier] || '';
 
   const firstName = user_name ? user_name.split(' ')[0] : 'there';
+
+  // Competitive positioning sentences (only when benchmark data exists)
+  const segmentLabel = benchmark && benchmark.segmentLabel ? benchmark.segmentLabel : '';
+  const mindsetBenchmark = buildBenchmarkSentence('mindset', benchmark && benchmark.mindsetPercentile, segmentLabel);
+  const skillsetBenchmark = buildBenchmarkSentence('skillset', benchmark && benchmark.skillsetPercentile, segmentLabel);
+  const toolsetBenchmark = buildBenchmarkSentence('toolset', benchmark && benchmark.toolsetPercentile, segmentLabel);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -206,43 +318,30 @@ function buildReportEmail(assessment, benchmark) {
 
             <div style="margin-bottom:20px;">
               <h4 style="font-size:14px;font-weight:600;color:${TIER_COLORS[mindset_tier] || BRAND.sand};margin:0 0 6px;">Mindset &mdash; ${mindset_display.toFixed(1)} / 10</h4>
-              <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;">${esc(mindsetInsight)}</p>
+              <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;">${esc(mindsetInsight)}${mindsetBenchmark}</p>
             </div>
 
             <div style="margin-bottom:20px;">
               <h4 style="font-size:14px;font-weight:600;color:${TIER_COLORS[skillset_tier] || BRAND.sand};margin:0 0 6px;">Skillset &mdash; ${skillset_display.toFixed(1)} / 10</h4>
-              <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;">${esc(skillsetInsight)}</p>
+              <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;">${esc(skillsetInsight)}${skillsetBenchmark}</p>
             </div>
 
             <div style="margin-bottom:20px;">
               <h4 style="font-size:14px;font-weight:600;color:${TIER_COLORS[toolset_tier] || BRAND.sand};margin:0 0 6px;">Toolset &mdash; ${toolset_display.toFixed(1)} / 10</h4>
-              <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;">${esc(toolsetInsight)}</p>
+              <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;">${esc(toolsetInsight)}${toolsetBenchmark}</p>
             </div>
           </div>
 
           <!-- Gap pattern -->
           <div style="background:${BRAND.charcoal};border-radius:8px;padding:20px;margin-bottom:24px;">
             <h3 style="font-size:14px;font-weight:600;color:${BRAND.ember};margin:0 0 8px;">Gap Pattern: ${esc(patternInfo.name)}</h3>
-            <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;">${esc(patternInfo.summary)}</p>
+            <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0 0 12px;">${esc(patternInfo.summary)}</p>
+            <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;">${esc(patternInfo.implication)}</p>
           </div>
 
           ${buildBenchmarkSection(benchmark)}
 
-          <!-- What to do next -->
-          <div style="border-top:1px solid ${BRAND.slate};padding-top:24px;margin-bottom:24px;">
-            <h3 style="font-size:16px;font-weight:700;color:${BRAND.white};margin:0 0 16px;">What To Do Next</h3>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-              <tr><td style="padding:0 0 12px;">
-                <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;"><strong style="color:${BRAND.white};">1. Share with your leadership team.</strong> AI transformation is an organizational challenge, not a technology decision. Your team needs to see where you stand.</p>
-              </td></tr>
-              <tr><td style="padding:0 0 12px;">
-                <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;"><strong style="color:${BRAND.white};">2. Identify your biggest gap.</strong> Look at which dimension scored lowest. That\u2019s where the bottleneck is \u2014 and usually where the highest-leverage work lives.</p>
-              </td></tr>
-              <tr><td style="padding:0 0 12px;">
-                <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0;"><strong style="color:${BRAND.white};">3. Get a strategy call.</strong> I\u2019ll walk you through exactly what to prioritize based on your scores and your specific situation.</p>
-              </td></tr>
-            </table>
-          </div>
+          ${buildWeeklyActions(answers, pattern)}
 
           <!-- CTA -->
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
