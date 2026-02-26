@@ -1,6 +1,10 @@
 const supabase = require('../_lib/supabase');
 const resend = require('../_lib/resend');
 const { buildInviteEmail, buildShareResultsEmail } = require('../_lib/share-email');
+const { validateEnv } = require('../_lib/config');
+const { validateEmail, validateSessionId, validateName } = require('../_lib/validate');
+
+var MAX_RECIPIENTS = 10;
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -22,10 +26,35 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid type. Must be "distribute" or "share_with_leader".' });
     }
 
+    validateEnv();
+
+    if (!validateSessionId(sessionId)) {
+      return res.status(400).json({ error: 'Invalid session ID format' });
+    }
+
+    if (!validateName(senderName)) {
+      return res.status(400).json({ error: 'Invalid sender name' });
+    }
+
+    if (!validateEmail(senderEmail)) {
+      return res.status(400).json({ error: 'Invalid sender email format' });
+    }
+
+    if (recipients.length > MAX_RECIPIENTS) {
+      return res.status(400).json({ error: 'Too many recipients. Maximum is ' + MAX_RECIPIENTS });
+    }
+
+    // Validate each recipient email
+    for (var i = 0; i < recipients.length; i++) {
+      if (recipients[i].email && !validateEmail(recipients[i].email)) {
+        return res.status(400).json({ error: 'Invalid recipient email format' });
+      }
+    }
+
     // Look up assessment
     const { data: assessment, error: lookupError } = await supabase
       .from('assessments')
-      .select('*')
+      .select('id, session_id, overall_display, overall_tier, mindset_display, mindset_tier, skillset_display, skillset_tier, toolset_display, toolset_tier')
       .eq('session_id', sessionId)
       .single();
 
@@ -97,13 +126,13 @@ module.exports = async function handler(req, res) {
         });
 
         if (emailError) {
-          console.error(`Failed to send to ${recipient.email}:`, emailError);
+          console.error('Failed to send share email:', emailError);
           errors.push(recipient.email);
         } else {
           sentCount++;
         }
       } catch (emailErr) {
-        console.error(`Exception sending to ${recipient.email}:`, emailErr);
+        console.error('Exception sending share email:', emailErr);
         errors.push(recipient.email);
       }
     }

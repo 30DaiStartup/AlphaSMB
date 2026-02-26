@@ -1,6 +1,8 @@
 const supabase = require('../_lib/supabase');
 const resend = require('../_lib/resend');
 const { buildReportEmail } = require('../_lib/report-email');
+const { validateEnv } = require('../_lib/config');
+const { validateEmail, validateSessionId, validateName } = require('../_lib/validate');
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -8,16 +10,30 @@ module.exports = async function handler(req, res) {
   }
 
   try {
+    validateEnv();
+
     const { sessionId, name, email } = req.body;
 
     if (!sessionId || !name || !email) {
       return res.status(400).json({ error: 'Missing required fields: sessionId, name, email' });
     }
 
+    if (!validateSessionId(sessionId)) {
+      return res.status(400).json({ error: 'Invalid session ID format' });
+    }
+
+    if (!validateName(name)) {
+      return res.status(400).json({ error: 'Invalid name' });
+    }
+
+    if (!validateEmail(email)) {
+      return res.status(400).json({ error: 'Invalid email format' });
+    }
+
     // Look up assessment by session_id
     const { data: assessment, error: lookupError } = await supabase
       .from('assessments')
-      .select('*')
+      .select('id, session_id, user_name, user_email, report_sent_at, overall_display, overall_tier, mindset_display, mindset_tier, skillset_display, skillset_tier, toolset_display, toolset_tier, pattern, answers')
       .eq('session_id', sessionId)
       .single();
 
@@ -71,7 +87,7 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ error: 'Failed to send email' });
     }
 
-    console.log('Report email sent:', emailData?.id, 'to:', email);
+    console.log('Report email sent:', emailData?.id, 'session:', sessionId);
 
     // Mark report as sent
     await supabase
