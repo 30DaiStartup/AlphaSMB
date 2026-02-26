@@ -52,9 +52,10 @@ async function loadFonts() {
   if (fontBold && fontSemiBold) return [fontBold, fontSemiBold];
 
   // Fetch CSS to get static font file URLs for weights 600 + 700
+  // Use older UA so Google Fonts returns TTF (not woff2, which opentype.js can't parse)
   const css = await fetch(
     'https://fonts.googleapis.com/css2?family=Manrope:wght@600;700',
-    { headers: { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' } }
+    { headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Trident/7.0; rv:11.0) like Gecko' } }
   ).then(r => r.text());
 
   // Parse @font-face blocks by weight
