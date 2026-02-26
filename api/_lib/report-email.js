@@ -253,8 +253,43 @@ function buildWeeklyActions(answers, pattern) {
           </div>`;
 }
 
+function buildShareSection(sessionId, overallDisplay, overallTier, mindsetDisplay, skillsetDisplay, toolsetDisplay) {
+  if (!sessionId) return '';
+
+  const shareUrl = 'https://alphasmb.com/results/' + encodeURIComponent(sessionId);
+  const tierLabel = (OVERALL_TIERS[overallTier] || OVERALL_TIERS.yellow).label;
+
+  const xText = 'I scored ' + overallDisplay.toFixed(1) + '/10 on the AI Readiness Assessment \u2014 ' + tierLabel + '.\n\nMindset ' + mindsetDisplay.toFixed(1) + ' \u00B7 Skillset ' + skillsetDisplay.toFixed(1) + ' \u00B7 Toolset ' + toolsetDisplay.toFixed(1) + '\n\nHow ready is your organization?';
+  const xUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(xText) + '&url=' + encodeURIComponent(shareUrl);
+  const liUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
+  const fbUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl);
+
+  const btnStyle = 'display:inline-block;padding:10px 18px;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;color:#FFFFFF;';
+
+  return `
+          <!-- Share your score -->
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+            <tr><td style="border-top:1px solid ${BRAND.slate};padding-top:24px;margin-top:24px;">
+              <p style="font-size:14px;font-weight:600;color:${BRAND.white};text-align:center;margin:0 0 16px;">Share your score</p>
+              <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                <tr>
+                  <td style="padding:0 6px;">
+                    <a href="${esc(xUrl)}" style="${btnStyle}background:#000000;" target="_blank">Share on X</a>
+                  </td>
+                  <td style="padding:0 6px;">
+                    <a href="${esc(liUrl)}" style="${btnStyle}background:#0A66C2;" target="_blank">Share on LinkedIn</a>
+                  </td>
+                  <td style="padding:0 6px;">
+                    <a href="${esc(fbUrl)}" style="${btnStyle}background:#1877F2;" target="_blank">Share on Facebook</a>
+                  </td>
+                </tr>
+              </table>
+            </td></tr>
+          </table>`;
+}
+
 function buildReportEmail(assessment, benchmark, answers) {
-  const { user_name, overall_display, overall_tier, mindset_display, skillset_display, toolset_display, mindset_tier, skillset_tier, toolset_tier, pattern } = assessment;
+  const { session_id, user_name, overall_display, overall_tier, mindset_display, skillset_display, toolset_display, mindset_tier, skillset_tier, toolset_tier, pattern } = assessment;
 
   const overallColor = TIER_COLORS[overall_tier] || TIER_COLORS.yellow;
   const overallInfo = OVERALL_TIERS[overall_tier] || OVERALL_TIERS.yellow;
@@ -357,6 +392,8 @@ function buildReportEmail(assessment, benchmark, answers) {
               <a href="https://alphasmb.com/assessment" style="display:inline-block;color:${BRAND.ember};font-size:14px;font-weight:600;text-decoration:none;">Invite your team to take the assessment &rarr;</a>
             </td></tr>
           </table>
+
+          ${buildShareSection(session_id, overall_display, overall_tier, mindset_display, skillset_display, toolset_display)}
 
         </td></tr>
 

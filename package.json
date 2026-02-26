@@ -7,10 +7,15 @@
     "generate-pdf": "node scripts/generate-pdf.js"
   },
   "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@supabase/supabase-js": "^2.97.0",
     "canvas": "^3.2.1",
     "markdown-it": "^14.1.1",
     "playwright": "^1.52.0",
-    "resend": "^6.9.2"
+    "resend": "^6.9.2",
+    "satori": "^0.12.2"
+  },
+  "devDependencies": {
+    "dotenv": "^17.3.1"
   }
 }
