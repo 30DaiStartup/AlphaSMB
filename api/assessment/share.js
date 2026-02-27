@@ -3,13 +3,19 @@ const resend = require('../_lib/resend');
 const { buildInviteEmail, buildShareResultsEmail, buildInviteEmailText, buildShareResultsEmailText } = require('../_lib/share-email');
 const { validateEnv } = require('../_lib/config');
 const { validateEmail, validateSessionId, validateName } = require('../_lib/validate');
+const { rateLimit } = require('../_lib/rate-limit');
 
 var MAX_RECIPIENTS = 10;
+
+// 5 share requests per 15 minutes per IP
+var limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 5 });
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (limiter(req, res)) return;
 
   try {
     const { sessionId, type, senderRole, senderName, senderEmail, recipients, visibility } = req.body;
@@ -87,11 +93,26 @@ module.exports = async function handler(req, res) {
       return res.status(500).json({ error: 'Failed to store share intent' });
     }
 
+    // Sanitize senderName for email headers — strip CR/LF to prevent injection
+    var safeSenderName = senderName.replace(/[\r\n]/g, '');
+
+    // Deduplicate recipients by email (case-insensitive)
+    var seenEmails = {};
+    var uniqueRecipients = [];
+    for (var j = 0; j < recipients.length; j++) {
+      if (!recipients[j].email) continue;
+      var lower = recipients[j].email.toLowerCase().trim();
+      if (!seenEmails[lower]) {
+        seenEmails[lower] = true;
+        uniqueRecipients.push(recipients[j]);
+      }
+    }
+
     // Send emails to each recipient
     let sentCount = 0;
     const errors = [];
 
-    for (const recipient of recipients) {
+    for (const recipient of uniqueRecipients) {
       if (!recipient.email) continue;
 
       let html;
@@ -99,7 +120,7 @@ module.exports = async function handler(req, res) {
       let subject;
 
       const shareParams = {
-        senderName,
+        senderName: safeSenderName,
         overallDisplay: assessment.overall_display,
         overallTier: assessment.overall_tier,
         mindsetDisplay: assessment.mindset_display,
@@ -112,14 +133,14 @@ module.exports = async function handler(req, res) {
 
       if (type === 'distribute') {
         // Leader inviting team to take assessment
-        html = buildInviteEmail({ senderName });
-        text = buildInviteEmailText({ senderName });
-        subject = `${senderName} invited you to take the AI Readiness Assessment`;
+        html = buildInviteEmail({ senderName: safeSenderName });
+        text = buildInviteEmailText({ senderName: safeSenderName });
+        subject = (safeSenderName + ' invited you to take the AI Readiness Assessment').replace(/[\r\n]/g, '');
       } else {
         // Member sharing results with leader
         html = buildShareResultsEmail(shareParams);
         text = buildShareResultsEmailText(shareParams);
-        subject = `${senderName} shared their AI Readiness Assessment results with you`;
+        subject = (safeSenderName + ' shared their AI Readiness Assessment results with you').replace(/[\r\n]/g, '');
       }
 
       try {

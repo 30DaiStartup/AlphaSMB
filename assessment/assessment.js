@@ -26,6 +26,18 @@
 
   // ── Helpers ──
   function generateId() {
+    // Use crypto.getRandomValues for unpredictable session IDs
+    if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+      var buf = new Uint8Array(16);
+      crypto.getRandomValues(buf);
+      // Set version (4) and variant (RFC 4122) bits
+      buf[6] = (buf[6] & 0x0f) | 0x40;
+      buf[8] = (buf[8] & 0x3f) | 0x80;
+      var hex = '';
+      for (var i = 0; i < 16; i++) hex += ('0' + buf[i].toString(16)).slice(-2);
+      return hex.slice(0, 8) + '-' + hex.slice(8, 12) + '-' + hex.slice(12, 16) + '-' + hex.slice(16, 20) + '-' + hex.slice(20);
+    }
+    // Fallback for very old browsers
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
       var r = Math.random() * 16 | 0;
       return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);

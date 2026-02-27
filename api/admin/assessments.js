@@ -33,11 +33,16 @@ module.exports = async function handler(req, res) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
 
-    // Fetch all assessments, newest first
+    // Pagination: ?limit=N&offset=N  (default 100, max 500)
+    var limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 100, 1), 500);
+    var offset = Math.max(parseInt(req.query.offset, 10) || 0, 0);
+
+    // Fetch assessments, newest first
     const { data, error } = await supabase
       .from('assessments')
       .select('id, session_id, created_at, completed_at, role, company_size, industry, user_name, user_email, email_captured, email_domain, overall_display, overall_tier, mindset_display, skillset_display, toolset_display, pattern')
-      .order('created_at', { ascending: false });
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1);
 
     if (error) {
       console.error('Supabase query error:', error);

@@ -5,11 +5,17 @@ const { validateEnv } = require('../_lib/config');
 const { validateEmail, validateSessionId, validateName } = require('../_lib/validate');
 const { resolveCompany } = require('../_lib/company');
 const { computeBenchmark, cacheBenchmarkResult } = require('../_lib/benchmark');
+const { rateLimit } = require('../_lib/rate-limit');
+
+// 5 report requests per 15 minutes per IP
+const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 5 });
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (limiter(req, res)) return;
 
   try {
     validateEnv();
@@ -107,11 +113,15 @@ module.exports = async function handler(req, res) {
     const html = buildReportEmail(assessment, benchmark, assessment.answers);
     const text = buildReportEmailText(assessment, benchmark, assessment.answers);
 
+    // Sanitize subject — strip CR/LF to prevent header injection
+    var subject = ('Your AI Readiness Score: ' + assessment.overall_display.toFixed(1) + ' / 10')
+      .replace(/[\r\n]/g, '');
+
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
       reply_to: 'zach@alphasmb.com',
       to: email,
-      subject: `Your AI Readiness Score: ${assessment.overall_display.toFixed(1)} / 10`,
+      subject: subject,
       html: html,
       text: text,
       headers: {
@@ -133,6 +143,7 @@ module.exports = async function handler(req, res) {
       .update({ report_sent_at: new Date().toISOString() })
       .eq('id', assessment.id);
 
+    res.setHeader('Cache-Control', 'no-store');
     const response = { success: true, emailId: emailData?.id };
     if (benchmark) response.benchmark = benchmark;
 

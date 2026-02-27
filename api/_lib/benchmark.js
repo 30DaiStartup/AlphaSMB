@@ -82,10 +82,19 @@ async function findBestSegment(industry, companySize) {
   return null; // No segment has enough peer data
 }
 
+// Column map — whitelist dimension names to prevent dynamic column injection
+var DIMENSION_COLUMNS = {
+  overall: 'overall_display',
+  mindset: 'mindset_display',
+  skillset: 'skillset_display',
+  toolset: 'toolset_display'
+};
+
 // ── Percentile from Peer Data ──
 // Count how many assessments in the segment score below this value
 async function computePeerPercentile(dimension, value, industry, companySize) {
-  var column = dimension === 'overall' ? 'overall_display' : dimension + '_display';
+  var column = DIMENSION_COLUMNS[dimension];
+  if (!column) return null; // reject unknown dimensions
 
   var query = supabase
     .from('assessments')
@@ -179,6 +188,14 @@ async function computeBenchmark(assessment) {
     skillset: Number(assessment.skillset_display),
     toolset: Number(assessment.toolset_display)
   };
+
+  // Clamp scores to valid range to prevent benchmark pollution
+  var keys = Object.keys(scores);
+  for (var k = 0; k < keys.length; k++) {
+    var v = scores[keys[k]];
+    if (!isFinite(v) || v < 0) scores[keys[k]] = 0;
+    if (v > 10) scores[keys[k]] = 10;
+  }
 
   var industry = assessment.industry;
   var companySize = assessment.company_size;
