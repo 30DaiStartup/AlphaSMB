@@ -2,7 +2,8 @@ const REQUIRED_VARS = [
   'SUPABASE_URL',
   'SUPABASE_SERVICE_ROLE_KEY',
   'RESEND_API_KEY',
-  'RESEND_FROM_EMAIL'
+  'RESEND_FROM_EMAIL',
+  'AUTH_SECRET'
 ];
 
 let validated = false;
