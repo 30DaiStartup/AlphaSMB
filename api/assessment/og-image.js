@@ -80,6 +80,7 @@ function buildBar(label, score, tierKey) {
           type: 'div',
           props: {
             style: {
+              display: 'flex',
               flex: 1,
               height: '12px',
               background: BRAND.slate,
