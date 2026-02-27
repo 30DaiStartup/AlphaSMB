@@ -1,6 +1,8 @@
 const supabase = require('../_lib/supabase');
+const resend = require('../_lib/resend');
 const { validateEnv } = require('../_lib/config');
 const { validateSessionId } = require('../_lib/validate');
+const { buildNotifyEmail, buildNotifyEmailText } = require('../_lib/notify-email');
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -58,6 +60,41 @@ module.exports = async function handler(req, res) {
     if (error) {
       console.error('Supabase upsert error:', error);
       return res.status(500).json({ error: 'Failed to store assessment' });
+    }
+
+    // Send notification email to Zach (fire-and-forget — don't block the response)
+    try {
+      const notifyData = {
+        sessionId,
+        overallDisplay: scores.display.overall,
+        overallTier: scores.tiers.overall?.key || null,
+        mindsetDisplay: scores.display.mindset,
+        mindsetTier: scores.tiers.mindset?.key || null,
+        skillsetDisplay: scores.display.skillset,
+        skillsetTier: scores.tiers.skillset?.key || null,
+        toolsetDisplay: scores.display.toolset,
+        toolsetTier: scores.tiers.toolset?.key || null,
+        pattern: scores.pattern || null,
+        role: role || null,
+        industry: industry || null,
+        companySize: companySize || null,
+      };
+
+      const html = buildNotifyEmail(notifyData);
+      const text = buildNotifyEmailText(notifyData);
+
+      await resend.emails.send({
+        from: process.env.RESEND_FROM_EMAIL,
+        to: 'zach@alphasmb.com',
+        subject: `New Assessment: ${scores.display.overall.toFixed(1)}/10 — ${scores.tiers.overall?.label || 'Completed'}`,
+        html,
+        text,
+      });
+
+      console.log('Notify email sent for session:', sessionId);
+    } catch (notifyErr) {
+      // Log but don't fail the request — the assessment was already saved
+      console.error('Notify email error:', notifyErr);
     }
 
     return res.status(200).json({ id: data.id });
