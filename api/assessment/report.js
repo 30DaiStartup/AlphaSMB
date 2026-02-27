@@ -114,12 +114,13 @@ module.exports = async function handler(req, res) {
 
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
+      reply_to: 'zach@alphasmb.com',
       to: email,
       subject: `Your AI Readiness Score: ${assessment.overall_display.toFixed(1)} / 10`,
       html: html,
       text: text,
       headers: {
-        'List-Unsubscribe': `<mailto:${process.env.RESEND_FROM_EMAIL}?subject=unsubscribe>`,
+        'List-Unsubscribe': '<mailto:zach@alphasmb.com?subject=unsubscribe>',
         'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
       },
     });
