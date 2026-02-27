@@ -154,4 +154,42 @@ function buildShareResultsEmail({ senderName, overallDisplay, overallTier, minds
   return emailShell(content);
 }
 
-module.exports = { buildInviteEmail, buildShareResultsEmail };
+function buildInviteEmailText({ senderName }) {
+  return `You've been invited to take the AI Readiness Assessment
+
+${senderName} invited you to take the AlphaSMB AI Readiness Assessment. It's a 5-minute diagnostic that measures your organization's AI readiness across three dimensions: Mindset, Skillset, and Toolset.
+
+Your perspective matters. The more leadership team members who complete the assessment, the clearer the picture of where your organization stands.
+
+Take the Assessment: https://alphasmb.com/assessment
+
+Takes about 5 minutes. No account required.
+
+—
+alphasmb.com`;
+}
+
+function buildShareResultsEmailText({ senderName, overallDisplay, overallTier, mindsetDisplay, mindsetTier, skillsetDisplay, skillsetTier, toolsetDisplay, toolsetTier }) {
+  const overallLabel = OVERALL_TIER_LABELS[overallTier] || 'AI Building';
+
+  return `${senderName} shared their AI Readiness results
+
+${senderName} completed the AlphaSMB AI Readiness Assessment and wanted to share their results with you.
+
+OVERALL SCORE: ${overallDisplay.toFixed(1)} / 10 — ${overallLabel}
+
+  Mindset:  ${mindsetDisplay.toFixed(1)} / 10
+  Skillset: ${skillsetDisplay.toFixed(1)} / 10
+  Toolset:  ${toolsetDisplay.toFixed(1)} / 10
+
+Want to see how your perspective compares? Take the same assessment yourself.
+
+Take the Assessment: https://alphasmb.com/assessment
+
+Takes about 5 minutes. No account required.
+
+—
+alphasmb.com`;
+}
+
+module.exports = { buildInviteEmail, buildShareResultsEmail, buildInviteEmailText, buildShareResultsEmailText };

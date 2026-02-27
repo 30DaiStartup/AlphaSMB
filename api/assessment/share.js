@@ -1,6 +1,6 @@
 const supabase = require('../_lib/supabase');
 const resend = require('../_lib/resend');
-const { buildInviteEmail, buildShareResultsEmail } = require('../_lib/share-email');
+const { buildInviteEmail, buildShareResultsEmail, buildInviteEmailText, buildShareResultsEmailText } = require('../_lib/share-email');
 const { validateEnv } = require('../_lib/config');
 const { validateEmail, validateSessionId, validateName } = require('../_lib/validate');
 
@@ -95,25 +95,30 @@ module.exports = async function handler(req, res) {
       if (!recipient.email) continue;
 
       let html;
+      let text;
       let subject;
+
+      const shareParams = {
+        senderName,
+        overallDisplay: assessment.overall_display,
+        overallTier: assessment.overall_tier,
+        mindsetDisplay: assessment.mindset_display,
+        mindsetTier: assessment.mindset_tier,
+        skillsetDisplay: assessment.skillset_display,
+        skillsetTier: assessment.skillset_tier,
+        toolsetDisplay: assessment.toolset_display,
+        toolsetTier: assessment.toolset_tier,
+      };
 
       if (type === 'distribute') {
         // Leader inviting team to take assessment
         html = buildInviteEmail({ senderName });
+        text = buildInviteEmailText({ senderName });
         subject = `${senderName} invited you to take the AI Readiness Assessment`;
       } else {
         // Member sharing results with leader
-        html = buildShareResultsEmail({
-          senderName,
-          overallDisplay: assessment.overall_display,
-          overallTier: assessment.overall_tier,
-          mindsetDisplay: assessment.mindset_display,
-          mindsetTier: assessment.mindset_tier,
-          skillsetDisplay: assessment.skillset_display,
-          skillsetTier: assessment.skillset_tier,
-          toolsetDisplay: assessment.toolset_display,
-          toolsetTier: assessment.toolset_tier,
-        });
+        html = buildShareResultsEmail(shareParams);
+        text = buildShareResultsEmailText(shareParams);
         subject = `${senderName} shared their AI Readiness Assessment results with you`;
       }
 
@@ -123,6 +128,11 @@ module.exports = async function handler(req, res) {
           to: recipient.email,
           subject: subject,
           html: html,
+          text: text,
+          headers: {
+            'List-Unsubscribe': `<mailto:${process.env.RESEND_FROM_EMAIL}?subject=unsubscribe>`,
+            'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+          },
         });
 
         if (emailError) {

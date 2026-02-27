@@ -1,6 +1,6 @@
 const supabase = require('../_lib/supabase');
 const resend = require('../_lib/resend');
-const { buildReportEmail } = require('../_lib/report-email');
+const { buildReportEmail, buildReportEmailText } = require('../_lib/report-email');
 const { validateEnv } = require('../_lib/config');
 const { validateEmail, validateSessionId, validateName } = require('../_lib/validate');
 const { resolveCompany } = require('../_lib/company');
@@ -110,12 +110,18 @@ module.exports = async function handler(req, res) {
 
     // Build and send email
     const html = buildReportEmail(assessment, benchmark, assessment.answers);
+    const text = buildReportEmailText(assessment, benchmark, assessment.answers);
 
     const { data: emailData, error: emailError } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
       to: email,
       subject: `Your AI Readiness Score: ${assessment.overall_display.toFixed(1)} / 10`,
       html: html,
+      text: text,
+      headers: {
+        'List-Unsubscribe': `<mailto:${process.env.RESEND_FROM_EMAIL}?subject=unsubscribe>`,
+        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+      },
     });
 
     if (emailError) {

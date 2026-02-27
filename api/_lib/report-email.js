@@ -385,15 +385,11 @@ function buildReportEmail(assessment, benchmark, answers) {
             </td></tr>
           </table>
 
-          <!-- Distribute to team -->
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-            <tr><td align="center" style="padding:24px 0 0;">
-              <p style="font-size:14px;color:${BRAND.sand};line-height:1.6;margin:0 0 12px;">One perspective is useful. Multiple leaders reveal the full picture.</p>
-              <a href="https://alphasmb.com/results/${encodeURIComponent(session_id)}#distribute" style="display:inline-block;color:${BRAND.ember};font-size:14px;font-weight:600;text-decoration:none;">Invite your team to take the assessment &rarr;</a>
-            </td></tr>
-          </table>
-
-          ${buildShareSection(session_id, overall_display, overall_tier, mindset_display, skillset_display, toolset_display)}
+          <!-- Distribute to team (plain text, not a styled button) -->
+          <p style="font-size:13px;color:${BRAND.stone};line-height:1.6;margin:24px 0 0;text-align:center;">
+            One perspective is useful. Multiple leaders reveal the full picture.<br>
+            <a href="https://alphasmb.com/results/${encodeURIComponent(session_id)}#distribute" style="color:${BRAND.stone};text-decoration:underline;">Invite your team to take the assessment</a>
+          </p>
 
         </td></tr>
 
@@ -412,4 +408,92 @@ function buildReportEmail(assessment, benchmark, answers) {
 </html>`;
 }
 
-module.exports = { buildReportEmail };
+function buildReportEmailText(assessment, benchmark, answers) {
+  const { user_name, overall_display, overall_tier, mindset_display, skillset_display, toolset_display, mindset_tier, skillset_tier, toolset_tier, pattern } = assessment;
+
+  const overallInfo = OVERALL_TIERS[overall_tier] || OVERALL_TIERS.yellow;
+  const patternInfo = PATTERNS[pattern] || PATTERNS.balanced_growth;
+  const firstName = user_name ? user_name.split(' ')[0] : 'there';
+
+  const mindsetInsight = MID_INSIGHTS.mindset[mindset_tier] || '';
+  const skillsetInsight = MID_INSIGHTS.skillset[skillset_tier] || '';
+  const toolsetInsight = MID_INSIGHTS.toolset[toolset_tier] || '';
+
+  // Benchmark context
+  const segmentLabel = benchmark && benchmark.segmentLabel ? benchmark.segmentLabel : '';
+  function benchLine(dim, percentile) {
+    if (!percentile || !segmentLabel) return '';
+    const pos = percentile >= 50 ? 'top ' + (100 - percentile) + '%' : 'bottom ' + percentile + '%';
+    return ' Among ' + segmentLabel + ', your ' + dim + ' score puts you in the ' + pos + '.';
+  }
+
+  // Weekly actions
+  const lowestQs = findLowestQuestions(answers);
+  const patternAction = PATTERN_ACTIONS[pattern] || PATTERN_ACTIONS.balanced_growth;
+  let weeklyLines;
+  if (lowestQs.length >= 2) {
+    weeklyLines = [
+      '1. ' + (WEEKLY_ACTIONS[lowestQs[0]] || WEEKLY_ACTIONS.q1),
+      '2. ' + (WEEKLY_ACTIONS[lowestQs[1]] || WEEKLY_ACTIONS.q2),
+      '3. ' + patternAction,
+    ];
+  } else {
+    weeklyLines = [
+      '1. ' + patternAction,
+      '2. Share this report with your leadership team. AI transformation is an organizational challenge, not a technology decision.',
+      '3. Get a strategy call. I\'ll walk you through exactly what to prioritize based on your scores.',
+    ];
+  }
+
+  // Benchmark section
+  let benchSection = '';
+  if (benchmark && benchmark.overallPercentile) {
+    const srcLabel = benchmark.dataSource === 'peer_data'
+      ? 'Based on ' + benchmark.sampleCount + ' assessments'
+      : benchmark.dataSource === 'blended'
+      ? 'Based on peer data + industry research'
+      : 'Based on industry research';
+    function pctLabel(p) { return p >= 50 ? 'Top ' + (100 - p) + '%' : 'Bottom ' + p + '%'; }
+    benchSection = '\n\nHOW YOU COMPARE (' + srcLabel + ' — ' + segmentLabel + ')\n' +
+      '  Overall:  ' + pctLabel(benchmark.overallPercentile) + '\n' +
+      '  Mindset:  ' + pctLabel(benchmark.mindsetPercentile) + '\n' +
+      '  Skillset: ' + pctLabel(benchmark.skillsetPercentile) + '\n' +
+      '  Toolset:  ' + pctLabel(benchmark.toolsetPercentile);
+  }
+
+  return `Hi ${firstName}, here are your full AI Readiness Assessment results.
+
+OVERALL SCORE: ${overall_display.toFixed(1)} / 10 — ${overallInfo.label}
+${overallInfo.description}
+
+  Mindset:  ${mindset_display.toFixed(1)} / 10
+  Skillset: ${skillset_display.toFixed(1)} / 10
+  Toolset:  ${toolset_display.toFixed(1)} / 10
+
+DIMENSION BREAKDOWN
+
+Mindset — ${mindset_display.toFixed(1)} / 10
+${mindsetInsight}${benchLine('mindset', benchmark && benchmark.mindsetPercentile)}
+
+Skillset — ${skillset_display.toFixed(1)} / 10
+${skillsetInsight}${benchLine('skillset', benchmark && benchmark.skillsetPercentile)}
+
+Toolset — ${toolset_display.toFixed(1)} / 10
+${toolsetInsight}${benchLine('toolset', benchmark && benchmark.toolsetPercentile)}
+
+GAP PATTERN: ${patternInfo.name}
+${patternInfo.summary}
+${patternInfo.implication}${benchSection}
+
+THREE THINGS YOU CAN DO THIS WEEK
+${weeklyLines.join('\n\n')}
+
+Book a Strategy Call — $500
+https://alphasmb.com/book
+
+—
+Zach Henderson
+alphasmb.com`;
+}
+
+module.exports = { buildReportEmail, buildReportEmailText };
