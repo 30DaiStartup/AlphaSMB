@@ -24,7 +24,7 @@ The website primarily serves Stage 1 (getting bookings and building credibility)
 
 | Tier | What It Is | Price Point | Capacity |
 |------|-----------|-------------|----------|
-| **One-Hour Strategy Call** | AI readiness assessment + transformation plan + execution scorecard delivered as a branded PDF. The primary lead generation and revenue engine. | $500/hour (introductory, escalating to $750-1000) | Up to 10/week |
+| **One-Hour Strategy Call** | Transformation playbook — roadmap, champion identification framework, hackathon blueprint, execution scorecard, and 48-hour quick-start plan delivered as a branded PDF. The primary lead generation and revenue engine. | $500/hour (introductory, escalating to $750-1000) | Up to 10/week |
 | **Anchor Transformation Engagement** | Deep, multi-month AI transformation driven by the full playbook — champion identification, phased change management, weekly rubric scoring, organizational capability building. | Higher hourly rate, ~5 hrs/week per client | 2 clients max |
 
 ### Two Lead Verticals
@@ -163,13 +163,13 @@ Two ways to work with AlphaSMB
 ```
 Headline: One-Hour AI Strategy Call
 Price: $500
-Description: A focused, high-intensity session where I assess your organization's AI readiness, identify your highest-value opportunities, and build a transformation plan you can start executing this week. You leave with a branded deliverable that includes:
+Description: A focused, high-intensity session where I build your transformation playbook — starting with operational foundations, then mapping the innovation strategy that becomes possible with AI capability. You leave with a branded deliverable that includes:
 
-- AI Readiness Assessment scored across mindset, skillset, and toolset
-- Benchmarking against industry peers
 - Three-phase transformation roadmap with milestones
+- Champion identification framework
+- AI hackathon blueprint
 - Execution scorecard to track your own progress
-- Immediate "first 48 hours" action plan
+- Immediate "first 48 hours" quick-start plan
 
 CTA: Book Your Call →
 ```

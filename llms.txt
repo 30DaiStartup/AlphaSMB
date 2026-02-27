@@ -10,7 +10,7 @@
 
 - [Home](https://alphasmb.com/): Value proposition, methodology, service tiers
 - [AI Readiness Assessment](https://alphasmb.com/assessment): Free 5-minute diagnostic — 15 questions, instant score, personalized report. No email required to start.
-- [AI Strategy Call](https://alphasmb.com/services/strategy-call): $500 one-hour session — readiness assessment, benchmarking, transformation roadmap, execution scorecard, 48-hour action plan
+- [AI Strategy Call](https://alphasmb.com/services/strategy-call): $500 one-hour session — transformation roadmap, champion identification framework, hackathon blueprint, execution scorecard, 48-hour quick-start plan
 - [About Zach Henderson](https://alphasmb.com/about): Credentials, philosophy, Aurora WDC role
 - [Book a Call](https://alphasmb.com/book): Schedule and pay ($500 via Cal.com + Stripe)
 - [Privacy Policy](https://alphasmb.com/privacy): Data handling for assessment, booking, analytics
@@ -29,9 +29,10 @@ AI Readiness Assessment (free): 15-question diagnostic scored across mindset,
 skillset, and toolset. Instant results with personalized report delivered via
 email. Primary entry point for the consulting funnel.
 
-One-Hour AI Strategy Call ($500): Deep-dive assessment, industry benchmarking,
-three-phase transformation roadmap, execution scorecard, 48-hour action plan.
-Delivered as a shareable report. Traditional AI consulting starts north of $50K.
+One-Hour AI Strategy Call ($500): Three-phase transformation roadmap, champion
+identification framework, AI hackathon blueprint, execution scorecard, 48-hour
+quick-start plan. Delivered as a shareable report. Traditional AI consulting
+starts north of $50K.
 
 Full Transformation Engagement (custom pricing): Up to 3 months embedded with
 the organization. Champion identification, phased change management, weekly
