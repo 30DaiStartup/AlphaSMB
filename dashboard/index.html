@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organization Dashboard — AlphaSMB</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/graphics/Al-32x-tpbg.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/dashboard/dashboard.css">
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div id="screen-login" class="dash__screen dash__screen--active">
+    <div class="dash__login-card">
+      <div class="dash__logo"><span class="dash__logo-accent">Alpha</span>SMB</div>
+      <p class="dash__login-subtitle">Organization Dashboard</p>
+      <p class="dash__login-desc">Sign in with your work email to see your team's AI readiness scores.</p>
+      <form id="login-form" class="dash__login-form">
+        <label for="login-email" class="sr-only">Work email address</label>
+        <input type="email" id="login-email" class="dash__input" placeholder="Work email address" required autocomplete="email">
+        <button type="submit" class="dash__btn dash__btn--primary" id="login-btn">Send Magic Link</button>
+      </form>
+      <p id="login-message" class="dash__login-message" role="status"></p>
+      <p class="dash__login-note">Personal emails (Gmail, Outlook, etc.) are not supported.</p>
+    </div>
+  </div>
+
+  <!-- Dashboard Screen -->
+  <div id="screen-dashboard" class="dash__screen">
+
+    <!-- Top bar -->
+    <header class="dash__header">
+      <div class="dash__header-inner">
+        <div class="dash__header-left">
+          <div class="dash__logo dash__logo--sm"><span class="dash__logo-accent">Alpha</span>SMB</div>
+          <span id="company-name" class="dash__company-name"></span>
+        </div>
+        <div class="dash__header-right">
+          <span id="user-email" class="dash__user-email"></span>
+          <button id="sign-out-btn" class="dash__btn dash__btn--ghost">Sign Out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="dash__main">
+
+      <!-- Summary Cards -->
+      <section class="dash__cards" id="summary-cards">
+        <div class="dash__card">
+          <div class="dash__card-label">Team Assessments</div>
+          <div class="dash__card-value" id="stat-team">—</div>
+        </div>
+        <div class="dash__card">
+          <div class="dash__card-label">Avg Overall Score</div>
+          <div class="dash__card-value" id="stat-avg">—</div>
+        </div>
+        <div class="dash__card">
+          <div class="dash__card-label">Strongest Dimension</div>
+          <div class="dash__card-value" id="stat-strongest">—</div>
+        </div>
+        <div class="dash__card">
+          <div class="dash__card-label">This Week</div>
+          <div class="dash__card-value" id="stat-week">—</div>
+        </div>
+      </section>
+
+      <!-- Team Dimension Scores -->
+      <section class="dash__section">
+        <h2 class="dash__section-title">Team Dimension Scores</h2>
+        <div id="dimension-bars" class="dash__dimension-bars"></div>
+      </section>
+
+      <!-- Tier Distribution -->
+      <section class="dash__section">
+        <h2 class="dash__section-title">Score Distribution</h2>
+        <div id="tier-bars" class="dash__tier-bars"></div>
+      </section>
+
+      <!-- Breakdowns -->
+      <section class="dash__breakdowns">
+        <div class="dash__section">
+          <h2 class="dash__section-title">Role Breakdown</h2>
+          <div id="role-breakdown" class="dash__breakdown-list"></div>
+        </div>
+      </section>
+
+      <!-- Team Members Table -->
+      <section class="dash__section">
+        <h2 class="dash__section-title">Team Members</h2>
+
+        <div class="dash__table-controls">
+          <input type="text" id="table-search" class="dash__input dash__input--search" placeholder="Search name, email...">
+        </div>
+
+        <div class="dash__table-wrap">
+          <table class="dash__table" id="members-table">
+            <thead>
+              <tr>
+                <th data-sort="user_name">Name</th>
+                <th data-sort="user_email">Email</th>
+                <th data-sort="role">Role</th>
+                <th data-sort="overall_display">Score</th>
+                <th data-sort="overall_tier">Tier</th>
+                <th data-sort="created_at">Date</th>
+              </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+          </table>
+        </div>
+        <p id="table-empty" class="dash__empty" hidden>No assessments match your search.</p>
+      </section>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="dash__empty-state" hidden>
+        <h2 class="dash__empty-title">No assessments yet</h2>
+        <p class="dash__empty-text">No one from your organization has taken the AI Readiness Assessment yet.</p>
+        <p class="dash__empty-text">Share the link below with your team to get started:</p>
+        <div class="dash__empty-link">
+          <a href="https://alphasmb.com/assessment" class="dash__link">alphasmb.com/assessment</a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/dashboard/dashboard.js"></script>
+</body>
+</html>

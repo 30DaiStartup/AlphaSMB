@@ -1,0 +1,583 @@
+/* AlphaSMB Organization Dashboard Styles */
+/* Design tokens inherited from site: charcoal, ember, sand, stone, slate */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --dash-charcoal: #1C1917;
+  --dash-charcoal-light: #292524;
+  --dash-ember: #E8450D;
+  --dash-ember-dark: #C53D0A;
+  --dash-sand: #F5F0EB;
+  --dash-stone: #78716C;
+  --dash-slate: #44403C;
+  --dash-white: #FFFFFF;
+  --dash-green: #15803D;
+  --dash-light-green: #16A34A;
+  --dash-yellow: #CA8A04;
+  --dash-orange: #EA580C;
+  --dash-red: #DC2626;
+}
+
+html {
+  font-family: 'Manrope', sans-serif;
+  color: var(--dash-sand);
+  background: var(--dash-charcoal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ── Screens ── */
+
+.dash__screen {
+  display: none;
+}
+
+.dash__screen--active {
+  display: block;
+}
+
+/* ── Login ── */
+
+.dash__login-card {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 100px 24px 48px;
+  text-align: center;
+}
+
+.dash__logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dash-white);
+  letter-spacing: -0.5px;
+}
+
+.dash__logo--sm {
+  font-size: 20px;
+}
+
+.dash__logo-accent {
+  color: var(--dash-ember);
+}
+
+.dash__login-subtitle {
+  font-size: 14px;
+  color: var(--dash-stone);
+  margin: 8px 0 8px;
+}
+
+.dash__login-desc {
+  font-size: 15px;
+  color: var(--dash-sand);
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+
+.dash__login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dash__input {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--dash-charcoal-light);
+  border: 1px solid var(--dash-slate);
+  border-radius: 8px;
+  color: var(--dash-sand);
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.dash__input:focus {
+  border-color: var(--dash-ember);
+}
+
+.dash__input::placeholder {
+  color: var(--dash-stone);
+}
+
+.dash__login-message {
+  font-size: 14px;
+  color: var(--dash-stone);
+  margin-top: 16px;
+  min-height: 20px;
+}
+
+.dash__login-message--error {
+  color: var(--dash-red);
+}
+
+.dash__login-message--success {
+  color: var(--dash-light-green);
+}
+
+.dash__login-note {
+  font-size: 13px;
+  color: var(--dash-slate);
+  margin-top: 12px;
+}
+
+/* ── Buttons ── */
+
+.dash__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.dash__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dash__btn--primary {
+  background: var(--dash-ember);
+  color: var(--dash-white);
+}
+
+.dash__btn--primary:hover:not(:disabled) {
+  background: var(--dash-ember-dark);
+}
+
+.dash__btn--ghost {
+  background: transparent;
+  color: var(--dash-stone);
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.dash__btn--ghost:hover {
+  color: var(--dash-sand);
+}
+
+/* ── Header ── */
+
+.dash__header {
+  border-bottom: 1px solid var(--dash-slate);
+  padding: 16px 24px;
+}
+
+.dash__header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dash__header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dash__company-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dash-sand);
+  padding-left: 16px;
+  border-left: 1px solid var(--dash-slate);
+}
+
+.dash__header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dash__user-email {
+  font-size: 13px;
+  color: var(--dash-stone);
+}
+
+/* ── Main ── */
+
+.dash__main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* ── Summary Cards ── */
+
+.dash__cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.dash__card {
+  background: var(--dash-charcoal-light);
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid var(--dash-slate);
+}
+
+.dash__card-label {
+  font-size: 13px;
+  color: var(--dash-stone);
+  margin-bottom: 8px;
+}
+
+.dash__card-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dash-white);
+}
+
+.dash__card-value--sm {
+  font-size: 20px;
+}
+
+/* ── Sections ── */
+
+.dash__section {
+  margin-bottom: 32px;
+}
+
+.dash__section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dash-white);
+  margin-bottom: 16px;
+}
+
+/* ── Dimension Bars ── */
+
+.dash__dimension-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dash__dim-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dash__dim-label {
+  width: 80px;
+  font-size: 14px;
+  color: var(--dash-sand);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.dash__dim-bar-track {
+  flex: 1;
+  height: 12px;
+  background: var(--dash-slate);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.dash__dim-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+
+.dash__dim-score {
+  width: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Tier Bars ── */
+
+.dash__tier-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dash__tier-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dash__tier-label {
+  width: 110px;
+  font-size: 13px;
+  color: var(--dash-sand);
+  flex-shrink: 0;
+}
+
+.dash__tier-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--dash-slate);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dash__tier-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.dash__tier-count {
+  width: 40px;
+  font-size: 13px;
+  color: var(--dash-stone);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Breakdowns ── */
+
+.dash__breakdowns {
+  margin-bottom: 32px;
+}
+
+.dash__breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dash__breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--dash-charcoal-light);
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.dash__breakdown-label {
+  color: var(--dash-sand);
+}
+
+.dash__breakdown-count {
+  color: var(--dash-stone);
+  font-weight: 600;
+}
+
+/* ── Table Controls ── */
+
+.dash__table-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.dash__input--search {
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+/* ── Table ── */
+
+.dash__table-wrap {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--dash-slate);
+}
+
+.dash__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.dash__table thead {
+  background: var(--dash-charcoal-light);
+}
+
+.dash__table th {
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--dash-stone);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  border-bottom: 1px solid var(--dash-slate);
+}
+
+.dash__table th:hover {
+  color: var(--dash-sand);
+}
+
+.dash__table th.dash__th--sorted-asc::after {
+  content: ' \2191';
+}
+
+.dash__table th.dash__th--sorted-desc::after {
+  content: ' \2193';
+}
+
+.dash__table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(68, 64, 60, 0.4);
+  color: var(--dash-sand);
+  white-space: nowrap;
+}
+
+.dash__table tbody tr:hover {
+  background: rgba(41, 37, 36, 0.5);
+}
+
+.dash__table .dash__td-score {
+  font-weight: 600;
+}
+
+.dash__table .dash__td-tier {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.dash__empty {
+  text-align: center;
+  color: var(--dash-stone);
+  padding: 32px;
+  font-size: 14px;
+}
+
+/* ── Empty State ── */
+
+.dash__empty-state {
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.dash__empty-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dash-white);
+  margin-bottom: 12px;
+}
+
+.dash__empty-text {
+  font-size: 15px;
+  color: var(--dash-stone);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.dash__empty-link {
+  margin-top: 20px;
+}
+
+.dash__link {
+  color: var(--dash-ember);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.dash__link:hover {
+  text-decoration: underline;
+}
+
+/* ── Tier colors ── */
+
+.dash__tier--red { color: var(--dash-red); }
+.dash__tier--orange { color: var(--dash-orange); }
+.dash__tier--yellow { color: var(--dash-yellow); }
+.dash__tier--light-green { color: var(--dash-light-green); }
+.dash__tier--green { color: var(--dash-green); }
+
+.dash__tier-bg--red { background: rgba(220, 38, 38, 0.15); color: var(--dash-red); }
+.dash__tier-bg--orange { background: rgba(234, 88, 12, 0.15); color: var(--dash-orange); }
+.dash__tier-bg--yellow { background: rgba(202, 138, 4, 0.15); color: var(--dash-yellow); }
+.dash__tier-bg--light-green { background: rgba(22, 163, 74, 0.15); color: var(--dash-light-green); }
+.dash__tier-bg--green { background: rgba(21, 128, 61, 0.15); color: var(--dash-green); }
+
+/* ── Responsive ── */
+
+@media (max-width: 768px) {
+  .dash__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dash__header-inner {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .dash__header-left {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .dash__company-name {
+    border-left: none;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .dash__cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dash__card-value {
+    font-size: 24px;
+  }
+
+  .dash__main {
+    padding: 20px 16px 48px;
+  }
+
+  .dash__table-controls {
+    flex-direction: column;
+  }
+
+  .dash__input--search {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .dash__dim-label {
+    width: 70px;
+    font-size: 13px;
+  }
+}

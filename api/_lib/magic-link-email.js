@@ -10,7 +10,8 @@ const BRAND = {
   white: '#FFFFFF',
 };
 
-function buildMagicLinkEmail(loginUrl) {
+function buildMagicLinkEmail(loginUrl, subtitle) {
+  var label = subtitle || 'Admin Login';
   return `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
@@ -24,13 +25,13 @@ function buildMagicLinkEmail(loginUrl) {
           <div style="font-size:22px;font-weight:700;color:${BRAND.white};letter-spacing:-0.5px;">
             <span style="color:${BRAND.ember};">Alpha</span>SMB
           </div>
-          <p style="font-size:13px;color:${BRAND.stone};margin:8px 0 0;">Admin Login</p>
+          <p style="font-size:13px;color:${BRAND.stone};margin:8px 0 0;">${label}</p>
         </td></tr>
 
         <!-- Main card -->
         <tr><td style="background:${BRAND.charcoalLight};border-radius:12px;padding:32px;">
           <p style="font-size:16px;color:${BRAND.sand};line-height:1.6;margin:0 0 24px;">
-            Click the button below to sign in to the AlphaSMB admin dashboard.
+            Click the button below to sign in to your AlphaSMB dashboard.
           </p>
 
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">

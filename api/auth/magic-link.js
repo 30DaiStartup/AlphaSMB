@@ -1,9 +1,11 @@
-// POST /api/auth/magic-link — send magic link email to admin
+// POST /api/auth/magic-link — send magic link email
+// Admin → /admin, corporate email → /dashboard, personal email → silent reject
 // Always returns 200 to prevent email enumeration
 
 const { validateEnv } = require('../_lib/config');
 const { validateEmail } = require('../_lib/validate');
 const { ADMIN_EMAIL, createMagicToken } = require('../_lib/auth');
+const { extractDomain, isPersonalEmail } = require('../_lib/company');
 const { buildMagicLinkEmail } = require('../_lib/magic-link-email');
 const resend = require('../_lib/resend');
 
@@ -22,30 +24,33 @@ module.exports = async function handler(req, res) {
     const { email } = req.body || {};
 
     if (!email || !validateEmail(email)) {
-      // Same response as success to prevent enumeration
       return res.status(200).json({ ok: true });
     }
 
-    // Only send to admin email
-    if (email.toLowerCase().trim() !== ADMIN_EMAIL) {
+    const normalizedEmail = email.toLowerCase().trim();
+    const domain = extractDomain(normalizedEmail);
+
+    // Reject personal email domains silently
+    if (!domain || isPersonalEmail(domain)) {
       return res.status(200).json({ ok: true });
     }
 
-    const token = createMagicToken(ADMIN_EMAIL);
-    const loginUrl = 'https://alphasmb.com/admin?token=' + encodeURIComponent(token);
-    const html = buildMagicLinkEmail(loginUrl);
+    const token = createMagicToken(normalizedEmail);
+    const isAdmin = normalizedEmail === ADMIN_EMAIL;
+    const destination = isAdmin ? '/admin' : '/dashboard';
+    const loginUrl = 'https://alphasmb.com' + destination + '?token=' + encodeURIComponent(token);
+    const html = buildMagicLinkEmail(loginUrl, isAdmin ? 'Admin Dashboard' : 'Organization Dashboard');
 
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL,
-      to: ADMIN_EMAIL,
-      subject: 'AlphaSMB Admin — Sign In',
+      to: normalizedEmail,
+      subject: isAdmin ? 'AlphaSMB Admin — Sign In' : 'AlphaSMB Dashboard — Sign In',
       html: html,
     });
 
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('Magic link error:', err);
-    // Still return 200 to prevent enumeration
     return res.status(200).json({ ok: true });
   }
 };

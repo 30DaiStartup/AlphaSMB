@@ -77,19 +77,26 @@ function createMagicToken(email) {
   return createToken({ email: email, purpose: 'magic_link' }, MAGIC_LINK_TTL);
 }
 
-function createSessionToken(email) {
-  return createToken({ email: email, purpose: 'session' }, SESSION_TTL);
+function createSessionToken(email, domain, role) {
+  return createToken({ email: email, domain: domain, role: role, purpose: 'session' }, SESSION_TTL);
 }
 
 // ── Middleware ──
 
-function requireAdmin(req) {
+function requireAuth(req) {
   const auth = req.headers.authorization;
   if (!auth || !auth.startsWith('Bearer ')) return null;
 
   const claims = verifyToken(auth.slice(7));
   if (!claims) return null;
   if (claims.purpose !== 'session') return null;
+
+  return claims;
+}
+
+function requireAdmin(req) {
+  const claims = requireAuth(req);
+  if (!claims) return null;
   if (claims.email !== ADMIN_EMAIL) return null;
 
   return claims;
@@ -100,5 +107,6 @@ module.exports = {
   createMagicToken,
   createSessionToken,
   verifyToken,
+  requireAuth,
   requireAdmin,
 };
