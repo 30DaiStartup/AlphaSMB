@@ -150,7 +150,7 @@ module.exports = async function handler(req, res) {
     const ogTitle = 'I scored ' + overall.toFixed(1) + '/10 \u2014 ' + overallLabel;
     const ogDesc = 'Mindset ' + mindset.toFixed(1) + ' \u00B7 Skillset ' + skillset.toFixed(1) + ' \u00B7 Toolset ' + toolset.toFixed(1) + (percentileText ? ' \u2014 ' + percentileText : '');
     const ogImage = 'https://alphasmb.com/api/assessment/og-image?sid=' + encodeURIComponent(sid);
-    const pageUrl = 'https://alphasmb.com/results/' + encodeURIComponent(sid);
+    const pageUrl = 'https://www.alphasmb.com/assessment';
 
     const html = `<!DOCTYPE html>
 <html lang="en">
