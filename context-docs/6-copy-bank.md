@@ -146,4 +146,4 @@ Reuse these exact phrases — they've been refined for the brand voice:
 
 Use this exact phrasing when listing what clients get:
 
-> You walk away with six deliverables: an AI readiness assessment, industry benchmarking, a three-phase roadmap, an execution scorecard, a 48-hour action plan, and a branded PDF for your leadership team.
+> You walk away with six deliverables: a three-phase transformation roadmap, a champion identification framework, an AI hackathon blueprint, an execution scorecard, a 48-hour quick-start plan, and a shareable report for your leadership team.

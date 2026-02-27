@@ -179,9 +179,10 @@ together — quick wins and phased priorities specific to your business.
 **Minutes 50-60: Honest next steps.** If a deeper engagement makes
 sense, I'll tell you. If it doesn't, I'll tell you that too.
 
-You walk away with six deliverables: readiness assessment, industry
-benchmarking, three-phase roadmap, execution scorecard, 48-hour
-action plan, and a shareable report for your leadership team.
+You walk away with six deliverables: three-phase transformation
+roadmap, champion identification framework, AI hackathon blueprint,
+execution scorecard, 48-hour quick-start plan, and a shareable
+report for your leadership team.
 
 The deliverable stands on its own. You can execute the plan
 independently.

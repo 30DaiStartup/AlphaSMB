@@ -84,21 +84,21 @@ All copy across the site. Use exactly as written.
 
 ### Time Blocks
 - 15 min — Deep Dive (current state, operations, tools, team dynamics, competitive landscape)
-- 15 min — Assessment (scoring across mindset, skillset, toolset)
-- 20 min — Roadmap (transformation plan, quick wins, phased priorities)
+- 15 min — Diagnostic (organizational dynamics, champion candidates, adoption barriers)
+- 20 min — Roadmap (three-phase plan, operational foundations first, then innovation strategy)
 - 10 min — Next Steps (questions, whether deeper engagement makes sense)
 
 ### Deliverables
-Checklist: AI Readiness Assessment, benchmarking, roadmap, scorecard, 48-hour action plan, branded PDF
+Checklist: Three-phase transformation roadmap, champion identification framework, AI hackathon blueprint, scorecard, 48-hour quick-start plan, branded PDF
 
 ### Strategy Bridge (between deliverables summary and checklist)
-- **Copy:** This isn't just an AI readiness check. I map how AI capability changes your competitive options — where you can play that you couldn't before, and how you can win in ways that weren't available to you last year. Most leaders walk in thinking about tools. They walk out thinking about strategy.
+- **Copy:** This isn't a readiness check — you already have that from the free assessment. I map how AI capability changes your competitive options, starting with operational foundations — your capability and management systems — then advancing to innovation strategy: where you can play, how you can win, and what your business can become. Most leaders walk in thinking about tools. They walk out with a playbook.
 - **Style:** Italic, ember left-border, 17px
 
 ### Why a Strategy Call First (between "Is this right for you?" and FAQ)
 - **Headline:** Why a strategy call — not a pilot program
 - **Body:** Most companies start their AI journey with a pilot. Buy some licenses. Pick a use case. See what happens. / That's backwards. / AI is a capability — and new capabilities change what your business can do. New markets open. Competitive advantages shift. Strategies that weren't viable last year become obvious next moves. You wouldn't commit to a new market without understanding the landscape first. AI is no different. / The strategy call exists because you need to understand what's possible before you can plan what's next. Not the other way around.
-- **Emphasis line:** One hour. Six deliverables. A strategic foundation — not just a tool recommendation.
+- **Emphasis line:** One hour. Six deliverables. A transformation playbook — not a consulting report.
 - **CTA:** Book a Strategy Call — $500 → /book
 
 ### Who For / Not For
@@ -127,7 +127,7 @@ Four paragraphs: "Most AI consultants sell you tools. I build the culture that a
 
 ### CTA
 - **Headline:** Let's build your plan.
-- **Subtext:** One hour. Your organization's AI readiness assessed, a transformation roadmap built, and a 48-hour action plan to start executing.
+- **Subtext:** One hour. Your transformation playbook — roadmap, champion framework, hackathon blueprint, and a 48-hour quick-start plan to start executing.
 
 ---
 
@@ -135,7 +135,7 @@ Four paragraphs: "Most AI consultants sell you tools. I build the culture that a
 
 - **Headline:** Book a call with Zach
 - **Price:** $500
-- **Description:** One hour. AI readiness assessment, transformation roadmap, execution scorecard, and a 48-hour action plan.
+- **Description:** One hour. Transformation roadmap, champion framework, hackathon blueprint, execution scorecard, and a 48-hour quick-start plan.
 - **What to prepare:** Basic company info, current AI tools in use (if any), biggest pain points. That's it — I'll handle the rest.
 - **After booking:** You'll receive a confirmation with a calendar invite and a brief pre-call questionnaire. Payment of $500 is collected at booking via Stripe.
 - Cal.com inline embed: `https://cal.com/alphasmb/60min` (dark theme)

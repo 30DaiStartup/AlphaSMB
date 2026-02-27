@@ -99,7 +99,7 @@ More details in the comments.
 #AITransformation #SmallBusiness #AI #Leadership #FractionalLeadership
 ```
 
-**First comment:** "Here's the site: alphasmb.com — The core offering is a one-hour AI strategy call ($500) where you walk away with an AI readiness assessment, transformation roadmap, and a 48-hour action plan. Built for SMB leaders who know they need to move on AI but want a clear plan before they do."
+**First comment:** "Here's the site: alphasmb.com — The core offering is a one-hour AI strategy call ($500) where you walk away with a transformation playbook — roadmap, champion framework, hackathon blueprint, and a 48-hour quick-start plan. Built for SMB leaders who know they need to move on AI but want a clear plan before they do."
 
 ---
 
@@ -182,13 +182,13 @@ It's one hour. It costs $500. Here's the breakdown:
 
 First 15 minutes — I go deep on your current state. Your operations, your tools, your team dynamics, your competitive landscape. I ask hard questions. You give honest answers.
 
-Next 15 minutes — I score your organization across three dimensions: mindset, skillset, and toolset. This is the AI Readiness Assessment. Most leaders have never seen their organization evaluated this way. It changes how you think about the problem.
+Next 15 minutes — I go deeper than the self-assessment — organizational dynamics, champion candidates, adoption barriers. Most leaders have never seen their organization evaluated this way. It changes how you think about the problem.
 
-Next 20 minutes — We build your transformation roadmap together. Quick wins you can execute this week. Phased priorities for the next 90 days. Specific, practical, built for your business — not a generic framework.
+Next 20 minutes — We build your three-phase plan together — operational foundations first, then the innovation strategy that becomes possible. Specific, practical, built for your business — not a generic framework.
 
 Final 10 minutes — Questions, next steps, and an honest conversation about whether a deeper engagement makes sense. If it doesn't, I'll tell you. I'd rather give you a useful hour than a dishonest pitch.
 
-After the call, you get a branded PDF with everything: the assessment, benchmarking against your industry, the roadmap, an execution scorecard, and a 48-hour action plan.
+After the call, you get a branded PDF with everything: the transformation roadmap, champion identification framework, hackathon blueprint, execution scorecard, and a 48-hour quick-start plan.
 
 You can take that document and execute it independently. That's the point.
 

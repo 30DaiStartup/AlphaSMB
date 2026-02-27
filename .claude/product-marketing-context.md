@@ -4,7 +4,7 @@
 
 ## Product Overview
 **One-liner:** AI transformation consultancy that builds AI-capable organizations, not just AI-equipped employees.
-**What it does:** AlphaSMB helps SMB leadership teams (20-500 employees) adopt AI at the organizational level through a proven methodology that starts with mindset shifts at the leadership level, identifies internal champions, activates high-agency employees, and measures progress against industry benchmarks. The primary entry point is a free AI Readiness Assessment (15-question diagnostic scoring mindset, skillset, and toolset) that provides an instant score and personalized report. The assessment funnels qualified leads to the $500 one-hour strategy call, which delivers a transformation roadmap and 48-hour action plan.
+**What it does:** AlphaSMB helps SMB leadership teams (20-500 employees) adopt AI at the organizational level through a proven methodology that starts with mindset shifts at the leadership level, identifies internal champions, activates high-agency employees, and measures progress against industry benchmarks. The primary entry point is a free AI Readiness Assessment (15-question diagnostic scoring mindset, skillset, and toolset) that provides an instant score and personalized report. The assessment funnels qualified leads to the $500 one-hour strategy call, which delivers a transformation playbook: roadmap, champion identification framework, hackathon blueprint, execution scorecard, and 48-hour quick-start plan.
 **Product category:** AI consulting / AI transformation consulting / organizational change management
 **Product type:** Professional service (consulting)
 **Business model:** Three-tier funnel — (0) Free AI Readiness Assessment (lead capture and qualification via 15-question diagnostic with email-gated report), (1) One-hour AI strategy call at $500 (primary revenue, up to 10/week), (2) Full transformation engagement at custom pricing (~5 hrs/week for up to 3 months, limited to 2 clients at a time). Optional monthly follow-up calls at $500/month for strategy call clients. Assessment → strategy call → anchor engagement is the progression.
@@ -60,7 +60,7 @@
 ## Objections
 | Objection | Response |
 |-----------|----------|
-| "$500 for an hour is expensive" | Start with the free assessment — you'll see exactly where your organization stands before spending anything. If the strategy call makes sense based on your results, you walk away with a three-phase roadmap, an execution scorecard, and a 48-hour action plan. Many clients expense it under professional development or strategic consulting. |
+| "$500 for an hour is expensive" | Start with the free assessment — you'll see exactly where your organization stands before spending anything. If the strategy call makes sense based on your results, you walk away with a transformation playbook: roadmap, champion framework, hackathon blueprint, scorecard, and a 48-hour quick-start plan. Many clients expense it under professional development or strategic consulting. |
 | "Is this just a sales pitch for a bigger engagement?" | No. The deliverable is valuable on its own — you'll leave with a plan you can execute independently. If a deeper engagement makes sense, I'll tell you. If it doesn't, I'll tell you that too. I'd rather give you an honest hour than a dishonest pitch. |
 | "We're too small for AI transformation" | If you have 20+ employees and knowledge workers, you're the perfect size. SMBs can actually move faster than enterprises because you have less bureaucracy and shorter decision chains. The methodology is designed for your scale. |
 
@@ -91,8 +91,11 @@
 | AI Readiness Assessment | Scored evaluation across mindset, skillset, and toolset dimensions |
 | Champion | The internal person an organization already listens to, turned into the AI transformation catalyst |
 | High-agency people | Employees who are proactive, self-directed, and waiting for permission to move on AI |
-| Transformation roadmap | Three-phase plan with milestones for building organizational AI capability |
+| Transformation roadmap | Three-phase plan — from operational foundations to strategic innovation — with milestones at each phase |
+| Champion identification framework | Methods for finding and empowering your internal AI change agent |
+| AI hackathon blueprint | Plan for running your first internal AI hackathon to build adoption momentum |
 | Execution scorecard | Self-tracking tool for measuring progress against the roadmap |
+| Quick-start plan | Immediate "first 48 hours" actions to start this week |
 | Anchor engagement | Full transformation engagement (up to 3 months, limited to 2 clients) |
 
 ## Brand Voice

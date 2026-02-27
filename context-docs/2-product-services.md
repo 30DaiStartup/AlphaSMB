@@ -23,18 +23,18 @@ Key stat: 80% of employees stop using AI tools within 30 days of rollout when th
 | Time | Phase | Description |
 |------|-------|-------------|
 | 15 min | Deep Dive | Current state — operations, tools, team dynamics, competitive landscape |
-| 15 min | Assessment | Scoring across mindset, skillset, and toolset dimensions |
-| 20 min | Roadmap | Transformation plan — quick wins and phased priorities |
+| 15 min | Diagnostic | Organizational dynamics, champion candidates, adoption barriers |
+| 20 min | Roadmap | Three-phase plan — operational foundations first, then innovation strategy |
 | 10 min | Next Steps | Questions answered. Honest assessment of whether deeper engagement makes sense |
 
 ### Six Deliverables (Branded PDF)
 
-1. AI Readiness Assessment scored across mindset, skillset, and toolset
-2. Benchmarking against industry peers
-3. Three-phase transformation roadmap with milestones
+1. Three-phase transformation roadmap — from operational foundations to strategic innovation, with milestones at each phase
+2. Champion identification framework — methods for finding and empowering your internal AI change agent
+3. AI hackathon blueprint — a plan for running your first internal AI hackathon to build adoption momentum
 4. Execution scorecard to track progress
-5. Immediate "first 48 hours" action plan
-6. Branded PDF for the leadership team
+5. Immediate "first 48 hours" quick-start plan
+6. Shareable report for the leadership team
 
 ### Key Selling Points
 
