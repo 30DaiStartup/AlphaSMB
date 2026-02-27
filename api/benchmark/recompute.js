@@ -15,11 +15,9 @@ function isAuthorized(req) {
   if (!secret) return false;
 
   // Vercel cron sends Authorization: Bearer <CRON_SECRET>
+  // Only accept the header — query params leak into logs and browser history
   var authHeader = req.headers['authorization'] || '';
   if (authHeader === 'Bearer ' + secret) return true;
-
-  // Manual trigger via query param
-  if (req.query && req.query.secret === secret) return true;
 
   return false;
 }

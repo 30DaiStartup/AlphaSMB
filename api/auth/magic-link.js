@@ -8,6 +8,10 @@ const { ADMIN_EMAIL, createMagicToken } = require('../_lib/auth');
 const { extractDomain, isPersonalEmail } = require('../_lib/company');
 const { buildMagicLinkEmail } = require('../_lib/magic-link-email');
 const resend = require('../_lib/resend');
+const { rateLimit } = require('../_lib/rate-limit');
+
+// 5 magic-link requests per 15 minutes per IP
+var limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 5 });
 
 module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') {
@@ -17,6 +21,9 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  // Rate limit BEFORE processing — still returns 200 to prevent enumeration
+  if (limiter(req, res)) return;
 
   try {
     validateEnv();

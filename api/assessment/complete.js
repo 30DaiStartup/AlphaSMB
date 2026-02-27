@@ -3,11 +3,21 @@ const resend = require('../_lib/resend');
 const { validateEnv } = require('../_lib/config');
 const { validateSessionId } = require('../_lib/validate');
 const { buildNotifyEmail, buildNotifyEmailText } = require('../_lib/notify-email');
+const { rateLimit } = require('../_lib/rate-limit');
+
+// 10 completions per 15 minutes per IP
+var limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10 });
+
+function isValidScore(val) {
+  return typeof val === 'number' && isFinite(val) && val >= 0 && val <= 10;
+}
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  if (limiter(req, res)) return;
 
   try {
     const { sessionId, role, industry, companySize, startedAt, completedAt, answers, scores } = req.body;
@@ -25,6 +35,14 @@ module.exports = async function handler(req, res) {
 
     if (!scores.raw || !scores.display || !scores.tiers) {
       return res.status(400).json({ error: 'Invalid scores structure' });
+    }
+
+    // Validate score ranges (0-10) to prevent benchmark pollution
+    var displayScores = [scores.display.mindset, scores.display.skillset, scores.display.toolset, scores.display.overall];
+    for (var i = 0; i < displayScores.length; i++) {
+      if (!isValidScore(Number(displayScores[i]))) {
+        return res.status(400).json({ error: 'Invalid score value: must be 0-10' });
+      }
     }
 
     // Upsert into assessments table (keyed on session_id for idempotency)
