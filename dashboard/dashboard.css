@@ -473,6 +473,17 @@ body {
   font-weight: 600;
 }
 
+.dash__tr--invited td {
+  opacity: 0.5;
+}
+
+.dash__td-status--invited {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dash-stone);
+  opacity: 1;
+}
+
 .dash__empty {
   text-align: center;
   color: var(--dash-stone);

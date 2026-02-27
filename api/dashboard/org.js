@@ -13,6 +13,24 @@ var TIER_LABELS = {
   green: 'AI Capable',
 };
 
+var ROLE_LABELS = {
+  ceo_founder: 'CEO / Founder',
+  cto: 'CTO',
+  coo: 'COO',
+  cpo: 'CPO',
+  cmo: 'CMO',
+};
+
+function formatRole(raw) {
+  if (!raw) return 'Not specified';
+  if (ROLE_LABELS[raw]) return ROLE_LABELS[raw];
+  if (raw.indexOf('other:') === 0) {
+    var custom = raw.slice(6).trim();
+    return custom || 'Other';
+  }
+  return raw;
+}
+
 function tierLabel(key) {
   return TIER_LABELS[key] || key || 'Unknown';
 }
@@ -54,7 +72,7 @@ module.exports = async function handler(req, res) {
     // Fetch assessments scoped to this domain
     var { data, error } = await supabase
       .from('assessments')
-      .select('user_name, user_email, role, overall_display, overall_tier, mindset_display, skillset_display, toolset_display, created_at')
+      .select('id, user_name, user_email, role, overall_display, overall_tier, mindset_display, skillset_display, toolset_display, created_at')
       .eq('email_domain', domain)
       .order('created_at', { ascending: false });
 
@@ -110,7 +128,7 @@ module.exports = async function handler(req, res) {
       var tl = tierLabel(a.overall_tier);
       tierCounts[tl] = (tierCounts[tl] || 0) + 1;
 
-      var r = a.role || 'Not specified';
+      var r = formatRole(a.role);
       roleCounts[r] = (roleCounts[r] || 0) + 1;
     }
 
@@ -149,11 +167,68 @@ module.exports = async function handler(req, res) {
       .sort(function (a, b) { return roleCounts[b] - roleCounts[a]; })
       .map(function (k) { return { label: k, count: roleCounts[k] }; });
 
+    // Add status to completed assessments
+    for (var j = 0; j < assessments.length; j++) {
+      assessments[j].status = 'completed';
+    }
+
+    // ── Pending invitees ──
+    var pending = [];
+    if (assessments.length > 0) {
+      // Collect assessment IDs and completed emails
+      var assessmentIds = [];
+      var completedEmails = {};
+      for (var k = 0; k < assessments.length; k++) {
+        assessmentIds.push(assessments[k].id);
+        if (assessments[k].user_email) {
+          completedEmails[assessments[k].user_email.toLowerCase()] = true;
+        }
+      }
+
+      // Query share_intents for distribute type
+      var { data: shares, error: shareError } = await supabase
+        .from('share_intents')
+        .select('recipients')
+        .eq('type', 'distribute')
+        .in('assessment_id', assessmentIds);
+
+      if (!shareError && shares && shares.length > 0) {
+        var seen = {};
+        for (var s = 0; s < shares.length; s++) {
+          var recips = shares[s].recipients;
+          if (!Array.isArray(recips)) continue;
+          for (var r2 = 0; r2 < recips.length; r2++) {
+            var email = (recips[r2].email || '').toLowerCase().trim();
+            if (!email) continue;
+            // Same-domain check
+            var parts = email.split('@');
+            if (parts.length !== 2 || parts[1] !== domain) continue;
+            // Not already completed and not already seen
+            if (completedEmails[email] || seen[email]) continue;
+            seen[email] = true;
+            pending.push({
+              user_email: email,
+              user_name: null,
+              role: null,
+              overall_display: null,
+              overall_tier: null,
+              mindset_display: null,
+              skillset_display: null,
+              toolset_display: null,
+              created_at: null,
+              status: 'invited',
+            });
+          }
+        }
+      }
+    }
+
     return res.status(200).json({
       company: companyData,
       summary: summary,
       distributions: { tiers: tiers, roles: roles },
       assessments: assessments,
+      pending: pending,
     });
   } catch (err) {
     console.error('Dashboard org error:', err);

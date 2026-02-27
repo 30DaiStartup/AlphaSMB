@@ -21,11 +21,23 @@
     green: '#15803D',
   };
 
-  var DIM_COLORS = {
-    Mindset: '#E8450D',
-    Skillset: '#CA8A04',
-    Toolset: '#16A34A',
+  var ROLE_LABELS = {
+    ceo_founder: 'CEO / Founder',
+    cto: 'CTO',
+    coo: 'COO',
+    cpo: 'CPO',
+    cmo: 'CMO',
   };
+
+  function formatRole(raw) {
+    if (!raw) return 'Not specified';
+    if (ROLE_LABELS[raw]) return ROLE_LABELS[raw];
+    if (raw.indexOf('other:') === 0) {
+      var custom = raw.slice(6).trim();
+      return custom || 'Other';
+    }
+    return raw;
+  }
 
   // ── State ──
   var token = null;
@@ -73,10 +85,10 @@
   }
 
   function scoreTierColor(score) {
-    if (score >= 8) return '#15803D';
-    if (score >= 6) return '#16A34A';
-    if (score >= 4) return '#CA8A04';
-    if (score >= 2) return '#EA580C';
+    if (score > 8.5) return '#15803D';
+    if (score > 7.0) return '#16A34A';
+    if (score > 5.0) return '#CA8A04';
+    if (score > 3.0) return '#EA580C';
     return '#DC2626';
   }
 
@@ -196,6 +208,10 @@
         if (!data) return;
 
         assessments = data.assessments || [];
+        var pendingList = data.pending || [];
+        for (var p = 0; p < pendingList.length; p++) {
+          assessments.push(pendingList[p]);
+        }
 
         // Show company name from API if we don't have it yet
         var companyEl = $('company-name');
@@ -252,7 +268,7 @@
     for (var i = 0; i < dims.length; i++) {
       var d = dims[i];
       var pct = Math.round((d.score / 10) * 100);
-      var color = DIM_COLORS[d.label] || '#78716C';
+      var color = scoreTierColor(d.score);
       html += '<div class="dash__dim-row">' +
         '<span class="dash__dim-label">' + esc(d.label) + '</span>' +
         '<div class="dash__dim-bar-track"><div class="dash__dim-bar-fill" style="width:' + pct + '%;background:' + color + '"></div></div>' +
@@ -307,15 +323,19 @@
       var a = assessments[i];
 
       if (search) {
-        var haystack = ((a.user_name || '') + ' ' + (a.user_email || '') + ' ' + (a.role || '')).toLowerCase();
+        var haystack = ((a.user_name || '') + ' ' + (a.user_email || '') + ' ' + formatRole(a.role)).toLowerCase();
         if (haystack.indexOf(search) === -1) continue;
       }
 
       filtered.push(a);
     }
 
-    // Sort
+    // Sort — invited rows always at bottom
     filtered.sort(function (a, b) {
+      var aInv = a.status === 'invited' ? 1 : 0;
+      var bInv = b.status === 'invited' ? 1 : 0;
+      if (aInv !== bInv) return aInv - bInv;
+
       var av = a[sortKey];
       var bv = b[sortKey];
       if (av == null) av = '';
@@ -349,15 +369,26 @@
     var html = '';
     for (var i = 0; i < rows.length; i++) {
       var a = rows[i];
-      var score = a.overall_display != null ? Number(a.overall_display).toFixed(1) : '—';
-      html += '<tr>' +
-        '<td>' + esc(a.user_name || '—') + '</td>' +
-        '<td>' + esc(a.user_email || '—') + '</td>' +
-        '<td>' + esc(a.role || '—') + '</td>' +
-        '<td class="dash__td-score ' + tierClass(a.overall_tier) + '">' + score + '</td>' +
-        '<td class="dash__td-tier ' + tierClass(a.overall_tier) + '">' + esc(tierLabel(a.overall_tier)) + '</td>' +
-        '<td>' + formatDate(a.created_at) + '</td>' +
-        '</tr>';
+      if (a.status === 'invited') {
+        html += '<tr class="dash__tr--invited">' +
+          '<td>—</td>' +
+          '<td>' + esc(a.user_email || '—') + '</td>' +
+          '<td>—</td>' +
+          '<td>—</td>' +
+          '<td class="dash__td-status--invited">Invited</td>' +
+          '<td>—</td>' +
+          '</tr>';
+      } else {
+        var score = a.overall_display != null ? Number(a.overall_display).toFixed(1) : '—';
+        html += '<tr>' +
+          '<td>' + esc(a.user_name || '—') + '</td>' +
+          '<td>' + esc(a.user_email || '—') + '</td>' +
+          '<td>' + esc(formatRole(a.role)) + '</td>' +
+          '<td class="dash__td-score ' + tierClass(a.overall_tier) + '">' + score + '</td>' +
+          '<td class="dash__td-tier ' + tierClass(a.overall_tier) + '">' + esc(tierLabel(a.overall_tier)) + '</td>' +
+          '<td>' + formatDate(a.created_at) + '</td>' +
+          '</tr>';
+      }
     }
     tbody.innerHTML = html;
 
