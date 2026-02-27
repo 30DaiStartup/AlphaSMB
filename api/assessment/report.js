@@ -55,33 +55,28 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ success: true, alreadySent: true });
     }
 
-    // Update assessment with user identity
+    // Resolve company from email domain
+    const { company, domain: emailDomain } = await resolveCompany(email);
+
+    // Single update: user identity + company info
+    const updateFields = {
+      user_name: name,
+      user_email: email,
+      email_captured: true,
+      email_captured_at: new Date().toISOString(),
+      email_domain: emailDomain || null,
+    };
+    if (company) updateFields.company_id = company.id;
+
     const { error: updateError } = await supabase
       .from('assessments')
-      .update({
-        user_name: name,
-        user_email: email,
-        email_captured: true,
-        email_captured_at: new Date().toISOString(),
-      })
+      .update(updateFields)
       .eq('id', assessment.id);
 
     if (updateError) {
       console.error('Assessment update error:', updateError);
       return res.status(500).json({ error: 'Failed to update assessment' });
     }
-
-    // Resolve company from email domain
-    const { company, domain: emailDomain } = await resolveCompany(email);
-
-    // Update assessment with company info
-    const companyUpdate = { email_domain: emailDomain };
-    if (company) companyUpdate.company_id = company.id;
-
-    await supabase
-      .from('assessments')
-      .update(companyUpdate)
-      .eq('id', assessment.id);
 
     // Also need industry and company_size for benchmark computation
     const { data: fullAssessment } = await supabase
