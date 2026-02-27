@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — AlphaSMB</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/graphics/Al-32x-tpbg.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div id="screen-login" class="admin__screen admin__screen--active">
+    <div class="admin__login-card">
+      <div class="admin__logo"><span class="admin__logo-accent">Alpha</span>SMB</div>
+      <p class="admin__login-subtitle">Admin Dashboard</p>
+      <form id="login-form" class="admin__login-form">
+        <label for="login-email" class="sr-only">Email address</label>
+        <input type="email" id="login-email" class="admin__input" placeholder="Email address" required autocomplete="email">
+        <button type="submit" class="admin__btn admin__btn--primary" id="login-btn">Send Magic Link</button>
+      </form>
+      <p id="login-message" class="admin__login-message" role="status"></p>
+    </div>
+  </div>
+
+  <!-- Dashboard Screen -->
+  <div id="screen-dashboard" class="admin__screen">
+
+    <!-- Top bar -->
+    <header class="admin__header">
+      <div class="admin__header-inner">
+        <div class="admin__logo admin__logo--sm"><span class="admin__logo-accent">Alpha</span>SMB <span class="admin__logo-tag">Admin</span></div>
+        <div class="admin__header-right">
+          <span id="admin-email" class="admin__user-email"></span>
+          <button id="sign-out-btn" class="admin__btn admin__btn--ghost">Sign Out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin__main">
+
+      <!-- Summary Cards -->
+      <section class="admin__cards" id="summary-cards">
+        <div class="admin__card">
+          <div class="admin__card-label">Total Assessments</div>
+          <div class="admin__card-value" id="stat-total">—</div>
+        </div>
+        <div class="admin__card">
+          <div class="admin__card-label">Email Capture Rate</div>
+          <div class="admin__card-value" id="stat-email-rate">—</div>
+        </div>
+        <div class="admin__card">
+          <div class="admin__card-label">Avg Overall Score</div>
+          <div class="admin__card-value" id="stat-avg-score">—</div>
+        </div>
+        <div class="admin__card">
+          <div class="admin__card-label">This Week</div>
+          <div class="admin__card-value" id="stat-week">—</div>
+        </div>
+      </section>
+
+      <!-- Score Distribution -->
+      <section class="admin__section">
+        <h2 class="admin__section-title">Score Distribution</h2>
+        <div id="tier-bars" class="admin__tier-bars"></div>
+      </section>
+
+      <!-- Breakdowns -->
+      <section class="admin__breakdowns">
+        <div class="admin__section">
+          <h2 class="admin__section-title">By Industry</h2>
+          <div id="industry-breakdown" class="admin__breakdown-list"></div>
+        </div>
+        <div class="admin__section">
+          <h2 class="admin__section-title">By Company Size</h2>
+          <div id="size-breakdown" class="admin__breakdown-list"></div>
+        </div>
+      </section>
+
+      <!-- Recent Activity -->
+      <section class="admin__section">
+        <h2 class="admin__section-title">Recent Activity</h2>
+        <div id="recent-activity" class="admin__recent"></div>
+      </section>
+
+      <!-- Full Table -->
+      <section class="admin__section">
+        <h2 class="admin__section-title">All Assessments</h2>
+
+        <div class="admin__table-controls">
+          <input type="text" id="table-search" class="admin__input admin__input--search" placeholder="Search name, email, domain...">
+          <select id="filter-tier" class="admin__select">
+            <option value="">All Tiers</option>
+            <option value="red">AI Stalled</option>
+            <option value="orange">AI Aware</option>
+            <option value="yellow">AI Building</option>
+            <option value="light-green">AI Advancing</option>
+            <option value="green">AI Capable</option>
+          </select>
+          <select id="filter-industry" class="admin__select">
+            <option value="">All Industries</option>
+          </select>
+        </div>
+
+        <div class="admin__table-wrap">
+          <table class="admin__table" id="assessments-table">
+            <thead>
+              <tr>
+                <th data-sort="user_name">Name</th>
+                <th data-sort="user_email">Email</th>
+                <th data-sort="email_domain">Domain</th>
+                <th data-sort="role">Role</th>
+                <th data-sort="industry">Industry</th>
+                <th data-sort="company_size">Size</th>
+                <th data-sort="overall_display">Score</th>
+                <th data-sort="overall_tier">Tier</th>
+                <th data-sort="created_at">Date</th>
+              </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+          </table>
+        </div>
+        <p id="table-empty" class="admin__empty" hidden>No assessments match your filters.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="/admin/admin.js"></script>
+</body>
+</html>
