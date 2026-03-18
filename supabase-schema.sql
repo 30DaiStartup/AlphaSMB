@@ -1,9 +1,10 @@
 -- AlphaSMB Assessment Backend — Supabase Schema
 -- Run this SQL in the Supabase SQL Editor (one-time manual setup)
--- RLS: Disabled on both tables. All database access is mediated through
--- Vercel serverless API routes (api/assessment/*.js) using the service role key.
+-- RLS: Enabled on all tables via supabase-rls-migration.sql.
+-- All database access is mediated through Vercel serverless API routes
+-- (api/assessment/*.js) using the service role key (bypasses RLS).
 -- The service role key is never exposed to the frontend.
--- If RLS is enabled in the future, add policies that restrict access by session_id.
+-- Anon and authenticated roles have no table grants or RLS policies.
 
 -- Completed assessments
 create table assessments (
