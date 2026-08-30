@@ -102,6 +102,7 @@
       else if (btn.closest('.assess__hero-cta')) section = 'assess-hero';
       else if (btn.closest('.bottom-cta')) section = 'bottom-cta';
       else if (btn.closest('.card')) section = 'service-card';
+      else if (btn.closest('.door')) section = 'door';
       else if (btn.closest('.assess__cta-section')) section = 'assess-cta';
       else section = 'other';
 

@@ -12,7 +12,16 @@
 /* ── Layout ── */
 .assess {
   min-height: 100vh;
-  padding-top: 64px;
+  padding-top: var(--nav-h, 68px);
+  /* Paper remap: assessment was authored against charcoal tokens.
+     Sand-as-fill is overridden below; sand-as-text becomes ink-soft. */
+  --alpha-charcoal: var(--paper);
+  --alpha-charcoal-light: var(--paper-2);
+  --alpha-white: var(--ink);
+  --alpha-sand: var(--ink-soft);
+  --alpha-stone: var(--muted);
+  --alpha-slate: var(--rule);
+  --alpha-ember: var(--accent-ink);
 }
 
 .assess__screen {
@@ -879,8 +888,8 @@
   top: -2px;
   bottom: -2px;
   width: 2px;
-  background: var(--alpha-sand);
-  opacity: 0.6;
+  background: var(--ink);
+  opacity: 0.35;
   z-index: 1;
 }
 

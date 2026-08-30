@@ -36,3 +36,7 @@ tools/
 
 # Specs
 assessment/alphasmb-diagnostic-spec.md
+
+# Local dumps — not site source
+articles/
+context-docs/

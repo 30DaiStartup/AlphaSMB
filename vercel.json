@@ -7,7 +7,8 @@
   ],
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/results/:sid", "destination": "/api/assessment/share-page?sid=:sid" }
+    { "source": "/results/:sid", "destination": "/api/assessment/share-page?sid=:sid" },
+    { "source": "/private-ai", "destination": "/services/secure-ai" }
   ],
   "headers": [
     {

@@ -1,0 +1,383 @@
+/*! mnemma-tokens.css
+ * Portable Mnemma design DNA — tokens + receipt/claim chip grammar.
+ * Extracted 2026-08-30 from live https://mnemma.com (deploy 94a8731).
+ * Read-only extraction; this file is for sibling sites to consume.
+ *
+ * Provenance (md5, bytes):
+ *   styles.css      d50166838a61c4f35b232adc57f5c0e8  30069
+ *   receipts-v2.css 1e488d774ee69d9b5c43a7e1e00a098e   1909
+ *   receipts.js     30f2befef24bd0ffc7bf6a1b0999c9d9   1103
+ *   reveal.css      82275edc7b15d0a38f100e72916ffdc9   1049
+ *
+ * Pair with mnemma-receipts.js (live receipts.js, byte-identical).
+ * Spec: RESEARCH/MNEMMA_DESIGN_DNA.md
+ *
+ * Bind a sibling accent by overriding the trio (--accent, --accent-ink,
+ * --accent-tint). Optional: <html data-accent="ember" data-ground="dark">.
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap");
+
+/* -------------------------------------------------------------------------- */
+/* 1. Tokens — verbatim from live :root, plus literals promoted for portability */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  /* Neutrals */
+  --paper: #f7f5ef;
+  --paper-2: #fbfaf6;
+  --paper-band: #efece2;
+  --ink: #1a1a17;
+  --ink-soft: #40403a;
+  --muted: #6a6860;
+  --rule: #ddd7c9;
+  --rule-soft: #e8e3d7;
+
+  /* Accent trio. Green is reserved for receipts + CTAs on mnemma.com.
+     --accent       fill: buttons, chip hover/open, timeline dots. White text sits on this.
+     --accent-hover darker fill for .btn:hover. On paper this equals --accent-ink;
+                    on dark it MUST stay a dark fill — --accent-ink lightens for text.
+     --accent-ink   text-on-ground: links, chip rest text, mono labels. Not a fill.
+     --accent-tint  wash: open receipt, :target claim, pill.accent, "own" column. */
+  --accent: #0d6b56;
+  --accent-hover: #0a5343;
+  --accent-ink: #0a5343;
+  --accent-tint: #e9f1ec;
+
+  /* Danger — never lists, reject routes, malformed-receipt chip. Not accent. */
+  --danger: #9a3b2f;
+  --danger-ink: #9a3b2f;
+  --danger-tint: #f6e8e5;
+  --red: #9a3b2f; /* live alias */
+
+  /* Type */
+  --serif: "Fraunces", "Charter", "Sitka Text", Cambria, Georgia, serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "Spline Sans Mono", ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  --text-body: 18px;
+  --text-lead: 1.22rem;
+  --text-h1: clamp(2.4rem, 5vw, 3.7rem);
+  --text-h2: clamp(1.7rem, 3vw, 2.3rem);
+  --text-h3: 1.28rem;
+  --text-h4: 1.05rem;
+  --text-eyebrow: 0.72rem;
+  --text-chip: 0.68rem;
+  --leading-body: 1.6;
+  --leading-display: 1.12;
+  --tracking-eyebrow: 0.18em;
+  --tracking-chip: 0.04em;
+
+  /* Layout */
+  --maxw: 1080px;
+  --maxw-narrow: 760px;
+  --pad-x: 32px;
+  --pad-x-sm: 20px;
+  --section-y: 72px;
+  --section-y-tight: 52px;
+  --hero-y: 80px;
+  --nav-h: 68px;
+
+  /* Shape. Elevation is paper-step + 1px rule, not drop-shadow.
+     The one shadow in live CSS is the mobile nav drawer. */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+  --shadow-nav: 0 12px 24px color-mix(in srgb, var(--ink) 8%, transparent);
+
+  /* Chip copy (v2c). Override per brand if needed. */
+  --chip-mark: "✓";
+  --chip-word: " receipt";
+  --chip-error-mark: "✕";
+  --chip-error-word: " error";
+
+  /* Motion — receipt unfold is the one permitted moment. */
+  --ease-receipt: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-receipt: 0.28s;
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-reveal: 0.7s;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 2. Receipt / claim chip — effective live v2c (styles.css + receipts-v2.css) */
+/*    Anatomy: .claim > .receipt-marker + .receipt > .inner > .body            */
+/* -------------------------------------------------------------------------- */
+
+.claim {
+  position: relative;
+}
+
+.receipt-marker {
+  font-family: var(--mono);
+  font-size: var(--text-chip);
+  font-weight: 500;
+  vertical-align: middle;
+  line-height: 1;
+  color: var(--accent-ink);
+  background: var(--accent-tint);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--rule));
+  border-radius: var(--radius-pill);
+  padding: 3px 8px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.receipt-marker::before {
+  content: var(--chip-mark);
+  margin-right: 1px;
+}
+
+.receipt-marker::after {
+  content: var(--chip-word);
+  font-family: var(--mono);
+  letter-spacing: var(--tracking-chip);
+  text-transform: lowercase;
+}
+
+/* hover + expanded (open) */
+.receipt-marker:hover,
+.receipt-marker[aria-expanded="true"] {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent-ink);
+}
+
+.receipt-marker:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Unfold panel */
+.receipt {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-receipt) var(--ease-receipt);
+  margin: 0;
+}
+.receipt.open {
+  grid-template-rows: 1fr;
+  margin: 12px 0 16px;
+}
+.receipt > .inner {
+  display: block;
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+}
+.receipt .body {
+  display: block;
+  background: var(--accent-tint);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--rule));
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.receipt .rlabel {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  display: block;
+  margin-bottom: 6px;
+}
+.receipt .rrow {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 2px 14px;
+  align-items: start;
+}
+.receipt .rk {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 3px;
+}
+.receipt .rv {
+  display: block;
+}
+.receipt .check {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* Open claim lights like a /brain/ :target block */
+.claim:has(> .receipt.open) {
+  display: block;
+  background: var(--accent-tint);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--rule));
+}
+
+/* /brain/ claim-block (v2a). Evidence is the 2nd meta row — promoted. */
+.claim-block {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  margin: 16px 0;
+  scroll-margin-top: 88px;
+  background: var(--paper-2);
+}
+.claim-block:target {
+  background: var(--accent-tint);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--rule));
+}
+.claim-block .claim-id {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+.claim-block .claim-text {
+  font-size: 1.05rem;
+  margin: 0 0 12px;
+  color: var(--ink);
+}
+.claim-meta {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+.claim-meta div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 4px 14px;
+}
+.claim-meta dt {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 3px;
+}
+.claim-meta dd {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.claim-block .claim-meta div:nth-child(2) dd {
+  font-family: var(--serif);
+  font-size: 1.12rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.claim-block .claim-meta div:nth-child(2) dt {
+  padding-top: 6px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 3. Fail-closed renderer states                                              */
+/*    Live mnemma.com authors receipts and fails the build on a broken link;    */
+/*    it does not runtime-validate. The three-state contract is the DNA         */
+/*    (SALES_COCKPIT_SPEC §3 / §6.4). CSS cannot validate — the renderer MUST   */
+/*    set data-receipt-state before paint. "Looks receipted" is impossible      */
+/*    without state=valid.                                                      */
+/*                                                                              */
+/*    valid      → chip + expandable panel (default markup)                     */
+/*    none       → unreceipted: no chip, plain text. Absence is the state.      */
+/*    error      → malformed: error chip. Never accent-green, never plain.      */
+/* -------------------------------------------------------------------------- */
+
+.claim[data-receipt-state="none"] .receipt-marker,
+.receipt-marker[data-receipt-state="none"] {
+  display: none;
+}
+
+.receipt-marker[data-receipt-state="error"] {
+  background: var(--danger-tint);
+  color: var(--danger-ink);
+  border-color: color-mix(in srgb, var(--danger) 45%, var(--rule));
+  cursor: not-allowed;
+}
+.receipt-marker[data-receipt-state="error"]::before {
+  content: var(--chip-error-mark);
+}
+.receipt-marker[data-receipt-state="error"]::after {
+  content: var(--chip-error-word);
+}
+.receipt-marker[data-receipt-state="error"]:hover,
+.receipt-marker[data-receipt-state="error"][aria-expanded="true"] {
+  background: var(--danger);
+  color: #fff;
+  border-color: var(--danger);
+}
+
+/* -------------------------------------------------------------------------- */
+/* 4. Dark ground — chips stay readable when paper inverts                     */
+/*    Native Mnemma is paper-only. These remaps exist so D1 (charcoal) can     */
+/*    consume this file without reimplementing chip rules.                     */
+/* -------------------------------------------------------------------------- */
+
+[data-ground="dark"] {
+  --paper: #1c1917;
+  --paper-2: #292524;
+  --paper-band: #292524;
+  --ink: #f5f0eb;
+  --ink-soft: #e7e5e4;
+  --muted: #78716c;
+  --rule: #44403c;
+  --rule-soft: #44403c;
+  /* Green trio on charcoal: ink must lighten (dark green fails on charcoal).
+     Hover fill stays dark — do not reuse the light --accent-ink as a fill. */
+  --accent-hover: #0a5343;
+  --accent-ink: #9fcbba;
+  --accent-tint: rgba(13, 107, 86, 0.18);
+  --danger-ink: #e8a090;
+  --danger-tint: rgba(154, 59, 47, 0.22);
+  color-scheme: dark;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 5. Ember accent remap — AlphaSMB binding, NOT live on mnemma.com            */
+/*    #E8450D on #f7f5ef is 3.64:1 — large/graphic only, not body/links.       */
+/*    Fill slot (--accent) is the AA-safe companion so white text passes.      */
+/* -------------------------------------------------------------------------- */
+
+[data-accent="ember"] {
+  --accent: #c53d0a; /* fill; white-on-fill 5.19:1 */
+  --accent-hover: #a33209; /* darker fill; white-on-fill 6.38:1 */
+  --accent-ink: #a33209; /* links; 6.38:1 paper, 5.89:1 paper-band */
+  --accent-tint: #f6eae4;
+  --accent-graphic: #e8450d; /* large type, 4px rules, numerals. 3.64:1 on paper */
+}
+
+[data-accent="ember"][data-ground="dark"] {
+  --accent: #c53d0a;
+  --accent-hover: #b3360a; /* keep a dark fill; white 6.09:1. Not --accent-ink. */
+  --accent-ink: #e88b6a; /* 6.94:1 on charcoal — text only */
+  --accent-tint: rgba(232, 69, 13, 0.16);
+  --accent-graphic: #e8450d;
+}
+
+/* -------------------------------------------------------------------------- */
+/* 6. Breakpoints + reduced motion (chip-relevant subset)                      */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 920px) {
+  .receipt .rrow,
+  .claim-meta div {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .receipt {
+    transition: none;
+  }
+  .claim-block:target {
+    outline: none;
+  }
+}

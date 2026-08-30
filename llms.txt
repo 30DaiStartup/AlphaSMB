@@ -1,48 +1,39 @@
 # AlphaSMB
 
-> AlphaSMB is an AI transformation consultancy for SMBs (20-500 employees).
-> Founded by Zach Henderson, who leads AI transformation inside Aurora WDC.
-> The primary entry point is a free AI Readiness Assessment — a 15-question
-> diagnostic scored across mindset, skillset, and toolset with a personalized
-> report. The methodology builds organizational AI capability, not just tool adoption.
+> AlphaSMB is the delivery arm that installs automations, private hosted models, and company brains for startups through ~$50M — for leaders who are already using AI and want it to compound. What we build stays yours when we leave.
 
 ## Key Pages
 
-- [Home](https://alphasmb.com/): Value proposition, methodology, service tiers
-- [AI Readiness Assessment](https://alphasmb.com/assessment): Free 5-minute diagnostic — 15 questions, instant score, personalized report. No email required to start.
-- [AI Strategy Call](https://alphasmb.com/services/strategy-call): $500 one-hour session — transformation roadmap, champion identification framework, hackathon blueprint, execution scorecard, 48-hour quick-start plan
-- [About Zach Henderson](https://alphasmb.com/about): Credentials, philosophy, Aurora WDC role
-- [Book a Call](https://alphasmb.com/book): Schedule and pay ($500 via Cal.com + Stripe)
-- [Privacy Policy](https://alphasmb.com/privacy): Data handling for assessment, booking, analytics
+- [Home](https://alphasmb.com/): Operationalization positioning. Three doors — assess, advise, build.
+- [AI Readiness Assessment](https://alphasmb.com/assessment): Free diagnostic — 15 questions across mindset, skillset, and toolset. No email required to start.
+- [Services](https://alphasmb.com/services): Offer ladder — assessment, strategy call, ops audit, automations, private AI, company brain.
+- [Strategy Call](https://alphasmb.com/services/strategy-call): $500 one-hour session. Playbook you can run. Live product; book at /book.
+- [Operations Audit](https://alphasmb.com/services/ops-audit): Working session in live systems. Scored shortlist + three-option proposal.
+- [Automations](https://alphasmb.com/services/automations): 16-item menu. Five launch pages. Founder-led custom until a delivery kit exists. No public clocks.
+- [Private AI](https://alphasmb.com/services/secure-ai): Hosted model in the customer's environment — cloud-native in their tenancy, hybrid (recommended), or on-prem. Never our cloud.
+- [Company brain](https://alphasmb.com/services/company-brain): Full install on inference they own. Unbranded default.
+- [About Zach Henderson](https://alphasmb.com/about)
+- [Book a Call](https://alphasmb.com/book): $500 via Cal.com + Stripe
+- [Privacy Policy](https://alphasmb.com/privacy)
 
 ## About the Founder
 
-Zach Henderson — Fractional Head of AI at Aurora WDC (a human intelligence
-agency serving Fortune 1000 clients). Leads AI transformation inside the
-company: internal tooling, process automation, AI product features. Prior:
-Epic Systems, healthcare IT consulting, 20+ years real estate investing,
-industrial engineering, built product companies.
+Zach Henderson — Fractional Head of AI at Aurora WDC. Leads AI work inside the company. Prior: Epic Systems, healthcare IT, 20+ years real estate, industrial engineering, product companies.
 
 ## Services
 
-AI Readiness Assessment (free): 15-question diagnostic scored across mindset,
-skillset, and toolset. Instant results with personalized report delivered via
-email. Primary entry point for the consulting funnel.
+AI Readiness Assessment (free): 15-question diagnostic. Instant results. Optional email report.
 
-One-Hour AI Strategy Call ($500): Three-phase transformation roadmap, champion
-identification framework, AI hackathon blueprint, execution scorecard, 48-hour
-quick-start plan. Delivered as a shareable report. Traditional AI consulting
-starts north of $50K.
+One-Hour Strategy Call ($500): Highest-leverage next build, playbook, shareable report.
 
-Full Transformation Engagement (custom pricing): Up to 3 months embedded with
-the organization. Champion identification, phased change management, weekly
-benchmarking. Limited to 2 clients at a time.
+Operations Audit: Artifact-driven session in live systems. Front door to priced automations.
 
-## Methodology
+Automations: Named outcome-scoped installs. Launch set: daily ops brief, invoice processing, B2B collections drafts, quote drafter, job profitability. If a native button already does the job, we don't sell the install.
 
-Four-phase approach: (1) Mindset first — leadership must think differently
-about AI before anything changes below them. (2) Find the champion — identify
-the person the organization already listens to and turn them into an AI
-transformation catalyst. (3) Activate high-agency people — surface proactive
-employees and give them tools and methods to lead from within. (4) Measure
-what matters — weekly scoring against industry benchmarks.
+Private AI: Customer-owned inference. Cloud / hybrid / on-prem. Admin Card. Cancel-and-keep.
+
+Company brain — full install: Memory layer on inference they own. They hold root.
+
+## Positioning
+
+For early adopters who have already proven AI in pockets. The gap is operationalization — personal wins to systems the business runs on. Not a zero-start change-management pitch.

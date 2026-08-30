@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-dir="d2" data-accent="ember" data-mnemma="off">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,8 +25,9 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/graphics/Al-180x-tpbg.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/mnemma-tokens.css">
   <link rel="stylesheet" href="/styles.css">
+  <script>document.documentElement.classList.add('js-reveal');</script>
   <script async src="https://plausible.io/js/pa-Rev0XSByyBqh9fk6o5PPi.js" integrity="sha384-6YTkDhBXl3wLZiL8weqvbjIaJ2V5R7HDgryaE814JkwVMGJelE+PmT71+CQwLQ/b" crossorigin="anonymous"></script>
   <script>
     window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
@@ -47,10 +48,10 @@
         <span class="nav__toggle-bar"></span>
       </button>
       <div class="nav__links">
-        <a href="/services/strategy-call" class="nav__link">Services</a>
+        <a href="/services" class="nav__link">Services</a>
         <a href="/assessment" class="nav__link">Assessment</a>
         <a href="/about" class="nav__link">About</a>
-        <a href="/book" class="nav__link nav__link--cta">Book a Call</a>
+        <a href="/assessment" class="nav__link nav__link--cta btn">See where you stand</a>
       </div>
     </div>
   </nav>
@@ -198,12 +199,19 @@
   <!-- Footer -->
   <footer class="footer" role="contentinfo">
     <div class="footer__inner">
+      <div class="footer-receipt">
+        <div><span class="rk">Firm</span>AlphaSMB — you own it when we leave</div>
+        <div><span class="rk">Page</span>Privacy</div>
+        <div><span class="rk">Contact</span><a href="mailto:zach@alphasmb.com">zach@alphasmb.com</a></div>
+      </div>
+      <p class="mnemma-layer">AlphaSMB installs on <a href="https://mnemma.com">Mnemma</a> — the company brain your business owns.</p>
       <div class="footer__links">
-        <a href="/services/strategy-call">Services</a>
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
         <a href="/assessment">Assessment</a>
         <a href="/about">About</a>
-        <a href="/book">Book a Call</a>
-        <a href="/privacy">Privacy Policy</a>
+        <a href="/book">Book</a>
+        <a href="/privacy">Privacy</a>
       </div>
       <div class="footer__social">
         <a href="https://www.linkedin.com/in/zach-henderson/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">

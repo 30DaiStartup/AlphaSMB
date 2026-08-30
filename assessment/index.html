@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-dir="d2" data-accent="ember" data-mnemma="off">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,9 +25,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/graphics/Al-180x-tpbg.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/mnemma-tokens.css">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/assessment/assessment.css">
+  <script>document.documentElement.classList.add('js-reveal');</script>
   <script async src="https://plausible.io/js/pa-Rev0XSByyBqh9fk6o5PPi.js" integrity="sha384-6YTkDhBXl3wLZiL8weqvbjIaJ2V5R7HDgryaE814JkwVMGJelE+PmT71+CQwLQ/b" crossorigin="anonymous"></script>
   <script>
     window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
@@ -48,10 +49,10 @@
         <span class="nav__toggle-bar"></span>
       </button>
       <div class="nav__links">
-        <a href="/services/strategy-call" class="nav__link">Services</a>
+        <a href="/services" class="nav__link">Services</a>
         <a href="/assessment" class="nav__link" aria-current="page">Assessment</a>
         <a href="/about" class="nav__link">About</a>
-        <a href="/book" class="nav__link nav__link--cta">Book a Call</a>
+        <a href="/assessment" class="nav__link nav__link--cta btn">See where you stand</a>
       </div>
     </div>
   </nav>
@@ -64,12 +65,12 @@
     <!-- ═══ Landing Screen ═══ -->
     <section class="assess__screen assess__screen--active" data-screen="landing">
       <div class="assess__hero">
-        <h1 class="assess__hero-headline">Where does your organization actually stand on AI?</h1>
-        <p class="assess__hero-sub">A free 5-minute diagnostic across three dimensions — mindset, skillset, and toolset.</p>
+        <h1 class="assess__hero-headline">Where is your momentum strongest?</h1>
+        <p class="assess__hero-sub">A free diagnostic across three dimensions — mindset, skillset, and toolset. No email required to start.</p>
 
         <div class="assess__hero-body">
-          <p>This isn't a generic quiz. It's a diagnostic built on the same methodology I use to lead AI transformation inside Aurora WDC — translated for SMBs.</p>
-          <p>Fifteen questions. Three dimensions. You'll get insights along the way and a full scorecard at the end.</p>
+          <p>You've already proven AI works in pockets. This is an honest picture of where that momentum is strongest, and what it pays to operationalize next.</p>
+          <p>Fifteen questions. Three dimensions. Insights along the way, a scorecard at the end.</p>
         </div>
 
         <div class="assess__hero-cta">
@@ -92,7 +93,7 @@
 
       <div class="assess__who-for">
         <h3>Who is this for?</h3>
-        <p>SMB leaders — founders, C-suite, department heads — at companies with 20–500 employees who know they need to move on AI but want a clear picture before they invest further.</p>
+        <p>Leaders at startups and growing companies (through ~$50M) who are already using AI and want an honest picture before they operationalize the next system.</p>
         <p class="assess__team-line">One perspective is useful. Multiple leaders taking the assessment reveals the full picture — where alignment exists and where the real gaps are hiding.</p>
       </div>
     </section>
@@ -381,8 +382,8 @@
         <!-- F. Strategy Call CTA -->
         <div class="assess__cta-section">
           <h3>Want to turn these findings into a plan?</h3>
-          <p>The strategy call is designed to go deeper than the self-assessment can — identify your champion, map the organizational dynamics, and build an action plan specific to your business.</p>
-          <p>One hour. $500. Six deliverables. (Traditional AI consulting starts north of $50K.)</p>
+          <p>The strategy call maps the next highest-leverage build — whether that's an automation, private AI, or running the playbook yourselves.</p>
+          <p>One hour. $500. A playbook you can run.</p>
           <a href="/book" class="btn btn--primary btn--large" id="assess-book-cta">Book a Strategy Call — $500</a>
           <p class="assess__transparency">The deliverable stands on its own. If a deeper engagement doesn't make sense, I'll tell you.</p>
         </div>
@@ -395,20 +396,21 @@
   <!-- Footer -->
   <footer class="footer" role="contentinfo">
     <div class="footer__inner">
+      <div class="footer-receipt">
+        <div><span class="rk">Firm</span>AlphaSMB — you own it when we leave</div>
+        <div><span class="rk">Page</span>AI Readiness Assessment</div>
+        <div><span class="rk">Contact</span><a href="mailto:zach@alphasmb.com">zach@alphasmb.com</a></div>
+      </div>
+      <p class="mnemma-layer">AlphaSMB installs on <a href="https://mnemma.com">Mnemma</a> — the company brain your business owns.</p>
       <div class="footer__links">
-        <a href="/services/strategy-call">Services</a>
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
         <a href="/assessment">Assessment</a>
         <a href="/about">About</a>
-        <a href="/book">Book a Call</a>
-        <a href="/privacy">Privacy Policy</a>
-      </div>
-      <div class="footer__social">
-        <a href="https://www.linkedin.com/in/zach-henderson/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
+        <a href="/book">Book</a>
+        <a href="/privacy">Privacy</a>
       </div>
       <p class="footer__copy">&copy; 2026 AlphaSMB. All rights reserved.</p>
-      <p class="footer__contact"><a href="mailto:zach@alphasmb.com">zach@alphasmb.com</a></p>
     </div>
   </footer>
 
@@ -463,5 +465,6 @@
   <script src="/assessment/speech.js"></script>
   <script src="/assessment/assessment.js"></script>
   <script src="/main.js"></script>
+  <script src="/js/mnemma-receipts.js"></script>
 </body>
 </html>
