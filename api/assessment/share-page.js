@@ -249,7 +249,7 @@ module.exports = async function handler(req, res) {
       .bench-value { min-width: 80px; font-size: 12px; }
     }
   </style>
-  <script async src="https://plausible.io/js/pa-Rev0XSByyBqh9fk6o5PPi.js" integrity="sha384-6YTkDhBXl3wLZiL8weqvbjIaJ2V5R7HDgryaE814JkwVMGJelE+PmT71+CQwLQ/b" crossorigin="anonymous"></script>
+  <script async src="https://plausible.io/js/pa-Rev0XSByyBqh9fk6o5PPi.js"></script>
   <script>
     window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
     plausible.init();
