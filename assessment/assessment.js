@@ -1021,6 +1021,16 @@
       });
     }
 
+    var fitCta = $('assess-fit-cta');
+    if (fitCta) {
+      fitCta.addEventListener('click', function () {
+        track('Assessment CTA Clicked', {
+          type: 'fit_call',
+          overall_score: state.scores ? state.scores.display.overall : 0
+        });
+      });
+    }
+
     // Beforeunload tracking for abandonment
     window.addEventListener('beforeunload', function () {
       if (state.sessionId && !state.scores) {
